@@ -1,4 +1,4 @@
-# Landing page - MEMORUSH — Jogo de Memória e Velocidade
+# MEMORUSH — Jogo de Memória e Velocidade
 
 Projeto desenvolvido para a unidade curricular de **Levantamento de Requisitos**, do curso Técnico em Desenvolvimento de Sistemas — SESI/SENAI Itapeva.
 
