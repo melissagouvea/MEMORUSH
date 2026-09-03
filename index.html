@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MEMO RUSH — Memorize. Responda. Supere!</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              400: '#818cf8',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+              900: '#312e81',
+            },
+            accent: {
+              cyan: '#06b6d4',
+              pink: '#ec4899',
+              amber: '#f59e0b',
+              emerald: '#10b981',
+              rose: '#f43f5e'
+            }
+          },
+          animation: {
+            'pulse-fast': 'pulse 0.8s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'bounce-short': 'bounce 0.5s ease-in-out 1',
+            'scale-up': 'scaleUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
+            'shake': 'shake 0.4s ease-in-out'
+          },
+          keyframes: {
+            scaleUp: {
+              '0%': { transform: 'scale(0.8)', opacity: '0' },
+              '100%': { transform: 'scale(1)', opacity: '1' }
+            },
+            shake: {
+              '0%, 100%': { transform: 'translateX(0)' },
+              '20%, 60%': { transform: 'translateX(-8px)' },
+              '40%, 80%': { transform: 'translateX(8px)' }
+            }
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- Google Fonts & Lucide Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .font-heading {
+      font-family: 'Outfit', sans-serif;
+    }
+    .glass-panel {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    .dark .glass-panel {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glow-effect {
+      box-shadow: 0 0 25px -5px rgba(99, 102, 241, 0.5);
+    }
+    .glow-amber {
+      box-shadow: 0 0 25px -5px rgba(245, 158, 11, 0.5);
+    }
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(156, 163, 175, 0.5);
+      border-radius: 9999px;
+    }
+  </style>
+</head>
+<body class="bg-slate-100 text-slate-800 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-300 min-h-screen flex flex-col justify-between overflow-x-hidden">
+
+  <!-- CABEÇALHO GLOBAL -->
+  <header class="w-full px-4 py-3 border-b border-slate-200 dark:border-slate-800/80 bg-white/50 dark:bg-slate-900/50 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-4xl mx-auto flex justify-between items-center">
+      <div class="flex items-center gap-2 cursor-pointer" onclick="app.showScreen('main-menu')">
+        <div class="bg-gradient-to-tr from-brand-600 to-accent-pink p-2 rounded-xl text-white shadow-md">
+          <i data-lucide="zap" class="w-5 h-5"></i>
+        </div>
+        <span class="font-heading text-2xl font-black tracking-wider bg-clip-text text-transparent bg-gradient-to-r from-brand-600 via-accent-pink to-accent-cyan dark:from-brand-400 dark:via-accent-pink dark:to-accent-cyan">
+          MEMO<span class="text-slate-800 dark:text-white">RUSH</span>
+        </span>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <button id="theme-toggle" onclick="app.toggleTheme()" class="p-2.5 rounded-xl bg-slate-200/80 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 transition text-slate-700 dark:text-slate-200" title="Alternar Tema">
+          <i data-lucide="sun" id="sun-icon" class="w-5 h-5 hidden dark:block"></i>
+          <i data-lucide="moon" id="moon-icon" class="w-5 h-5 block dark:hidden"></i>
+        </button>
+
+        <button id="sound-toggle" onclick="app.toggleSound()" class="p-2.5 rounded-xl bg-slate-200/80 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 transition text-slate-700 dark:text-slate-200" title="Alternar Som">
+          <i data-lucide="volume-2" id="sound-on-icon" class="w-5 h-5"></i>
+          <i data-lucide="volume-x" id="sound-off-icon" class="w-5 h-5 hidden"></i>
+        </button>
+
+        <button onclick="app.showScreen('settings')" class="p-2.5 rounded-xl bg-slate-200/80 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 transition text-slate-700 dark:text-slate-200" title="Configurações">
+          <i data-lucide="settings" class="w-5 h-5"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTAINER DE TELAS PRINCIPAIS -->
+  <main class="max-w-4xl w-full mx-auto p-4 flex-grow flex flex-col justify-center my-4">
+
+    <!-- 1. TELA INICIAL -->
+    <section id="screen-main-menu" class="screen-view active flex flex-col items-center text-center space-y-8 animate-scale-up">
+      <div class="space-y-3">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-brand-100 text-brand-700 dark:bg-brand-900/60 dark:text-brand-300 border border-brand-300 dark:border-brand-700">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> IA ADAPTATIVA INCLUÍDA
+        </span>
+        <h1 class="font-heading text-5xl md:text-7xl font-black tracking-tight text-slate-900 dark:text-white">
+          MEMO <span class="bg-clip-text text-transparent bg-gradient-to-r from-brand-500 via-accent-pink to-accent-amber">RUSH</span>
+        </h1>
+        <p class="text-base md:text-xl text-slate-600 dark:text-slate-400 max-w-md mx-auto font-medium">
+          Memorize. Responda. Supere seus limites em milissegundos!
+        </p>
+      </div>
+
+      <!-- PAINEL DE ESTATÍSTICAS RÁPIDAS -->
+      <div class="grid grid-cols-3 gap-3 w-full max-w-md glass-panel p-4 rounded-2xl shadow-xl">
+        <div class="text-center p-2">
+          <p class="text-xs text-slate-500 dark:text-slate-400 font-semibold uppercase">RECORDE</p>
+          <p id="menu-stat-high-score" class="font-heading text-xl md:text-2xl font-bold text-brand-600 dark:text-brand-400">0</p>
+        </div>
+        <div class="text-center p-2 border-x border-slate-200 dark:border-slate-800">
+          <p class="text-xs text-slate-500 dark:text-slate-400 font-semibold uppercase">MAIOR FASE</p>
+          <p id="menu-stat-max-stage" class="font-heading text-xl md:text-2xl font-bold text-accent-pink">1</p>
+        </div>
+        <div class="text-center p-2">
+          <p class="text-xs text-slate-500 dark:text-slate-400 font-semibold uppercase">MELHOR COMBO</p>
+          <p id="menu-stat-max-combo" class="font-heading text-xl md:text-2xl font-bold text-accent-amber">x0</p>
+        </div>
+      </div>
+
+      <!-- BOTÕES DE AÇÃO -->
+      <div class="w-full max-w-xs space-y-3">
+        <button onclick="app.openNameModal()" class="w-full py-4 px-6 bg-gradient-to-r from-brand-600 to-accent-pink hover:from-brand-500 hover:to-accent-pink text-white font-heading font-extrabold text-xl rounded-2xl shadow-lg hover:shadow-brand-500/25 active:scale-95 transition-all flex items-center justify-center gap-3">
+          <i data-lucide="play" class="w-6 h-6 fill-current"></i> JOGAR AGORA
+        </button>
+
+        <button onclick="app.showScreen('ranking')" class="w-full py-3.5 px-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 font-heading font-bold text-lg rounded-2xl shadow-sm active:scale-95 transition flex items-center justify-center gap-2">
+          <i data-lucide="trophy" class="w-5 h-5 text-accent-amber"></i> RANKING
+        </button>
+
+        <button onclick="app.showScreen('how-to-play')" class="w-full py-3.5 px-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 font-heading font-bold text-lg rounded-2xl shadow-sm active:scale-95 transition flex items-center justify-center gap-2">
+          <i data-lucide="help-circle" class="w-5 h-5 text-accent-cyan"></i> COMO JOGAR
+        </button>
+      </div>
+    </section>
+
+    <!-- 2. TELA DE JOGO -->
+    <section id="screen-game" class="screen-view hidden flex-col space-y-6 max-w-2xl mx-auto w-full">
+      <!-- HUD (Barra Superior de Status) -->
+      <div class="glass-panel p-4 rounded-2xl flex items-center justify-between shadow-lg">
+        <div>
+          <span class="text-xs uppercase tracking-wider font-bold text-slate-400">FASE</span>
+          <p id="hud-stage" class="font-heading text-2xl font-black text-brand-600 dark:text-brand-400">1</p>
+        </div>
+
+        <div>
+          <span class="text-xs uppercase tracking-wider font-bold text-slate-400">PONTOS</span>
+          <p id="hud-score" class="font-heading text-2xl font-black text-slate-900 dark:text-white">0</p>
+        </div>
+
+        <div class="text-center">
+          <span class="text-xs uppercase tracking-wider font-bold text-slate-400">COMBO</span>
+          <div id="hud-combo-badge" class="px-3 py-0.5 rounded-full bg-accent-amber/10 border border-accent-amber/30 text-accent-amber font-heading font-black text-lg flex items-center gap-1">
+            <i data-lucide="flame" class="w-4 h-4 fill-current"></i> <span id="hud-combo">x1</span>
+          </div>
+        </div>
+
+        <div>
+          <span class="text-xs uppercase tracking-wider font-bold text-slate-400">VIDAS</span>
+          <div id="hud-lives" class="flex gap-1 text-accent-rose text-xl">
+            <i data-lucide="heart" class="w-6 h-6 fill-current"></i>
+            <i data-lucide="heart" class="w-6 h-6 fill-current"></i>
+            <i data-lucide="heart" class="w-6 h-6 fill-current"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- ÁREA DE MEMORIZAÇÃO OU PERGUNTA -->
+      <div class="glass-panel p-6 md:p-8 rounded-3xl min-h-[340px] flex flex-col justify-between items-center text-center relative overflow-hidden shadow-2xl">
+        
+        <!-- FASE DE MEMORIZAÇÃO -->
+        <div id="game-memorize-phase" class="w-full flex-grow flex flex-col justify-center items-center space-y-6">
+          <div class="flex items-center gap-2 text-sm font-bold text-slate-500 uppercase tracking-widest">
+            <i data-lucide="eye" class="w-4 h-4 text-brand-500 animate-pulse"></i> MEMORIZE A SEQUÊNCIA
+          </div>
+
+          <!-- CARDS DE CONTEÚDO -->
+          <div id="elements-container" class="flex flex-wrap justify-center gap-3 max-w-xl my-4">
+            <!-- Inserido dinamicamente via JS -->
+          </div>
+
+          <!-- BARRA DE TEMPO DE MEMORIZAÇÃO -->
+          <div class="w-full space-y-1">
+            <div class="flex justify-between text-xs font-semibold text-slate-400">
+              <span>TEMPO RESTANTE</span>
+              <span id="memorize-timer-text">5.0s</span>
+            </div>
+            <div class="w-full h-3 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+              <div id="memorize-progress-bar" class="h-full bg-gradient-to-r from-brand-500 to-accent-cyan transition-all duration-100 ease-linear w-full"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FASE DE PERGUNTA -->
+        <div id="game-question-phase" class="w-full flex-grow flex flex-col justify-between items-center space-y-6 hidden animate-scale-up">
+          <div class="flex items-center justify-between w-full border-b border-slate-200 dark:border-slate-800 pb-3">
+            <span class="text-xs font-bold text-accent-pink uppercase tracking-widest flex items-center gap-1">
+              <i data-lucide="help-circle" class="w-4 h-4"></i> DESAFIO DE MEMÓRIA
+            </span>
+            <span class="text-xs font-mono font-bold text-slate-400 flex items-center gap-1">
+              <i data-lucide="clock" class="w-3.5 h-3.5"></i> TEMPO: <span id="answer-timer" class="text-slate-800 dark:text-white">00.00s</span>
+            </span>
+          </div>
+
+          <h2 id="question-text" class="font-heading text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white max-w-lg leading-tight">
+            "Qual era o terceiro elemento?"
+          </h2>
+
+          <!-- OPÇÕES DE RESPOSTA -->
+          <div id="options-container" class="grid grid-cols-1 md:grid-cols-2 gap-3 w-full">
+            <!-- Botões inseridos dinamicamente -->
+          </div>
+        </div>
+
+        <!-- FEEDBACK DE RESPOSTA (OVERLAY) -->
+        <div id="answer-feedback" class="absolute inset-0 z-20 glass-panel flex flex-col justify-center items-center text-center p-6 hidden animate-scale-up">
+          <div id="feedback-icon-bg" class="p-4 rounded-full mb-3">
+            <i id="feedback-icon" class="w-12 h-12 text-white"></i>
+          </div>
+          <h3 id="feedback-title" class="font-heading text-3xl font-black mb-1">CORRETO!</h3>
+          <p id="feedback-subtitle" class="text-sm font-semibold text-slate-500 dark:text-slate-400 mb-4">+175 PONTOS</p>
+          <div id="feedback-details" class="flex flex-wrap justify-center gap-2">
+            <!-- Badges de velocidade / combo -->
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 3. TELA DE FIM DE JOGO -->
+    <section id="screen-game-over" class="screen-view hidden flex-col items-center text-center space-y-6 max-w-md mx-auto w-full animate-scale-up">
+      <div class="space-y-2">
+        <div class="inline-flex p-3 rounded-2xl bg-accent-rose/10 text-accent-rose mb-2">
+          <i data-lucide="skull" class="w-10 h-10"></i>
+        </div>
+        <h1 class="font-heading text-4xl font-black text-slate-900 dark:text-white">FIM DE JOGO</h1>
+        <p class="text-sm text-slate-500 dark:text-slate-400">Você esgotou todas as suas vidas!</p>
+      </div>
+
+      <!-- PAINEL DE RESULTADO FINAL -->
+      <div class="glass-panel w-full p-6 rounded-3xl space-y-4 shadow-xl">
+        <div class="bg-gradient-to-r from-brand-600/10 via-accent-pink/10 to-accent-amber/10 border border-brand-500/20 p-4 rounded-2xl">
+          <p class="text-xs font-bold text-slate-400 uppercase">PONTUAÇÃO FINAL</p>
+          <p id="go-score" class="font-heading text-5xl font-black text-brand-600 dark:text-brand-400 my-1">0</p>
+          <p id="go-player-name" class="text-xs font-bold text-slate-500 dark:text-slate-300 uppercase tracking-wider mb-1"></p>
+          <div id="go-new-record" class="hidden inline-flex items-center gap-1 text-xs font-extrabold px-3 py-1 rounded-full bg-accent-amber text-slate-900">
+            <i data-lucide="crown" class="w-3.5 h-3.5"></i> NOVO RECORDE!
+          </div>
+        </div>
+
+        <div class="grid grid-cols-3 gap-2 text-center pt-2">
+          <div class="p-2 bg-slate-100 dark:bg-slate-900/50 rounded-xl">
+            <p class="text-[10px] text-slate-400 font-bold uppercase">FASE</p>
+            <p id="go-stage" class="font-heading text-lg font-extrabold">1</p>
+          </div>
+          <div class="p-2 bg-slate-100 dark:bg-slate-900/50 rounded-xl">
+            <p class="text-[10px] text-slate-400 font-bold uppercase">MAIOR COMBO</p>
+            <p id="go-combo" class="font-heading text-lg font-extrabold text-accent-amber">x1</p>
+          </div>
+          <div class="p-2 bg-slate-100 dark:bg-slate-900/50 rounded-xl">
+            <p class="text-[10px] text-slate-400 font-bold uppercase">TEMPO MÉDIO</p>
+            <p id="go-avg-time" class="font-heading text-lg font-extrabold text-accent-cyan">0.0s</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- BOTÕES DE AÇÃO -->
+      <div class="w-full space-y-2">
+        <button onclick="app.showScreen('ranking')" class="w-full py-3.5 px-6 bg-gradient-to-r from-brand-600 to-accent-pink text-white font-heading font-extrabold text-lg rounded-2xl shadow-lg active:scale-95 transition flex items-center justify-center gap-2">
+          <i data-lucide="trophy" class="w-5 h-5"></i> VER RANKING
+        </button>
+        <button onclick="app.openNameModal()" class="w-full py-3 px-6 bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 font-bold text-slate-700 dark:text-slate-200 rounded-2xl transition text-sm flex items-center justify-center gap-2">
+          <i data-lucide="rotate-ccw" class="w-4 h-4"></i> JOGAR NOVAMENTE
+        </button>
+        <button onclick="app.showScreen('main-menu')" class="w-full py-2.5 px-6 text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 font-bold text-xs transition">
+          MENU PRINCIPAL
+        </button>
+      </div>
+    </section>
+
+    <!-- 4. TELA DE RANKING -->
+    <section id="screen-ranking" class="screen-view hidden flex-col space-y-6 max-w-md mx-auto w-full animate-scale-up">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <i data-lucide="trophy" class="w-7 h-7 text-accent-amber"></i>
+          <h1 class="font-heading text-3xl font-black text-slate-900 dark:text-white">RANKING</h1>
+        </div>
+        <button onclick="app.showScreen('main-menu')" class="p-2 rounded-xl bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- TABELA DE RANKING -->
+      <div class="glass-panel rounded-3xl p-4 shadow-xl overflow-hidden">
+        <div id="ranking-list" class="space-y-2 max-h-[380px] overflow-y-auto pr-1">
+          <!-- Inserido dinamicamente via JS -->
+        </div>
+      </div>
+
+      <!-- BOTÃO DE LIMPAR RANKING -->
+      <div class="flex justify-between items-center text-xs text-slate-400 px-2">
+        <span>Dados armazenados localmente</span>
+        <button onclick="app.openClearConfirmModal()" class="px-3 py-2 bg-rose-500/10 hover:bg-rose-500/20 text-accent-rose rounded-xl font-bold transition flex items-center gap-1.5">
+          <i data-lucide="trash-2" class="w-4 h-4"></i> LIMPAR RANKING
+        </button>
+      </div>
+    </section>
+
+    <!-- 5. TELA COMO JOGAR -->
+    <section id="screen-how-to-play" class="screen-view hidden flex-col space-y-6 max-w-md mx-auto w-full animate-scale-up">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <i data-lucide="help-circle" class="w-7 h-7 text-accent-cyan"></i>
+          <h1 class="font-heading text-3xl font-black text-slate-900 dark:text-white">COMO JOGAR</h1>
+        </div>
+        <button onclick="app.showScreen('main-menu')" class="p-2 rounded-xl bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="glass-panel p-6 rounded-3xl space-y-5 text-sm leading-relaxed shadow-xl">
+        <div class="flex gap-4 items-start">
+          <div class="p-3 bg-brand-500/10 text-brand-500 rounded-2xl font-black font-heading text-xl">1</div>
+          <div>
+            <h3 class="font-bold text-base text-slate-900 dark:text-white">Memorize Rapidamente</h3>
+            <p class="text-slate-500 dark:text-slate-400">Uma sequência de elementos (palavras, números, emojis) aparecerá por poucos segundos. Preste atenção na ordem e nos detalhes!</p>
+          </div>
+        </div>
+
+        <div class="flex gap-4 items-start border-t border-slate-200 dark:border-slate-800 pt-4">
+          <div class="p-3 bg-accent-pink/10 text-accent-pink rounded-2xl font-black font-heading text-xl">2</div>
+          <div>
+            <h3 class="font-bold text-base text-slate-900 dark:text-white">Responda o Desafio</h3>
+            <p class="text-slate-500 dark:text-slate-400">Após os elementos desaparecerem, uma pergunta aleatória será feita sobre a sequência. Escolha a opção correta.</p>
+          </div>
+        </div>
+
+        <div class="flex gap-4 items-start border-t border-slate-200 dark:border-slate-800 pt-4">
+          <div class="p-3 bg-accent-amber/10 text-accent-amber rounded-2xl font-black font-heading text-xl">3</div>
+          <div>
+            <h3 class="font-bold text-base text-slate-900 dark:text-white">Seja Rápido & Faça Combos</h3>
+            <p class="text-slate-500 dark:text-slate-400">Respostas em menos de 1 segundo concedem bônus máximo. Acertos consecutivos ativam multiplicadores de COMBO!</p>
+          </div>
+        </div>
+      </div>
+
+      <button onclick="app.showScreen('main-menu')" class="w-full py-3.5 bg-brand-600 text-white font-bold rounded-2xl shadow-lg">
+        ENTENDI! VOLTAR AO MENU
+      </button>
+    </section>
+
+    <!-- 6. TELA CONFIGURAÇÕES -->
+    <section id="screen-settings" class="screen-view hidden flex-col space-y-6 max-w-md mx-auto w-full animate-scale-up">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <i data-lucide="settings" class="w-7 h-7 text-brand-500"></i>
+          <h1 class="font-heading text-3xl font-black text-slate-900 dark:text-white">CONFIGURAÇÕES</h1>
+        </div>
+        <button onclick="app.showScreen('main-menu')" class="p-2 rounded-xl bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="glass-panel p-6 rounded-3xl space-y-6 shadow-xl">
+        <!-- SOM -->
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="font-bold text-slate-900 dark:text-white">Efeitos Sonoros</p>
+            <p class="text-xs text-slate-400">Sons para acertos, erros e contagem</p>
+          </div>
+          <button id="setting-sound-btn" onclick="app.toggleSound()" class="w-12 h-6 rounded-full bg-brand-600 p-1 transition flex items-center justify-end">
+            <div class="w-4 h-4 bg-white rounded-full"></div>
+          </button>
+        </div>
+
+        <!-- MODO ESCURO -->
+        <div class="flex items-center justify-between border-t border-slate-200 dark:border-slate-800 pt-4">
+          <div>
+            <p class="font-bold text-slate-900 dark:text-white">Modo Escuro</p>
+            <p class="text-xs text-slate-400">Alternar entre tema claro e escuro</p>
+          </div>
+          <button id="setting-theme-btn" onclick="app.toggleTheme()" class="w-12 h-6 rounded-full bg-brand-600 p-1 transition flex items-center justify-end">
+            <div class="w-4 h-4 bg-white rounded-full"></div>
+          </button>
+        </div>
+
+        <!-- DIFICULDADE INICIAL -->
+        <div class="border-t border-slate-200 dark:border-slate-800 pt-4 space-y-2">
+          <p class="font-bold text-slate-900 dark:text-white">Dificuldade Inicial</p>
+          <div class="grid grid-cols-2 gap-2">
+            <button id="diff-normal" onclick="app.setDifficulty('normal')" class="py-2 px-3 rounded-xl border border-brand-500 bg-brand-500/10 font-bold text-brand-500 text-sm">NORMAL</button>
+            <button id="diff-hard" onclick="app.setDifficulty('hard')" class="py-2 px-3 rounded-xl border border-slate-300 dark:border-slate-700 font-bold text-slate-400 text-sm">DIFÍCIL</button>
+          </div>
+        </div>
+      </div>
+
+      <button onclick="app.showScreen('main-menu')" class="w-full py-3.5 bg-brand-600 text-white font-bold rounded-2xl shadow-lg">
+        SALVAR E FECHAR
+      </button>
+    </section>
+
+  </main>
+
+  <!-- MODAL: ENTRADA DE NOME DO JOGADOR -->
+  <div id="modal-player-name" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-md flex items-center justify-center p-4 hidden animate-scale-up">
+    <div class="glass-panel w-full max-w-sm p-6 rounded-3xl space-y-4 shadow-2xl border border-brand-500/30 text-center">
+      <div class="inline-flex p-3 rounded-2xl bg-brand-500/10 text-brand-500">
+        <i data-lucide="user" class="w-8 h-8"></i>
+      </div>
+      <div>
+        <h2 class="font-heading text-2xl font-black text-slate-900 dark:text-white">IDENTIFIQUE-SE</h2>
+        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Digite seu nome ou apelido para salvar seu recorde no ranking</p>
+      </div>
+
+      <div class="space-y-2 text-left">
+        <label for="modal-name-input" class="text-xs font-bold text-slate-400 uppercase tracking-wider">Digite seu nome/apelido:</label>
+        <input type="text" id="modal-name-input" maxlength="12" placeholder="Seu apelido aqui..." class="w-full px-4 py-3 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 font-bold text-slate-800 dark:text-white focus:outline-none focus:border-brand-500 uppercase">
+      </div>
+
+      <div class="flex gap-2 pt-2">
+        <button onclick="app.closeNameModal()" class="w-1/2 py-3 bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 font-bold text-slate-700 dark:text-slate-300 rounded-xl transition text-sm">
+          CANCELAR
+        </button>
+        <button onclick="app.confirmNameAndStart()" class="w-1/2 py-3 bg-gradient-to-r from-brand-600 to-accent-pink hover:from-brand-500 hover:to-accent-pink text-white font-bold rounded-xl transition text-sm shadow-md">
+          CONTINUAR
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: CONFIRMAÇÃO PARA LIMPAR RANKING -->
+  <div id="modal-clear-confirm" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-md flex items-center justify-center p-4 hidden animate-scale-up">
+    <div class="glass-panel w-full max-w-sm p-6 rounded-3xl space-y-4 shadow-2xl border border-accent-rose/30 text-center">
+      <div class="inline-flex p-3 rounded-2xl bg-accent-rose/10 text-accent-rose">
+        <i data-lucide="alert-triangle" class="w-8 h-8"></i>
+      </div>
+      <div>
+        <h2 class="font-heading text-2xl font-black text-slate-900 dark:text-white">⚠️ LIMPAR RANKING?</h2>
+        <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
+          Todos os recordes salvos neste dispositivo serão apagados.
+        </p>
+      </div>
+
+      <div class="flex gap-2 pt-2">
+        <button onclick="app.closeClearConfirmModal()" class="w-1/2 py-3 bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 font-bold text-slate-700 dark:text-slate-300 rounded-xl transition text-sm">
+          CANCELAR
+        </button>
+        <button onclick="app.confirmClearRanking()" class="w-1/2 py-3 bg-accent-rose hover:bg-rose-600 text-white font-bold rounded-xl transition text-sm shadow-md">
+          SIM, LIMPAR
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST / NOTIFICAÇÃO TEMPORÁRIA -->
+  <div id="toast-notification" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 px-5 py-3 rounded-2xl bg-slate-900 text-white font-bold text-sm shadow-2xl border border-slate-700 flex items-center gap-2 hidden animate-bounce-short">
+    <i data-lucide="info" class="w-4 h-4 text-accent-cyan"></i>
+    <span id="toast-text">Notificação</span>
+  </div>
+
+  <!-- RODAPÉ -->
+  <footer class="w-full py-4 text-center text-xs text-slate-400 dark:text-slate-600">
+    MEMO RUSH © 2026 — Desafie sua mente
+  </footer>
+
+  <!-- LÓGICA DO JOGO EM JAVASCRIPT -->
+  <script>
+    /*GERENCIADOR DE ÁUDIO SINTETIZADO (Web Audio API) */
+    class AudioEngine {
+      constructor() {
+        this.ctx = null;
+        this.enabled = true;
+      }
+
+      init() {
+        if (!this.ctx) {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          if (AudioContext) this.ctx = new AudioContext();
+        }
+      }
+
+      playTone(freq, type, duration, startVol = 0.3, endVol = 0) {
+        if (!this.enabled || !this.ctx) return;
+        try {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = type;
+          osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+          gain.gain.setValueAtTime(startVol, this.ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(Math.max(endVol, 0.0001), this.ctx.currentTime + duration);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start();
+          osc.stop(this.ctx.currentTime + duration);
+        } catch(e) {}
+      }
+
+      playCorrect() {
+        if (!this.enabled) return;
+        this.init();
+        this.playTone(523.25, 'sine', 0.1, 0.3); // C5
+        setTimeout(() => this.playTone(659.25, 'sine', 0.1, 0.3), 80); // E5
+        setTimeout(() => this.playTone(783.99, 'sine', 0.2, 0.4), 160); // G5
+      }
+
+      playWrong() {
+        if (!this.enabled) return;
+        this.init();
+        this.playTone(220, 'sawtooth', 0.15, 0.4);
+        setTimeout(() => this.playTone(180, 'sawtooth', 0.25, 0.4), 120);
+      }
+
+      playTick() {
+        if (!this.enabled) return;
+        this.init();
+        this.playTone(800, 'triangle', 0.03, 0.1);
+      }
+
+      playCombo() {
+        if (!this.enabled) return;
+        this.init();
+        this.playTone(440, 'sine', 0.08, 0.3);
+        setTimeout(() => this.playTone(880, 'sine', 0.15, 0.4), 70);
+      }
+    }
+
+    /* BANCO DE DADOS DE ELEMENTOS (PALAVRAS, EMOJIS, CORES)
+        */
+    const GAME_DATA = {
+      emojis: ['🍎','🐱','🚀','⚽','🍕','💎','🔥','👑','🎸','⚡','🚗','🎨','🦄','🦁','🎮','🍔','🍦','🌺','🎧','🏀'],
+      words: ['AZUL', 'VERMELHO', 'CASA', 'LIVRO', 'SOL', 'LUA', 'NAVIO', 'FLOR', 'TEMPO', 'NUVEM', 'VENTO', 'ARVORE', 'PONTE', 'RELOGIO', 'CIDADE', 'MUNDO', 'MÚSICA', 'SABOR', 'NOITE', 'PRAIA'],
+      colors: ['VERDE', 'AMARELO', 'ROXO', 'ROSA', 'PRETO', 'BRANCO', 'CINZA', 'LARANJA']
+    };
+
+    /* IA SIMULADA / GERADOR ADAPTATIVO DE DESAFIOS*/
+    class AIChallengeGenerator {
+      generateSequence(length, difficulty = 'normal') {
+        const result = [];
+        
+        for (let i = 0; i < length; i++) {
+          const randType = Math.random();
+          let item = '';
+          
+          if (randType < 0.35) {
+            item = GAME_DATA.words[Math.floor(Math.random() * GAME_DATA.words.length)];
+          } else if (randType < 0.70) {
+            item = GAME_DATA.emojis[Math.floor(Math.random() * GAME_DATA.emojis.length)];
+          } else if (randType < 0.85) {
+            item = GAME_DATA.colors[Math.floor(Math.random() * GAME_DATA.colors.length)];
+          } else {
+            item = Math.floor(Math.random() * 90 + 10).toString();
+          }
+
+          if (difficulty === 'hard' && Math.random() < 0.2 && result.length > 0) {
+            item = result[Math.floor(Math.random() * result.length)];
+          }
+
+          result.push(item);
+        }
+        return result;
+      }
+
+      generateQuestion(sequence) {
+        const questionTypes = [
+          'POSITION_EXACT',
+          'POSITION_FIRST_LAST',
+          'CONTAINS_EMOJI',
+          'CONTAINS_NUMBER',
+          'NOT_PRESENT',
+          'COUNT_TOTAL'
+        ];
+
+        const type = questionTypes[Math.floor(Math.random() * questionTypes.length)];
+        let questionText = '';
+        let correctAnswer = '';
+        let wrongOptions = [];
+
+        const ordinals = ['primeira', 'segunda', 'terceira', 'quarta', 'quinta', 'sexta', 'sétima', 'oitava', 'nona', 'décima', 'décima primeira', 'décima segunda', 'décima terceira', 'décima quarta', 'décima quinta'];
+
+        switch (type) {
+          case 'POSITION_EXACT': {
+            const index = Math.floor(Math.random() * sequence.length);
+            questionText = `Qual era a ${ordinals[index]} informação?`;
+            correctAnswer = sequence[index];
+            break;
+          }
+
+          case 'POSITION_FIRST_LAST': {
+            const isFirst = Math.random() > 0.5;
+            const index = isFirst ? 0 : sequence.length - 1;
+            questionText = isFirst ? `Qual era a PRIMEIRA informação?` : `Qual era a ÚLTIMA informação?`;
+            correctAnswer = sequence[index];
+            break;
+          }
+
+          case 'CONTAINS_EMOJI': {
+            const emojisInSeq = sequence.filter(x => GAME_DATA.emojis.includes(x));
+            if (emojisInSeq.length > 0) {
+              questionText = `Qual destes emojis estava presente na sequência?`;
+              correctAnswer = emojisInSeq[Math.floor(Math.random() * emojisInSeq.length)];
+              wrongOptions = GAME_DATA.emojis.filter(e => !sequence.includes(e));
+            } else {
+              questionText = `Qual era a primeira informação?`;
+              correctAnswer = sequence[0];
+            }
+            break;
+          }
+
+          case 'CONTAINS_NUMBER': {
+            const numbersInSeq = sequence.filter(x => !isNaN(x));
+            if (numbersInSeq.length > 0) {
+              questionText = `Qual número apareceu na tela?`;
+              correctAnswer = numbersInSeq[Math.floor(Math.random() * numbersInSeq.length)];
+              wrongOptions = [
+                Math.floor(Math.random() * 80 + 10).toString(),
+                Math.floor(Math.random() * 80 + 10).toString(),
+                Math.floor(Math.random() * 80 + 10).toString()
+              ].filter(n => !sequence.includes(n));
+            } else {
+              const idx = Math.floor(sequence.length / 2);
+              questionText = `Qual era a ${ordinals[idx]} informação?`;
+              correctAnswer = sequence[idx];
+            }
+            break;
+          }
+
+          case 'NOT_PRESENT': {
+            questionText = `Qual elemento NÃO apareceu na sequência?`;
+            const allPossible = [...GAME_DATA.words, ...GAME_DATA.emojis, ...GAME_DATA.colors];
+            const notInSeq = allPossible.filter(x => !sequence.includes(x));
+            correctAnswer = notInSeq[Math.floor(Math.random() * notInSeq.length)];
+            
+            const distractorOptions = [...new Set(sequence)].slice(0, 3);
+            wrongOptions = distractorOptions;
+            break;
+          }
+
+          case 'COUNT_TOTAL': {
+            questionText = `Quantas informações no total foram exibidas?`;
+            correctAnswer = sequence.length.toString();
+            wrongOptions = [
+              (sequence.length - 1).toString(),
+              (sequence.length + 1).toString(),
+              (sequence.length + 2).toString()
+            ].filter(v => parseInt(v) > 0);
+            break;
+          }
+        }
+
+        let options = [correctAnswer];
+
+        if (wrongOptions.length >= 3) {
+          options.push(...wrongOptions.slice(0, 3));
+        } else {
+          const pool = [...GAME_DATA.words, ...GAME_DATA.emojis, ...GAME_DATA.colors, '42', '99'];
+          while (options.length < 4) {
+            const candidate = pool[Math.floor(Math.random() * pool.length)];
+            if (!sequence.includes(candidate) && !options.includes(candidate) && candidate !== correctAnswer) {
+              options.push(candidate);
+            } else if (type === 'POSITION_EXACT' || type === 'POSITION_FIRST_LAST') {
+              const seqCandidate = sequence[Math.floor(Math.random() * sequence.length)];
+              if (!options.includes(seqCandidate)) {
+                options.push(seqCandidate);
+              }
+            }
+          }
+        }
+
+        options = options.sort(() => Math.random() - 0.5);
+
+        return {
+          questionText,
+          correctAnswer,
+          options
+        };
+      }
+    }
+
+    /*  APLICAÇÃO E CONTROLADOR DO JOGO*/
+    class MemoRushApp {
+      constructor() {
+        this.audio = new AudioEngine();
+        this.ai = new AIChallengeGenerator();
+
+        // Estado do Jogo
+        this.stage = 1;
+        this.score = 0;
+        this.combo = 1;
+        this.maxCombo = 1;
+        this.lives = 3;
+        this.difficulty = 'normal';
+        this.isSoundOn = true;
+        this.isDarkMode = true;
+        this.currentPlayerName = localStorage.getItem('memorush_last_player_name') || '';
+
+        // Cronômetros e Rastreamento
+        this.memorizeTimer = null;
+        this.answerStartTime = 0;
+        this.answerTimerInterval = null;
+        this.responseTimes = [];
+        this.currentSequence = [];
+        this.currentQuestion = null;
+
+        // IMPORTANTE: Ranking começa 100% vazio se não houver dados salvos no localStorage
+        this.rankings = this.loadData('memorush_rankings', []);
+
+        this.stats = this.loadData('memorush_stats', {
+          highScore: 0,
+          maxStage: 1,
+          maxCombo: 0
+        });
+
+        this.initDOM();
+      }
+
+      initDOM() {
+        lucide.createIcons();
+        this.updateStatsUI();
+        this.renderRanking();
+        
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') {
+            this.closeNameModal();
+            this.closeClearConfirmModal();
+            this.showScreen('main-menu');
+          }
+        });
+      }
+
+      saveData(key, data) {
+        try { localStorage.setItem(key, JSON.stringify(data)); } catch(e){}
+      }
+
+      loadData(key, fallback) {
+        try {
+          const val = localStorage.getItem(key);
+          return val ? JSON.parse(val) : fallback;
+        } catch(e) { return fallback; }
+      }
+
+      showScreen(screenId) {
+        document.querySelectorAll('.screen-view').forEach(s => {
+          s.classList.add('hidden');
+          s.classList.remove('flex', 'active');
+        });
+
+        const target = document.getElementById(`screen-${screenId}`);
+        if (target) {
+          target.classList.remove('hidden');
+          target.classList.add('flex', 'active');
+        }
+
+        if (screenId !== 'game') {
+          clearInterval(this.memorizeTimer);
+          clearInterval(this.answerTimerInterval);
+        }
+
+        if (screenId === 'ranking') {
+          this.renderRanking();
+        }
+      }
+
+      toggleTheme() {
+        this.isDarkMode = !this.isDarkMode;
+        const html = document.documentElement;
+        if (this.isDarkMode) {
+          html.classList.add('dark');
+        } else {
+          html.classList.remove('dark');
+        }
+        const setBtn = document.getElementById('setting-theme-btn');
+        if (setBtn) {
+          setBtn.className = `w-12 h-6 rounded-full p-1 transition flex items-center ${this.isDarkMode ? 'bg-brand-600 justify-end' : 'bg-slate-300 justify-start'}`;
+        }
+      }
+
+      toggleSound() {
+        this.isSoundOn = !this.isSoundOn;
+        this.audio.enabled = this.isSoundOn;
+        document.getElementById('sound-on-icon').classList.toggle('hidden', !this.isSoundOn);
+        document.getElementById('sound-off-icon').classList.toggle('hidden', this.isSoundOn);
+        
+        const setBtn = document.getElementById('setting-sound-btn');
+        if (setBtn) {
+          setBtn.className = `w-12 h-6 rounded-full p-1 transition flex items-center ${this.isSoundOn ? 'bg-brand-600 justify-end' : 'bg-slate-300 justify-start'}`;
+        }
+      }
+
+      setDifficulty(diff) {
+        this.difficulty = diff;
+        document.getElementById('diff-normal').className = diff === 'normal' ? 'py-2 px-3 rounded-xl border border-brand-500 bg-brand-500/10 font-bold text-brand-500 text-sm' : 'py-2 px-3 rounded-xl border border-slate-300 dark:border-slate-700 font-bold text-slate-400 text-sm';
+        document.getElementById('diff-hard').className = diff === 'hard' ? 'py-2 px-3 rounded-xl border border-brand-500 bg-brand-500/10 font-bold text-brand-500 text-sm' : 'py-2 px-3 rounded-xl border border-slate-300 dark:border-slate-700 font-bold text-slate-400 text-sm';
+      }
+
+      // MODAL PARA SOLICITAR NOME ANTES DE INICIAR A PARTIDA
+      openNameModal() {
+        const input = document.getElementById('modal-name-input');
+        input.value = this.currentPlayerName;
+        document.getElementById('modal-player-name').classList.remove('hidden');
+        setTimeout(() => input.focus(), 100);
+      }
+
+      closeNameModal() {
+        document.getElementById('modal-player-name').classList.add('hidden');
+      }
+
+      confirmNameAndStart() {
+        const input = document.getElementById('modal-name-input');
+        let name = input.value.trim().toUpperCase();
+        
+        if (!name) {
+          name = 'JOGADOR';
+        }
+
+        this.currentPlayerName = name;
+        localStorage.setItem('memorush_last_player_name', name);
+        this.closeNameModal();
+        this.startGame();
+      }
+
+      startGame() {
+        this.stage = 1;
+        this.score = 0;
+        this.combo = 1;
+        this.maxCombo = 1;
+        this.lives = 3;
+        this.responseTimes = [];
+
+        this.updateHUD();
+        this.showScreen('game');
+        this.startStage();
+      }
+
+      startStage() {
+        document.getElementById('answer-feedback').classList.add('hidden');
+        document.getElementById('game-memorize-phase').classList.remove('hidden');
+        document.getElementById('game-question-phase').classList.add('hidden');
+
+        const elementCounts = [5, 6, 7, 8, 10, 12, 15];
+        const count = elementCounts[Math.min(this.stage - 1, elementCounts.length - 1)] || (15 + (this.stage - 7) * 2);
+        
+        let memorizeTime = Math.max(2.5, 6.0 - (this.stage * 0.4));
+        if (this.difficulty === 'hard') memorizeTime *= 0.8;
+
+        this.currentSequence = this.ai.generateSequence(count, this.difficulty);
+
+        const container = document.getElementById('elements-container');
+        container.innerHTML = '';
+        this.currentSequence.forEach((item) => {
+          const card = document.createElement('div');
+          card.className = 'px-4 py-3 bg-white dark:bg-slate-800 border-2 border-brand-500/30 dark:border-brand-500/20 rounded-2xl font-heading font-black text-xl md:text-2xl shadow-md animate-scale-up text-slate-800 dark:text-white flex items-center justify-center min-w-[60px]';
+          card.innerText = item;
+          container.appendChild(card);
+        });
+
+        const progressBar = document.getElementById('memorize-progress-bar');
+        const timerText = document.getElementById('memorize-timer-text');
+        
+        let timeLeft = memorizeTime;
+        progressBar.style.width = '100%';
+        timerText.innerText = `${timeLeft.toFixed(1)}s`;
+
+        const intervalMs = 50;
+        let step = 0;
+
+        clearInterval(this.memorizeTimer);
+        this.memorizeTimer = setInterval(() => {
+          step++;
+          timeLeft = Math.max(0, memorizeTime - (step * intervalMs / 1000));
+          progressBar.style.width = `${(timeLeft / memorizeTime) * 100}%`;
+          timerText.innerText = `${timeLeft.toFixed(1)}s`;
+
+          if (step % 10 === 0) this.audio.playTick();
+
+          if (timeLeft <= 0) {
+            clearInterval(this.memorizeTimer);
+            this.showQuestionPhase();
+          }
+        }, intervalMs);
+      }
+
+      showQuestionPhase() {
+        document.getElementById('game-memorize-phase').classList.add('hidden');
+        document.getElementById('game-question-phase').classList.remove('hidden');
+
+        this.currentQuestion = this.ai.generateQuestion(this.currentSequence);
+        document.getElementById('question-text').innerText = `"${this.currentQuestion.questionText}"`;
+
+        const optionsContainer = document.getElementById('options-container');
+        optionsContainer.innerHTML = '';
+
+        this.currentQuestion.options.forEach(opt => {
+          const btn = document.createElement('button');
+          btn.className = 'w-full py-4 px-5 bg-white dark:bg-slate-800/90 border-2 border-slate-200 dark:border-slate-700/80 hover:border-brand-500 dark:hover:border-brand-400 font-heading font-extrabold text-lg md:text-xl rounded-2xl shadow-sm active:scale-95 transition-all text-slate-800 dark:text-white flex items-center justify-center';
+          btn.innerText = opt;
+          btn.onclick = () => this.handleAnswer(opt);
+          optionsContainer.appendChild(btn);
+        });
+
+        this.answerStartTime = performance.now();
+        const answerTimerElem = document.getElementById('answer-timer');
+        
+        clearInterval(this.answerTimerInterval);
+        this.answerTimerInterval = setInterval(() => {
+          const elapsed = (performance.now() - this.answerStartTime) / 1000;
+          answerTimerElem.innerText = `${elapsed.toFixed(2)}s`;
+        }, 30);
+      }
+
+      handleAnswer(selectedOption) {
+        clearInterval(this.answerTimerInterval);
+        const elapsedSeconds = (performance.now() - this.answerStartTime) / 1000;
+        this.responseTimes.push(elapsedSeconds);
+
+        const isCorrect = selectedOption === this.currentQuestion.correctAnswer;
+        const feedbackOverlay = document.getElementById('answer-feedback');
+        const iconBg = document.getElementById('feedback-icon-bg');
+        const icon = document.getElementById('feedback-icon');
+        const title = document.getElementById('feedback-title');
+        const subtitle = document.getElementById('feedback-subtitle');
+        const details = document.getElementById('feedback-details');
+
+        details.innerHTML = '';
+
+        if (isCorrect) {
+          this.audio.playCorrect();
+
+          const baseScore = 100 * this.stage;
+          
+          let speedBonus = 10;
+          let speedTag = '> 5s (+10)';
+          if (elapsedSeconds < 1.0) { speedBonus = 100; speedTag = '⚡ < 1s BÔNUS MÁXIMO (+100)'; }
+          else if (elapsedSeconds < 2.0) { speedBonus = 75; speedTag = '⚡ 1-2s INCRÍVEL (+75)'; }
+          else if (elapsedSeconds < 3.0) { speedBonus = 50; speedTag = '⚡ 2-3s RÁPIDO (+50)'; }
+          else if (elapsedSeconds < 5.0) { speedBonus = 25; speedTag = '⚡ 3-5s BOM (+25)'; }
+
+          const comboMultiplier = this.combo >= 10 ? 5 : (this.combo >= 5 ? 3 : (this.combo >= 3 ? 2 : 1));
+          const totalPoints = Math.round((baseScore + speedBonus) * comboMultiplier);
+
+          this.score += totalPoints;
+
+          this.combo++;
+          if (this.combo > this.maxCombo) this.maxCombo = this.combo;
+
+          if (this.combo % 3 === 0) this.audio.playCombo();
+
+          iconBg.className = 'p-4 rounded-full mb-2 bg-emerald-500 text-white shadow-lg glow-effect';
+          icon.setAttribute('data-lucide', 'check');
+          title.className = 'font-heading text-3xl font-black text-emerald-500';
+          title.innerText = 'CORRETO!';
+          subtitle.innerText = `+${totalPoints} PONTOS`;
+
+          details.innerHTML = `
+            <span class="px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-500 text-xs font-bold border border-emerald-500/20">${speedTag}</span>
+            <span class="px-2.5 py-1 rounded-full bg-accent-amber/10 text-accent-amber text-xs font-bold border border-accent-amber/20">🔥 COMBO x${comboMultiplier}</span>
+          `;
+
+          this.stage++;
+        } else {
+          this.audio.playWrong();
+          this.lives--;
+          this.combo = 1;
+
+          iconBg.className = 'p-4 rounded-full mb-2 bg-rose-500 text-white shadow-lg';
+          icon.setAttribute('data-lucide', 'x');
+          title.className = 'font-heading text-3xl font-black text-rose-500';
+          title.innerText = 'INCORRETO!';
+          subtitle.innerText = `Resposta certa: ${this.currentQuestion.correctAnswer}`;
+
+          details.innerHTML = `
+            <span class="px-2.5 py-1 rounded-full bg-rose-500/10 text-rose-500 text-xs font-bold border border-rose-500/20">-1 VIDA RESTANTE</span>
+          `;
+        }
+
+        lucide.createIcons();
+        this.updateHUD();
+        feedbackOverlay.classList.remove('hidden');
+
+        setTimeout(() => {
+          if (this.lives <= 0) {
+            this.handleGameOver();
+          } else {
+            this.startStage();
+          }
+        }, isCorrect ? 1400 : 2000);
+      }
+
+      updateHUD() {
+        document.getElementById('hud-stage').innerText = this.stage;
+        document.getElementById('hud-score').innerText = this.score.toLocaleString();
+        document.getElementById('hud-combo').innerText = `x${this.combo}`;
+
+        const livesContainer = document.getElementById('hud-lives');
+        livesContainer.innerHTML = '';
+        for (let i = 0; i < 3; i++) {
+          const heart = document.createElement('i');
+          heart.setAttribute('data-lucide', 'heart');
+          heart.className = i < this.lives ? 'w-6 h-6 fill-current text-rose-500' : 'w-6 h-6 text-slate-300 dark:text-slate-700';
+          livesContainer.appendChild(heart);
+        }
+        lucide.createIcons();
+      }
+
+      handleGameOver() {
+        // AUTOMATICAMENTE SALVAR DADOS DA PARTIDA REAL NO RANKING LOCAL
+        const player = this.currentPlayerName || 'JOGADOR';
+        
+        this.rankings.push({
+          name: player,
+          score: this.score,
+          stage: this.stage,
+          combo: this.maxCombo,
+          date: new Date().getTime()
+        });
+
+        // Ordenar do maior para o menor e manter TOP 10
+        this.rankings.sort((a, b) => b.score - a.score);
+        this.rankings = this.rankings.slice(0, 10);
+        this.saveData('memorush_rankings', this.rankings);
+
+        // Atualizar recorde e estatísticas globais
+        const isNewRecord = this.score > this.stats.highScore;
+        if (isNewRecord) this.stats.highScore = this.score;
+        if (this.stage > this.stats.maxStage) this.stats.maxStage = this.stage;
+        if (this.maxCombo > this.stats.maxCombo) this.stats.maxCombo = this.maxCombo;
+        this.saveData('memorush_stats', this.stats);
+        this.updateStatsUI();
+
+        const avgTime = this.responseTimes.length > 0 
+          ? (this.responseTimes.reduce((a, b) => a + b, 0) / this.responseTimes.length).toFixed(2)
+          : '0.0';
+
+        document.getElementById('go-score').innerText = this.score.toLocaleString();
+        document.getElementById('go-player-name').innerText = `JOGADOR: ${player}`;
+        document.getElementById('go-stage').innerText = this.stage;
+        document.getElementById('go-combo').innerText = `x${this.maxCombo}`;
+        document.getElementById('go-avg-time').innerText = `${avgTime}s`;
+        document.getElementById('go-new-record').classList.toggle('hidden', !isNewRecord);
+
+        this.showScreen('game-over');
+      }
+
+      renderRanking() {
+        const list = document.getElementById('ranking-list');
+        list.innerHTML = '';
+
+        // Se o ranking estiver vazio, exibe exclusivamente a mensagem vazia
+        if (!this.rankings || this.rankings.length === 0) {
+          list.innerHTML = `
+            <div class="text-center py-10 px-4 space-y-3">
+              <div class="inline-flex p-3 rounded-2xl bg-amber-500/10 text-accent-amber">
+                <i data-lucide="trophy" class="w-10 h-10"></i>
+              </div>
+              <h3 class="font-heading font-extrabold text-lg text-slate-800 dark:text-white">Nenhuma pontuação registrada ainda.</h3>
+              <p class="text-xs text-slate-500 dark:text-slate-400 max-w-xs mx-auto font-medium">Jogue uma partida para entrar no ranking!</p>
+            </div>
+          `;
+          lucide.createIcons();
+          return;
+        }
+
+        const medals = ['🥇', '🥈', '🥉'];
+
+        this.rankings.forEach((item, index) => {
+          const row = document.createElement('div');
+          row.className = `flex items-center justify-between p-3.5 rounded-2xl ${index === 0 ? 'bg-amber-500/10 border border-amber-500/30' : 'bg-slate-100 dark:bg-slate-900/40'}`;
+          
+          row.innerHTML = `
+            <div class="flex items-center gap-3">
+              <span class="font-heading font-black text-lg w-7 text-center">${medals[index] || `${index + 1}º`}</span>
+              <div>
+                <p class="font-bold text-slate-900 dark:text-white text-sm tracking-wide">${item.name}</p>
+                <p class="text-[10px] text-slate-400 font-semibold">Fase ${item.stage} • Combo x${item.combo}</p>
+              </div>
+            </div>
+            <span class="font-heading font-black text-brand-600 dark:text-brand-400 text-lg">${item.score.toLocaleString()} pts</span>
+          `;
+          list.appendChild(row);
+        });
+      }
+
+      // MODAL DE CONFIRMAÇÃO SEM ALERT/CONFIRM
+      openClearConfirmModal() {
+        document.getElementById('modal-clear-confirm').classList.remove('hidden');
+      }
+
+      closeClearConfirmModal() {
+        document.getElementById('modal-clear-confirm').classList.add('hidden');
+      }
+
+      confirmClearRanking() {
+        // Limpar dados do localStorage e estado local
+        this.rankings = [];
+        this.saveData('memorush_rankings', []);
+        
+        // Resetar também os recordes do menu se o usuário desejar
+        this.stats = { highScore: 0, maxStage: 1, maxCombo: 0 };
+        this.saveData('memorush_stats', this.stats);
+        
+        this.updateStatsUI();
+        this.renderRanking();
+        this.closeClearConfirmModal();
+
+        this.showToast("RANKING LIMPO!");
+      }
+
+      showToast(msg) {
+        const toast = document.getElementById('toast-notification');
+        document.getElementById('toast-text').innerText = msg;
+        toast.classList.remove('hidden');
+        setTimeout(() => toast.classList.add('hidden'), 2500);
+      }
+
+      updateStatsUI() {
+        document.getElementById('menu-stat-high-score').innerText = (this.stats.highScore || 0).toLocaleString();
+        document.getElementById('menu-stat-max-stage').innerText = this.stats.maxStage || 1;
+        document.getElementById('menu-stat-max-combo').innerText = `x${this.stats.maxCombo || 0}`;
+      }
+    }
+
+    // Inicializar o Jogo
+    let app;
+    window.addEventListener('DOMContentLoaded', () => {
+      app = new MemoRushApp();
+    });
+  </script>
+</body>
+</html>
