@@ -87,7 +87,7 @@ As configurações são armazenadas no navegador para que as escolhas do jogador
 
 ## Missões diárias
 
-O jogo possui um sistema de **Missões Diárias**, que apresenta desafios para o jogador completar durante o dia.
+O jogo possui um sistema de **Missões Diárias**, que contém desafios para o jogador completar durante o dia.
 
 As missões podem envolver:
 
@@ -167,7 +167,7 @@ A **Inteligência Artificial foi utilizada em praticamente todo o processo de cr
 
 Desde o início, utilizei a IA para transformar a minha ideia em um jogo funcional, ajudando na criação do código, do visual, das funcionalidades e da organização do projeto.
 
-A IA participou de etapas como:
+A IA participou de todas as etapas, algumas são:
 
 * Criação do código do jogo;
 * Criação e organização do visual;
@@ -189,7 +189,7 @@ A IA participou de etapas como:
 * Correção de erros e problemas encontrados durante o desenvolvimento;
 * Sugestões de novas ideias para melhorar o jogo.
 
-Ou seja, **a parte de criação técnica do projeto foi feita com o auxílio da IA**, desde a primeira versão até as correções e melhorias finais.
+Ou seja, **a parte de criação técnica do projeto foi feita inteiramente com o auxílio da IA**, desde a primeira versão até as correções e melhorias finais.
 
 Mesmo assim, o desenvolvimento do Memo Rush foi uma experiência muito importante e divertida para o meu aprendizado. Durante o processo, fui acompanhando o que a IA fazia, fazendo perguntas, testando as alterações, dando instruções sobre melhorias que eu queria para o projeto e entendendo melhor como cada parte funcionava.
 
