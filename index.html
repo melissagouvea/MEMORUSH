@@ -58,9 +58,12 @@
     }
   </script>
 
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Outfit:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons CDN -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
   <style>
@@ -82,39 +85,36 @@
     body.theme-azul { background-color: #031329; color: #e0f2fe; }
 
     .glass-panel {
-      background: rgba(255, 255, 255, 0.7);
+      background: rgba(255, 255, 255, 0.85);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border: 1px solid rgba(255, 255, 255, 0.3);
     }
     .dark .glass-panel,
     body.theme-dark .glass-panel {
-      background: rgba(15, 23, 42, 0.75);
+      background: rgba(15, 23, 42, 0.85);
       border: 1px solid rgba(255, 255, 255, 0.08);
     }
     body.theme-neon .glass-panel {
-      background: rgba(10, 10, 26, 0.85);
+      background: rgba(10, 10, 26, 0.9);
       border: 1px solid rgba(0, 240, 255, 0.3);
       box-shadow: 0 0 15px rgba(0, 240, 255, 0.15);
     }
     body.theme-purple .glass-panel {
-      background: rgba(30, 10, 60, 0.75);
+      background: rgba(30, 10, 60, 0.85);
       border: 1px solid rgba(168, 85, 247, 0.25);
     }
     body.theme-hacker .glass-panel {
-      background: rgba(2, 20, 8, 0.9);
+      background: rgba(2, 20, 8, 0.92);
       border: 1px solid rgba(0, 255, 102, 0.3);
       box-shadow: 0 0 10px rgba(0, 255, 102, 0.1);
     }
     body.theme-azul .glass-panel {
-      background: rgba(8, 28, 58, 0.8);
+      background: rgba(8, 28, 58, 0.88);
       border: 1px solid rgba(56, 189, 248, 0.2);
     }
 
     .glow-effect { box-shadow: 0 0 25px -5px rgba(99, 102, 241, 0.5); }
-    .glow-amber { box-shadow: 0 0 25px -5px rgba(245, 158, 11, 0.5); }
-    .glow-cyan { box-shadow: 0 0 25px -5px rgba(6, 182, 212, 0.5); }
-
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: rgba(156, 163, 175, 0.4); border-radius: 9999px; }
@@ -138,7 +138,7 @@
       </div>
 
       <div class="flex items-center gap-2">
-        <!-- Shortcut Perfil/XP -->
+        <!-- Perfil / Level Shortcut -->
         <button onclick="app.showScreen('profile')" class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-200/80 dark:bg-slate-800/90 hover:bg-slate-300 dark:hover:bg-slate-700 transition text-xs font-bold">
           <div class="w-6 h-6 rounded-lg bg-brand-500 text-white flex items-center justify-center font-heading text-xs" id="nav-level-badge">1</div>
           <span id="nav-player-name" class="hidden sm:inline text-slate-700 dark:text-slate-200">Dev</span>
@@ -154,34 +154,34 @@
           <i data-lucide="volume-x" id="sound-off-icon" class="w-5 h-5 hidden"></i>
         </button>
 
-        <button onclick="app.showScreen('settings')" class="p-2.5 rounded-xl bg-slate-200/80 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 transition text-slate-700 dark:text-slate-200" title="Configurações & Personalização">
+        <button onclick="app.showScreen('settings')" class="p-2.5 rounded-xl bg-slate-200/80 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 transition text-slate-700 dark:text-slate-200" title="Configurações">
           <i data-lucide="settings" class="w-5 h-5"></i>
         </button>
       </div>
     </div>
   </header>
 
-  <!-- TOAST NOTIFICATIONS CONTAINER -->
+  <!-- TOAST CONTAINER -->
   <div id="toast-container" class="fixed top-16 right-4 z-50 flex flex-col gap-2 max-w-sm pointer-events-none"></div>
 
-  <!-- CONTAINER DE TELAS PRINCIPAIS -->
+  <!-- CONTAINER DE TELAS -->
   <main class="max-w-4xl w-full mx-auto p-4 flex-grow flex flex-col justify-center my-2">
 
     <!-- 1. TELA INICIAL (MAIN MENU) -->
     <section id="screen-main-menu" class="screen-view active flex flex-col items-center text-center space-y-6 animate-scale-up">
       <div class="space-y-2">
         <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold bg-brand-500/10 text-brand-500 dark:text-brand-300 border border-brand-500/30">
-          <i data-lucide="cpu" class="w-3.5 h-3.5"></i> IA ADAPTATIVA & ENGINE 2.0
+          <i data-lucide="cpu" class="w-3.5 h-3.5"></i> ENGINE 2.5 PRO PROGRAMMING EDITION
         </span>
         <h1 class="font-heading text-5xl md:text-7xl font-black tracking-tight text-slate-900 dark:text-white">
           MEMO <span class="bg-clip-text text-transparent bg-gradient-to-r from-brand-500 via-accent-pink to-accent-amber">RUSH</span>
         </h1>
         <p class="text-sm md:text-base text-slate-600 dark:text-slate-400 max-w-md mx-auto font-medium">
-          Memorize sequências de códigos, símbolos e dados em milissegundos!
+          Memorize palavras de código, dados e símbolos na velocidade do pensamento!
         </p>
       </div>
 
-      <!-- PAINEL DE PERFIL & PROGRESSO RÁPIDO -->
+      <!-- PAINEL DE PERFIL & PROGRESSO -->
       <div class="w-full max-w-md glass-panel p-4 rounded-2xl shadow-xl space-y-3">
         <div class="flex justify-between items-center border-b border-slate-200 dark:border-slate-800 pb-2">
           <div class="flex items-center gap-2">
@@ -191,10 +191,9 @@
           <span id="menu-player-level" class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-brand-500/20 text-brand-500">NÍVEL 1</span>
         </div>
 
-        <!-- Barra XP -->
         <div class="space-y-1">
           <div class="flex justify-between text-[11px] font-bold text-slate-400">
-            <span>PROGRESSO DO NÍVEL</span>
+            <span>PROGRESSO DO NÍVEL XP</span>
             <span id="menu-xp-text">0 / 100 XP</span>
           </div>
           <div class="w-full h-2.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
@@ -218,7 +217,7 @@
         </div>
       </div>
 
-      <!-- BOTÕES DE NAVEGAÇÃO PRINCIPAL -->
+      <!-- BOTÕES DE NAVEGAÇÃO -->
       <div class="w-full max-w-sm space-y-2.5">
         <button onclick="app.showScreen('modes')" class="w-full py-4 px-6 bg-gradient-to-r from-brand-600 via-accent-purple to-accent-pink hover:opacity-95 text-white font-heading font-extrabold text-xl rounded-2xl shadow-lg shadow-brand-500/20 active:scale-95 transition-all flex items-center justify-center gap-3">
           <i data-lucide="play" class="w-6 h-6 fill-current"></i> JOGAR AGORA
@@ -227,7 +226,7 @@
         <div class="grid grid-cols-2 gap-2">
           <button onclick="app.showScreen('missions')" class="py-3 px-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 font-heading font-bold text-sm rounded-xl shadow-sm active:scale-95 transition flex items-center justify-center gap-2 relative">
             <i data-lucide="target" class="w-4 h-4 text-accent-pink"></i> MISSÕES
-            <span id="badge-missions-count" class="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-accent-pink text-white text-[10px] font-black flex items-center justify-center hidden">3</span>
+            <span id="badge-missions-count" class="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-accent-pink text-white text-[10px] font-black flex items-center justify-center hidden">0</span>
           </button>
 
           <button onclick="app.showScreen('achievements')" class="py-3 px-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 font-heading font-bold text-sm rounded-xl shadow-sm active:scale-95 transition flex items-center justify-center gap-2">
@@ -247,8 +246,8 @@
           <i data-lucide="palette" class="w-4 h-4 text-brand-500"></i> PERSONALIZAR & TEMAS
         </button>
 
-        <button onclick="app.showScreen('how-to-play')" class="w-full py-2.5 text-xs text-slate-500 dark:text-slate-400 font-bold hover:underline flex items-center justify-center gap-1">
-          <i data-lucide="help-circle" class="w-3.5 h-3.5"></i> Como Jogar & Instruções
+        <button onclick="app.showScreen('how-to-play')" class="w-full py-2 text-xs text-slate-500 dark:text-slate-400 font-bold hover:underline flex items-center justify-center gap-1">
+          <i data-lucide="help-circle" class="w-3.5 h-3.5"></i> Como Jogar & Dicas
         </button>
       </div>
     </section>
@@ -278,7 +277,7 @@
               <h3 class="font-bold text-base text-slate-900 dark:text-white">🧠 Modo Clássico</h3>
               <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-slate-200 dark:bg-slate-800">PADRÃO</span>
             </div>
-            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Avanço por fases, 3 vidas, combo e dificuldade adaptativa.</p>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Avanço por fases, 3 vidas, combo e dificuldade progressiva extrema.</p>
           </div>
         </div>
 
@@ -306,7 +305,7 @@
               <h3 class="font-bold text-base text-slate-900 dark:text-white">♾️ Modo Infinito</h3>
               <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-accent-purple/20 text-accent-purple">SEM LIMITE</span>
             </div>
-            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Fases contínuas e dificuldade crescente até esgotar as vidas.</p>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Fases contínuas e dificuldade crescente com 3 vidas reais.</p>
           </div>
         </div>
 
@@ -342,48 +341,55 @@
 
     <!-- 3. TELA DE JOGO DA PARTIDA -->
     <section id="screen-game" class="screen-view hidden flex-col space-y-4 max-w-2xl mx-auto w-full">
-      <!-- HUD DE STATUS DA PARTIDA -->
-      <div class="glass-panel p-4 rounded-2xl flex items-center justify-between shadow-lg relative">
-        <div class="flex items-center gap-3">
-          <div>
-            <span id="hud-mode-badge" class="text-[10px] font-black uppercase px-2 py-0.5 rounded-md bg-brand-500/20 text-brand-500">CLÁSSICO</span>
-            <div class="flex items-baseline gap-1 mt-0.5">
-              <span class="text-[10px] font-bold text-slate-400 uppercase">FASE</span>
-              <p id="hud-stage" class="font-heading text-xl font-black text-brand-500">1</p>
-            </div>
+      
+      <!-- HUD DE STATUS DA PARTIDA (INFORMAÇÕES AUMENTADAS) -->
+      <div class="glass-panel p-3.5 md:p-4 rounded-2xl grid grid-cols-2 sm:grid-cols-4 gap-3 items-center shadow-lg relative">
+        <!-- FASE & DIFICULDADE -->
+        <div class="flex flex-col">
+          <span id="hud-mode-badge" class="text-[9px] font-black uppercase px-2 py-0.5 rounded-md bg-brand-500/20 text-brand-500 w-max">CLÁSSICO</span>
+          <div class="flex items-baseline gap-1 mt-1">
+            <span class="text-[10px] font-bold text-slate-400 uppercase">FASE</span>
+            <p id="hud-stage" class="font-heading text-2xl font-black text-brand-500">1</p>
           </div>
+          <span id="hud-difficulty-text" class="text-[10px] font-extrabold text-amber-500 uppercase">FÁCIL (3 ELEM)</span>
         </div>
 
-        <div>
-          <span class="text-[10px] uppercase tracking-wider font-bold text-slate-400">PONTOS</span>
+        <!-- PONTOS & COMBO -->
+        <div class="flex flex-col">
+          <span class="text-[10px] uppercase tracking-wider font-bold text-slate-400">PONTUAÇÃO</span>
           <p id="hud-score" class="font-heading text-2xl font-black text-slate-900 dark:text-white">0</p>
-        </div>
-
-        <div class="text-center">
-          <span class="text-[10px] uppercase tracking-wider font-bold text-slate-400">COMBO</span>
-          <div id="hud-combo-badge" class="px-2.5 py-0.5 rounded-full bg-accent-amber/10 border border-accent-amber/30 text-accent-amber font-heading font-black text-base flex items-center gap-1">
-            <i data-lucide="flame" class="w-3.5 h-3.5 fill-current"></i> <span id="hud-combo">x1</span>
+          <div id="hud-combo-badge" class="text-[10px] font-extrabold text-accent-amber flex items-center gap-1">
+            <i data-lucide="flame" class="w-3 h-3 fill-current"></i> COMBO <span id="hud-combo">x1</span>
           </div>
         </div>
 
-        <!-- Vidas ou Cronômetro (dependendo do modo) -->
-        <div id="hud-lives-container">
+        <!-- TEMPO MEMORIZAÇÃO -->
+        <div class="flex flex-col">
+          <span class="text-[10px] uppercase tracking-wider font-bold text-slate-400">TEMPO MEMO</span>
+          <p id="hud-memo-time" class="font-heading text-xl font-black text-accent-cyan font-code">5.0s</p>
+          <span id="hud-elements-count" class="text-[10px] font-bold text-slate-400">3 ELEMENTOS</span>
+        </div>
+
+        <!-- VIDAS OU TEMPO GLOBAL -->
+        <div id="hud-lives-container" class="flex flex-col sm:items-end">
           <span class="text-[10px] uppercase tracking-wider font-bold text-slate-400">VIDAS</span>
-          <div id="hud-lives" class="flex gap-1 text-accent-rose text-lg">
+          <div id="hud-lives" class="flex gap-1 text-accent-rose text-xl my-0.5">
             <i data-lucide="heart" class="w-5 h-5 fill-current"></i>
             <i data-lucide="heart" class="w-5 h-5 fill-current"></i>
             <i data-lucide="heart" class="w-5 h-5 fill-current"></i>
           </div>
+          <span id="hud-lives-text" class="text-[10px] font-bold text-slate-400">3 DE 3</span>
         </div>
 
-        <div id="hud-timer-container" class="hidden text-right">
-          <span class="text-[10px] uppercase tracking-wider font-bold text-accent-cyan">TEMPO TOTAL</span>
+        <div id="hud-timer-container" class="hidden flex-col sm:items-end">
+          <span class="text-[10px] uppercase tracking-wider font-bold text-accent-cyan">CRONÔMETRO</span>
           <p id="hud-timer" class="font-heading text-2xl font-black text-accent-cyan font-code">45.0s</p>
+          <span class="text-[10px] text-slate-400 font-bold">+3s ACERTO / -5s ERRO</span>
         </div>
       </div>
 
       <!-- PAINEL CENTRAL DE CONTEÚDO E PERGUNTAS -->
-      <div class="glass-panel p-6 md:p-8 rounded-3xl min-h-[360px] flex flex-col justify-between items-center text-center relative overflow-hidden shadow-2xl">
+      <div class="glass-panel p-6 md:p-8 rounded-3xl min-h-[380px] flex flex-col justify-between items-center text-center relative overflow-hidden shadow-2xl">
         
         <!-- FASE 1: MEMORIZAÇÃO -->
         <div id="game-memorize-phase" class="w-full flex-grow flex flex-col justify-center items-center space-y-6">
@@ -392,18 +398,18 @@
           </div>
 
           <!-- CARDS DE ELEMENTOS DA SEQUÊNCIA -->
-          <div id="elements-container" class="flex flex-wrap justify-center gap-3 max-w-xl my-4">
+          <div id="elements-container" class="flex flex-wrap justify-center gap-2.5 max-w-xl my-4">
             <!-- Inserido dinamicamente pelo JS -->
           </div>
 
           <!-- BARRA DE TEMPO DE MEMORIZAÇÃO -->
           <div class="w-full space-y-1 max-w-md">
             <div class="flex justify-between text-xs font-semibold text-slate-400">
-              <span>TEMPO DE MEMORIZAÇÃO</span>
+              <span>TEMPO RESTANTE</span>
               <span id="memorize-timer-text" class="font-code">5.0s</span>
             </div>
-            <div class="w-full h-2.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
-              <div id="memorize-progress-bar" class="h-full bg-gradient-to-r from-brand-500 to-accent-cyan transition-all duration-100 ease-linear w-full"></div>
+            <div class="w-full h-3 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+              <div id="memorize-progress-bar" class="h-full bg-gradient-to-r from-brand-500 via-accent-purple to-accent-cyan transition-all duration-100 ease-linear w-full"></div>
             </div>
           </div>
         </div>
@@ -424,77 +430,72 @@
           </h2>
 
           <!-- OPÇÕES DE RESPOSTA -->
-          <div id="options-container" class="grid grid-cols-1 md:grid-cols-2 gap-3 w-full max-w-lg">
+          <div id="options-container" class="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full max-w-lg">
             <!-- Botões inseridos dinamicamente -->
           </div>
         </div>
 
-        <!-- FEEDBACK OVERLAY (ACERTO / ERRO) -->
+        <!-- FEEDBACK OVERLAY (ACERTO / ERRO REAL DE VIDA) -->
         <div id="answer-feedback" class="absolute inset-0 z-20 glass-panel flex flex-col justify-center items-center text-center p-6 hidden animate-scale-up">
           <div id="feedback-icon-bg" class="p-4 rounded-full mb-3">
             <i id="feedback-icon" class="w-12 h-12 text-white"></i>
           </div>
-          <h3 id="feedback-title" class="font-heading text-3xl font-black mb-1">CORRETO!</h3>
-          <p id="feedback-subtitle" class="text-sm font-semibold text-slate-500 dark:text-slate-400 mb-4">+175 PONTOS</p>
-          <div id="feedback-details" class="flex flex-wrap justify-center gap-2">
-            <!-- Badges de velocidade / combo / xp -->
+          <h3 id="feedback-title" class="font-heading text-2xl font-black mb-1">RESPOSTA CORRETA!</h3>
+          <p id="feedback-detail" class="text-sm font-semibold text-slate-500 dark:text-slate-300 max-w-xs mb-4">A resposta era: PYTHON</p>
+          
+          <div id="feedback-lives-box" class="mb-4 bg-slate-100 dark:bg-slate-900/80 px-4 py-2 rounded-xl text-center">
+            <div id="feedback-lives-icons" class="flex justify-center gap-1.5 text-2xl mb-1 text-accent-rose">❤️❤️🖤</div>
+            <p id="feedback-lives-text" class="text-xs font-bold uppercase text-slate-400">2 VIDAS RESTANTES</p>
           </div>
+
+          <button id="feedback-continue-btn" onclick="app.nextRound()" class="py-3 px-8 bg-brand-600 hover:bg-brand-500 text-white font-heading font-extrabold text-base rounded-xl shadow-lg active:scale-95 transition">
+            CONTINUAR
+          </button>
         </div>
 
       </div>
     </section>
 
-    <!-- 4. TELA DE FIM DE JOGO -->
-    <section id="screen-game-over" class="screen-view hidden flex-col items-center text-center space-y-5 max-w-md mx-auto w-full animate-scale-up">
-      <div class="space-y-1">
-        <div class="inline-flex p-3 rounded-2xl bg-accent-rose/10 text-accent-rose mb-1">
-          <i data-lucide="skull" class="w-8 h-8"></i>
-        </div>
-        <h1 class="font-heading text-4xl font-black text-slate-900 dark:text-white">FIM DE JOGO</h1>
-        <p id="go-reason" class="text-xs text-slate-500 dark:text-slate-400">Suas vidas esgotaram!</p>
-      </div>
-
-      <div class="glass-panel w-full p-6 rounded-3xl space-y-4 shadow-xl">
-        <div class="bg-gradient-to-r from-brand-600/10 via-accent-pink/10 to-accent-amber/10 border border-brand-500/20 p-4 rounded-2xl">
-          <p class="text-[10px] font-bold text-slate-400 uppercase">PONTUAÇÃO FINAL</p>
-          <p id="go-score" class="font-heading text-5xl font-black text-brand-500 my-1">0</p>
-          <p id="go-player-name" class="text-xs font-bold text-slate-500 dark:text-slate-300 uppercase tracking-wider mb-1"></p>
-          <div id="go-new-record" class="hidden inline-flex items-center gap-1 text-xs font-extrabold px-3 py-1 rounded-full bg-accent-amber text-slate-900">
-            <i data-lucide="crown" class="w-3.5 h-3.5"></i> NOVO RECORDE!
-          </div>
+    <!-- 4. TELA DE FIM DE JOGO (GAME OVER) -->
+    <section id="screen-gameover" class="screen-view hidden flex-col items-center text-center space-y-6 max-w-md mx-auto w-full animate-scale-up">
+      <div class="glass-panel p-6 rounded-3xl w-full space-y-5 shadow-2xl relative overflow-hidden">
+        <div class="bg-accent-rose/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto text-accent-rose">
+          <i data-lucide="skull" class="w-10 h-10"></i>
         </div>
 
-        <div class="grid grid-cols-3 gap-2 text-center pt-1">
-          <div class="p-2 bg-slate-100 dark:bg-slate-900/50 rounded-xl">
-            <p class="text-[10px] text-slate-400 font-bold uppercase">FASE</p>
-            <p id="go-stage" class="font-heading text-lg font-extrabold">1</p>
+        <div>
+          <h2 class="font-heading text-3xl font-black text-slate-900 dark:text-white">FIM DE JOGO</h2>
+          <p id="gameover-reason" class="text-xs text-slate-400 font-bold mt-1">Suas vidas chegaram a 0.</p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-2 bg-slate-100 dark:bg-slate-900/80 p-4 rounded-2xl text-center">
+          <div>
+            <p class="text-[10px] text-slate-400 font-bold uppercase">PONTUAÇÃO FINAL</p>
+            <p id="gameover-score" class="font-heading text-2xl font-black text-brand-500">0</p>
           </div>
-          <div class="p-2 bg-slate-100 dark:bg-slate-900/50 rounded-xl">
-            <p class="text-[10px] text-slate-400 font-bold uppercase">MAIOR COMBO</p>
-            <p id="go-combo" class="font-heading text-lg font-extrabold text-accent-amber">x1</p>
+          <div>
+            <p class="text-[10px] text-slate-400 font-bold uppercase">FASE ALCANÇADA</p>
+            <p id="gameover-stage" class="font-heading text-2xl font-black text-accent-pink">1</p>
           </div>
-          <div class="p-2 bg-slate-100 dark:bg-slate-900/50 rounded-xl">
-            <p class="text-[10px] text-slate-400 font-bold uppercase">XP GANHO</p>
-            <p id="go-xp" class="font-heading text-lg font-extrabold text-brand-500">+0 XP</p>
+          <div class="col-span-2 border-t border-slate-200 dark:border-slate-800 pt-2 mt-1 flex justify-between px-2 text-xs font-bold text-slate-400">
+            <span>XP GANHO: <strong id="gameover-xp" class="text-accent-emerald">+0 XP</strong></span>
+            <span>MAIOR COMBO: <strong id="gameover-combo" class="text-accent-amber">x0</strong></span>
           </div>
         </div>
-      </div>
 
-      <div class="w-full space-y-2">
-        <button onclick="app.startSelectedGame()" class="w-full py-3.5 px-6 bg-gradient-to-r from-brand-600 to-accent-pink text-white font-heading font-extrabold text-lg rounded-2xl shadow-lg active:scale-95 transition flex items-center justify-center gap-2">
-          <i data-lucide="rotate-ccw" class="w-5 h-5"></i> JOGAR NOVAMENTE
-        </button>
-        <button onclick="app.showScreen('ranking')" class="w-full py-3 px-6 bg-slate-200 dark:bg-slate-800 font-bold text-slate-700 dark:text-slate-200 rounded-2xl transition text-xs flex items-center justify-center gap-2">
-          <i data-lucide="trophy" class="w-4 h-4 text-amber-500"></i> VER RANKING
-        </button>
-        <button onclick="app.showScreen('main-menu')" class="w-full py-2 px-6 text-slate-500 hover:text-slate-700 dark:text-slate-400 font-bold text-xs transition">
-          MENU PRINCIPAL
-        </button>
+        <div class="space-y-2">
+          <button onclick="app.restartGame()" class="w-full py-3.5 px-6 bg-gradient-to-r from-brand-600 to-accent-pink hover:opacity-95 text-white font-heading font-extrabold text-base rounded-xl shadow-lg active:scale-95 transition flex items-center justify-center gap-2">
+            <i data-lucide="rotate-ccw" class="w-5 h-5"></i> JOGAR NOVAMENTE
+          </button>
+          <button onclick="app.showScreen('main-menu')" class="w-full py-3 px-6 bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-heading font-bold text-sm rounded-xl transition">
+            MENU PRINCIPAL
+          </button>
+        </div>
       </div>
     </section>
 
-    <!-- 5. TELA DE MISSÕES DIÁRIAS -->
-    <section id="screen-missions" class="screen-view hidden flex-col space-y-5 max-w-md mx-auto w-full animate-scale-up">
+    <!-- 5. TELA DE MISSÕES -->
+    <section id="screen-missions" class="screen-view hidden flex-col space-y-5 max-w-lg mx-auto w-full animate-scale-up">
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-2">
           <i data-lucide="target" class="w-7 h-7 text-accent-pink"></i>
@@ -505,15 +506,13 @@
         </button>
       </div>
 
-      <p class="text-xs text-slate-500 dark:text-slate-400">Complete os desafios do dia para ganhar XP bônus!</p>
-
-      <div id="missions-list" class="space-y-3">
+      <div id="missions-list-container" class="space-y-3">
         <!-- Inserido dinamicamente via JS -->
       </div>
     </section>
 
     <!-- 6. TELA DE CONQUISTAS -->
-    <section id="screen-achievements" class="screen-view hidden flex-col space-y-5 max-w-md mx-auto w-full animate-scale-up">
+    <section id="screen-achievements" class="screen-view hidden flex-col space-y-5 max-w-lg mx-auto w-full animate-scale-up">
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-2">
           <i data-lucide="award" class="w-7 h-7 text-accent-amber"></i>
@@ -524,17 +523,13 @@
         </button>
       </div>
 
-      <div class="flex justify-between items-center text-xs font-bold text-slate-400 px-1">
-        <span>DESBLOQUEADAS: <span id="achievements-count" class="text-brand-500">0 / 9</span></span>
-      </div>
-
-      <div id="achievements-grid" class="space-y-2.5 max-h-[400px] overflow-y-auto pr-1">
+      <div id="achievements-list-container" class="space-y-3">
         <!-- Inserido dinamicamente via JS -->
       </div>
     </section>
 
-    <!-- 7. TELA DE ESTATÍSTICAS DO JOGADOR -->
-    <section id="screen-stats" class="screen-view hidden flex-col space-y-5 max-w-md mx-auto w-full animate-scale-up">
+    <!-- 7. TELA DE ESTATÍSTICAS -->
+    <section id="screen-stats" class="screen-view hidden flex-col space-y-5 max-w-lg mx-auto w-full animate-scale-up">
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-2">
           <i data-lucide="bar-chart-2" class="w-7 h-7 text-accent-cyan"></i>
@@ -545,162 +540,147 @@
         </button>
       </div>
 
-      <div class="glass-panel p-5 rounded-3xl space-y-4 shadow-xl">
-        <div class="grid grid-cols-2 gap-3 text-center">
-          <div class="p-3 bg-slate-100 dark:bg-slate-900/60 rounded-2xl">
-            <p class="text-[10px] text-slate-400 font-bold uppercase">PARTIDAS JOGADAS</p>
-            <p id="stat-matches" class="font-heading text-2xl font-black">0</p>
-          </div>
-          <div class="p-3 bg-slate-100 dark:bg-slate-900/60 rounded-2xl">
-            <p class="text-[10px] text-slate-400 font-bold uppercase">TAXA DE ACERTO</p>
-            <p id="stat-accuracy" class="font-heading text-2xl font-black text-accent-emerald">0%</p>
-          </div>
-          <div class="p-3 bg-slate-100 dark:bg-slate-900/60 rounded-2xl">
-            <p class="text-[10px] text-slate-400 font-bold uppercase">ACERTOS TOTAL</p>
-            <p id="stat-hits" class="font-heading text-xl font-bold text-brand-500">0</p>
-          </div>
-          <div class="p-3 bg-slate-100 dark:bg-slate-900/60 rounded-2xl">
-            <p class="text-[10px] text-slate-400 font-bold uppercase">ERROS TOTAL</p>
-            <p id="stat-misses" class="font-heading text-xl font-bold text-accent-rose">0</p>
-          </div>
-          <div class="p-3 bg-slate-100 dark:bg-slate-900/60 rounded-2xl">
-            <p class="text-[10px] text-slate-400 font-bold uppercase">MAIOR COMBO</p>
-            <p id="stat-max-combo" class="font-heading text-xl font-bold text-accent-amber">x0</p>
-          </div>
-          <div class="p-3 bg-slate-100 dark:bg-slate-900/60 rounded-2xl">
-            <p class="text-[10px] text-slate-400 font-bold uppercase">TEMPO MÉDIO</p>
-            <p id="stat-avg-time" class="font-heading text-xl font-bold text-accent-cyan font-code">0.00s</p>
-          </div>
+      <div class="grid grid-cols-2 gap-3">
+        <div class="glass-panel p-4 rounded-2xl text-center">
+          <p class="text-[10px] text-slate-400 font-bold uppercase">PARTIDAS JOGADAS</p>
+          <p id="stat-total-games" class="font-heading text-2xl font-black text-brand-500">0</p>
         </div>
-
-        <div class="border-t border-slate-200 dark:border-slate-800 pt-3 space-y-2 text-xs">
-          <div class="flex justify-between text-slate-400 font-medium">
-            <span>Missões Concluídas:</span>
-            <span id="stat-missions-done" class="font-bold text-slate-800 dark:text-white">0</span>
-          </div>
-          <div class="flex justify-between text-slate-400 font-medium">
-            <span>Conquistas Liberadas:</span>
-            <span id="stat-achievements-done" class="font-bold text-slate-800 dark:text-white">0 / 9</span>
-          </div>
+        <div class="glass-panel p-4 rounded-2xl text-center">
+          <p class="text-[10px] text-slate-400 font-bold uppercase">TAXA DE ACERTO</p>
+          <p id="stat-accuracy" class="font-heading text-2xl font-black text-accent-emerald">0%</p>
+        </div>
+        <div class="glass-panel p-4 rounded-2xl text-center">
+          <p class="text-[10px] text-slate-400 font-bold uppercase">TOTAL DE ACERTOS</p>
+          <p id="stat-correct-answers" class="font-heading text-2xl font-black text-accent-cyan">0</p>
+        </div>
+        <div class="glass-panel p-4 rounded-2xl text-center">
+          <p class="text-[10px] text-slate-400 font-bold uppercase">TOTAL DE ERROS</p>
+          <p id="stat-wrong-answers" class="font-heading text-2xl font-black text-accent-rose">0</p>
         </div>
       </div>
     </section>
 
-    <!-- 8. TELA CONFIGURAÇÕES & PERSONALIZAÇÃO -->
-    <section id="screen-settings" class="screen-view hidden flex-col space-y-5 max-w-md mx-auto w-full animate-scale-up">
-      <div class="flex items-center justify-between">
-        <div class="flex items-center gap-2">
-          <i data-lucide="palette" class="w-7 h-7 text-brand-500"></i>
-          <h1 class="font-heading text-3xl font-black text-slate-900 dark:text-white">PERSONALIZAR</h1>
-        </div>
-        <button onclick="app.showScreen('main-menu')" class="p-2 rounded-xl bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
-          <i data-lucide="x" class="w-5 h-5"></i>
-        </button>
-      </div>
-
-      <div class="glass-panel p-6 rounded-3xl space-y-6 shadow-xl">
-        <!-- SELEÇÃO DE TEMA VISUAL -->
-        <div class="space-y-3">
-          <p class="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-2">
-            <i data-lucide="paint-bucket" class="w-4 h-4 text-brand-500"></i> Tema Visual
-          </p>
-          <div class="grid grid-cols-3 gap-2">
-            <button onclick="app.setThemeStyle('neon')" class="p-2.5 rounded-xl border border-cyan-500/40 bg-slate-950 text-cyan-400 font-bold text-xs flex flex-col items-center gap-1 hover:scale-105 transition">
-              🌈 Neon
-            </button>
-            <button onclick="app.setThemeStyle('purple')" class="p-2.5 rounded-xl border border-purple-500/40 bg-purple-950 text-purple-300 font-bold text-xs flex flex-col items-center gap-1 hover:scale-105 transition">
-              💜 Roxo
-            </button>
-            <button onclick="app.setThemeStyle('hacker')" class="p-2.5 rounded-xl border border-emerald-500/40 bg-black text-emerald-400 font-bold text-xs flex flex-col items-center gap-1 hover:scale-105 transition">
-              💚 Hacker
-            </button>
-            <button onclick="app.setThemeStyle('azul')" class="p-2.5 rounded-xl border border-sky-500/40 bg-slate-900 text-sky-400 font-bold text-xs flex flex-col items-center gap-1 hover:scale-105 transition">
-              🔵 Azul
-            </button>
-            <button onclick="app.setThemeStyle('dark')" class="p-2.5 rounded-xl border border-slate-700 bg-slate-950 text-slate-200 font-bold text-xs flex flex-col items-center gap-1 hover:scale-105 transition">
-              🌑 Dark
-            </button>
-            <button onclick="app.setThemeStyle('light')" class="p-2.5 rounded-xl border border-slate-300 bg-slate-100 text-slate-800 font-bold text-xs flex flex-col items-center gap-1 hover:scale-105 transition">
-              ☀️ Light
-            </button>
-          </div>
-        </div>
-
-        <!-- CATEGORIAS DE CONTEÚDO DAS SEQUÊNCIAS -->
-        <div class="border-t border-slate-200 dark:border-slate-800 pt-4 space-y-3">
-          <p class="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-2">
-            <i data-lucide="layers" class="w-4 h-4 text-accent-pink"></i> Conteúdo das Sequências
-          </p>
-          <p class="text-xs text-slate-400">Ative ou desative os tipos de itens que aparecerão no jogo:</p>
-
-          <div class="grid grid-cols-2 gap-2">
-            <label class="flex items-center justify-between p-3 rounded-xl bg-slate-100 dark:bg-slate-900/60 cursor-pointer">
-              <span class="text-xs font-bold">😃 Emojis</span>
-              <input type="checkbox" id="cat-emojis" onchange="app.toggleCategory('emojis')" class="w-4 h-4 accent-brand-500" checked>
-            </label>
-            <label class="flex items-center justify-between p-3 rounded-xl bg-slate-100 dark:bg-slate-900/60 cursor-pointer">
-              <span class="text-xs font-bold">🔤 Palavras</span>
-              <input type="checkbox" id="cat-words" onchange="app.toggleCategory('words')" class="w-4 h-4 accent-brand-500" checked>
-            </label>
-            <label class="flex items-center justify-between p-3 rounded-xl bg-slate-100 dark:bg-slate-900/60 cursor-pointer">
-              <span class="text-xs font-bold">🎨 Cores</span>
-              <input type="checkbox" id="cat-colors" onchange="app.toggleCategory('colors')" class="w-4 h-4 accent-brand-500" checked>
-            </label>
-            <label class="flex items-center justify-between p-3 rounded-xl bg-slate-100 dark:bg-slate-900/60 cursor-pointer">
-              <span class="text-xs font-bold">🔢 Números</span>
-              <input type="checkbox" id="cat-numbers" onchange="app.toggleCategory('numbers')" class="w-4 h-4 accent-brand-500" checked>
-            </label>
-          </div>
-        </div>
-
-        <!-- SOM -->
-        <div class="border-t border-slate-200 dark:border-slate-800 pt-4 flex items-center justify-between">
-          <div>
-            <p class="font-bold text-sm text-slate-900 dark:text-white">Efeitos Sonoros</p>
-            <p class="text-xs text-slate-400">Áudio sintetizado via Web Audio API</p>
-          </div>
-          <button id="setting-sound-btn" onclick="app.toggleSound()" class="w-12 h-6 rounded-full bg-brand-600 p-1 transition flex items-center justify-end">
-            <div class="w-4 h-4 bg-white rounded-full"></div>
-          </button>
-        </div>
-      </div>
-
-      <button onclick="app.showScreen('main-menu')" class="w-full py-3.5 bg-brand-600 text-white font-bold rounded-2xl shadow-lg">
-        SALVAR E VOLTAR
-      </button>
-    </section>
-
-    <!-- 9. TELA DE RANKING -->
-    <section id="screen-ranking" class="screen-view hidden flex-col space-y-5 max-w-md mx-auto w-full animate-scale-up">
+    <!-- 8. TELA DE RANKING -->
+    <section id="screen-ranking" class="screen-view hidden flex-col space-y-5 max-w-lg mx-auto w-full animate-scale-up">
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-2">
           <i data-lucide="trophy" class="w-7 h-7 text-amber-500"></i>
-          <h1 class="font-heading text-3xl font-black text-slate-900 dark:text-white">RANKING</h1>
+          <h1 class="font-heading text-3xl font-black text-slate-900 dark:text-white">RANKING LOCAL</h1>
         </div>
         <button onclick="app.showScreen('main-menu')" class="p-2 rounded-xl bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
 
-      <div class="glass-panel rounded-3xl p-4 shadow-xl overflow-hidden">
-        <div id="ranking-list" class="space-y-2 max-h-[380px] overflow-y-auto pr-1">
-          <!-- Inserido dinamicamente via JS -->
+      <div class="glass-panel p-4 rounded-2xl">
+        <div id="ranking-list-container" class="space-y-2">
+          <!-- Inserido via JS -->
         </div>
-      </div>
-
-      <div class="flex justify-between items-center text-xs text-slate-400 px-2">
-        <span>Salvo localmente</span>
-        <button onclick="app.openClearConfirmModal()" class="px-3 py-1.5 bg-rose-500/10 hover:bg-rose-500/20 text-accent-rose rounded-xl font-bold transition flex items-center gap-1.5">
-          <i data-lucide="trash-2" class="w-3.5 h-3.5"></i> LIMPAR RANKING
-        </button>
       </div>
     </section>
 
-    <!-- 10. TELA COMO JOGAR -->
-    <section id="screen-how-to-play" class="screen-view hidden flex-col space-y-5 max-w-md mx-auto w-full animate-scale-up">
+    <!-- 9. TELA DE PERFIL -->
+    <section id="screen-profile" class="screen-view hidden flex-col space-y-5 max-w-lg mx-auto w-full animate-scale-up">
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-2">
-          <i data-lucide="help-circle" class="w-7 h-7 text-accent-cyan"></i>
+          <i data-lucide="user" class="w-7 h-7 text-brand-500"></i>
+          <h1 class="font-heading text-3xl font-black text-slate-900 dark:text-white">MEU PERFIL</h1>
+        </div>
+        <button onclick="app.showScreen('main-menu')" class="p-2 rounded-xl bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="glass-panel p-5 rounded-2xl space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-400 uppercase mb-1">Nome de Desenvolvedor / Jogador</label>
+          <div class="flex gap-2">
+            <input type="text" id="input-player-name" class="flex-grow bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 px-4 py-2.5 rounded-xl font-bold text-sm text-slate-800 dark:text-white focus:outline-none focus:border-brand-500" placeholder="Seu Nome">
+            <button onclick="app.saveProfileName()" class="px-5 py-2.5 bg-brand-600 text-white font-bold text-sm rounded-xl hover:bg-brand-500 transition">SALVAR</button>
+          </div>
+        </div>
+
+        <div class="border-t border-slate-200 dark:border-slate-800 pt-3">
+          <p class="text-xs font-bold text-slate-400 uppercase mb-2">Nível & Experiência</p>
+          <div class="flex justify-between text-sm font-bold">
+            <span id="profile-level-text" class="text-brand-500">NÍVEL 1</span>
+            <span id="profile-xp-text" class="text-slate-400">0 / 100 XP</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. TELA DE CONFIGURAÇÕES -->
+    <section id="screen-settings" class="screen-view hidden flex-col space-y-5 max-w-lg mx-auto w-full animate-scale-up">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <i data-lucide="palette" class="w-7 h-7 text-brand-500"></i>
+          <h1 class="font-heading text-3xl font-black text-slate-900 dark:text-white">CONFIGURAÇÕES</h1>
+        </div>
+        <button onclick="app.showScreen('main-menu')" class="p-2 rounded-xl bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="glass-panel p-5 rounded-2xl space-y-5">
+        <!-- SELEÇÃO DE TEMAS VISUAIS -->
+        <div>
+          <h3 class="font-bold text-sm text-slate-800 dark:text-slate-200 mb-3 uppercase tracking-wider">Temas Visuais</h3>
+          <div class="grid grid-cols-3 gap-2">
+            <button onclick="app.setTheme('dark')" class="p-2.5 rounded-xl border border-slate-700 bg-slate-900 text-xs font-bold text-white flex flex-col items-center gap-1">
+              <span class="w-4 h-4 rounded-full bg-slate-800 border"></span> Escuro
+            </button>
+            <button onclick="app.setTheme('light')" class="p-2.5 rounded-xl border border-slate-300 bg-slate-100 text-xs font-bold text-slate-900 flex flex-col items-center gap-1">
+              <span class="w-4 h-4 rounded-full bg-white border"></span> Claro
+            </button>
+            <button onclick="app.setTheme('neon')" class="p-2.5 rounded-xl border border-cyan-500 bg-slate-950 text-xs font-bold text-cyan-400 flex flex-col items-center gap-1">
+              <span class="w-4 h-4 rounded-full bg-cyan-400"></span> Cyber Neon
+            </button>
+            <button onclick="app.setTheme('purple')" class="p-2.5 rounded-xl border border-purple-500 bg-purple-950 text-xs font-bold text-purple-300 flex flex-col items-center gap-1">
+              <span class="w-4 h-4 rounded-full bg-purple-500"></span> Roxo Synth
+            </button>
+            <button onclick="app.setTheme('hacker')" class="p-2.5 rounded-xl border border-emerald-500 bg-black text-xs font-bold text-emerald-400 flex flex-col items-center gap-1">
+              <span class="w-4 h-4 rounded-full bg-emerald-500"></span> Hacker
+            </button>
+            <button onclick="app.setTheme('azul')" class="p-2.5 rounded-xl border border-sky-500 bg-slate-900 text-xs font-bold text-sky-300 flex flex-col items-center gap-1">
+              <span class="w-4 h-4 rounded-full bg-sky-500"></span> Ocean Tech
+            </button>
+          </div>
+        </div>
+
+        <!-- CATEGORIAS DE ELEMENTOS -->
+        <div class="border-t border-slate-200 dark:border-slate-800 pt-4">
+          <h3 class="font-bold text-sm text-slate-800 dark:text-slate-200 mb-3 uppercase tracking-wider">Categorias de Elementos</h3>
+          <div class="grid grid-cols-2 gap-2">
+            <label class="flex items-center gap-2 p-2.5 bg-slate-100 dark:bg-slate-900/60 rounded-xl cursor-pointer text-xs font-bold">
+              <input type="checkbox" id="cat-words" checked onchange="app.toggleCategory('words')" class="rounded text-brand-600 focus:ring-0"> Palavras Programação
+            </label>
+            <label class="flex items-center gap-2 p-2.5 bg-slate-100 dark:bg-slate-900/60 rounded-xl cursor-pointer text-xs font-bold">
+              <input type="checkbox" id="cat-emojis" checked onchange="app.toggleCategory('emojis')" class="rounded text-brand-600 focus:ring-0"> Emojis & Símbolos
+            </label>
+            <label class="flex items-center gap-2 p-2.5 bg-slate-100 dark:bg-slate-900/60 rounded-xl cursor-pointer text-xs font-bold">
+              <input type="checkbox" id="cat-colors" checked onchange="app.toggleCategory('colors')" class="rounded text-brand-600 focus:ring-0"> Cores & Tons
+            </label>
+            <label class="flex items-center gap-2 p-2.5 bg-slate-100 dark:bg-slate-900/60 rounded-xl cursor-pointer text-xs font-bold">
+              <input type="checkbox" id="cat-numbers" checked onchange="app.toggleCategory('numbers')" class="rounded text-brand-600 focus:ring-0"> Números & Códigos
+            </label>
+          </div>
+        </div>
+
+        <!-- REINICIAR DADOS -->
+        <div class="border-t border-slate-200 dark:border-slate-800 pt-4">
+          <button onclick="app.resetData()" class="w-full py-2.5 px-4 bg-rose-500/10 text-rose-500 hover:bg-rose-500/20 text-xs font-bold rounded-xl transition">
+            Zerar Todo o Progresso e Dados
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11. TELA COMO JOGAR -->
+    <section id="screen-how-to-play" class="screen-view hidden flex-col space-y-5 max-w-lg mx-auto w-full animate-scale-up">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <i data-lucide="help-circle" class="w-7 h-7 text-brand-500"></i>
           <h1 class="font-heading text-3xl font-black text-slate-900 dark:text-white">COMO JOGAR</h1>
         </div>
         <button onclick="app.showScreen('main-menu')" class="p-2 rounded-xl bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
@@ -708,1086 +688,971 @@
         </button>
       </div>
 
-      <div class="glass-panel p-6 rounded-3xl space-y-4 text-sm leading-relaxed shadow-xl">
-        <div class="flex gap-3 items-start">
-          <div class="p-2.5 bg-brand-500/10 text-brand-500 rounded-xl font-black font-heading text-lg">1</div>
-          <div>
-            <h3 class="font-bold text-slate-900 dark:text-white">Memorize Rapidamente</h3>
-            <p class="text-xs text-slate-400">Uma sequência de elementos (códigos, emojis, cores ou números) é exibida na tela durante alguns segundos.</p>
-          </div>
+      <div class="glass-panel p-5 rounded-2xl space-y-4 text-xs font-medium text-slate-600 dark:text-slate-300 leading-relaxed">
+        <div class="flex gap-3">
+          <span class="w-6 h-6 rounded-full bg-brand-500 text-white flex items-center justify-center font-bold flex-shrink-0">1</span>
+          <p><strong class="text-slate-900 dark:text-white">Memorize a Sequência:</strong> Uma sequência de termos de programação, emojis, cores ou números aparecerá na tela por alguns segundos.</p>
         </div>
-
-        <div class="flex gap-3 items-start border-t border-slate-200 dark:border-slate-800 pt-3">
-          <div class="p-2.5 bg-accent-pink/10 text-accent-pink rounded-xl font-black font-heading text-lg">2</div>
-          <div>
-            <h3 class="font-bold text-slate-900 dark:text-white">Responda à Pergunta</h3>
-            <p class="text-xs text-slate-400">Uma pergunta inteligente surgirá sobre a ordem, frequência ou ausência de elementos. Escolha a resposta correta.</p>
-          </div>
+        <div class="flex gap-3">
+          <span class="w-6 h-6 rounded-full bg-brand-500 text-white flex items-center justify-center font-bold flex-shrink-0">2</span>
+          <p><strong class="text-slate-900 dark:text-white">Responda ao Desafio:</strong> A sequência desaparecerá e uma pergunta sobre a ordem, posições ou vizinhança será feita.</p>
         </div>
-
-        <div class="flex gap-3 items-start border-t border-slate-200 dark:border-slate-800 pt-3">
-          <div class="p-2.5 bg-accent-amber/10 text-accent-amber rounded-xl font-black font-heading text-lg">3</div>
-          <div>
-            <h3 class="font-bold text-slate-900 dark:text-white">Mantenha o Combo</h3>
-            <p class="text-xs text-slate-400">Respostas rápidas em menos de 1.5s concedem bônus de velocidade e multiplicam seus pontos!</p>
-          </div>
+        <div class="flex gap-3">
+          <span class="w-6 h-6 rounded-full bg-brand-500 text-white flex items-center justify-center font-bold flex-shrink-0">3</span>
+          <p><strong class="text-slate-900 dark:text-white">Atenção às Vidas:</strong> No Modo Clássico você possui 3 vidas. Cada erro remove EXATAMENTE 1 vida (❤️). Se chegar a 0, a partida termina!</p>
         </div>
-      </div>
-
-      <button onclick="app.showScreen('main-menu')" class="w-full py-3.5 bg-brand-600 text-white font-bold rounded-2xl shadow-lg">
-        ENTENDI! VOLTAR AO MENU
-      </button>
-    </section>
-
-    <!-- 11. TELA DE PERFIL / NÍVEL -->
-    <section id="screen-profile" class="screen-view hidden flex-col space-y-5 max-w-md mx-auto w-full animate-scale-up">
-      <div class="flex items-center justify-between">
-        <div class="flex items-center gap-2">
-          <i data-lucide="user" class="w-7 h-7 text-brand-500"></i>
-          <h1 class="font-heading text-3xl font-black text-slate-900 dark:text-white">PERFIL</h1>
-        </div>
-        <button onclick="app.showScreen('main-menu')" class="p-2 rounded-xl bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
-          <i data-lucide="x" class="w-5 h-5"></i>
-        </button>
-      </div>
-
-      <div class="glass-panel p-6 rounded-3xl space-y-5 shadow-xl">
-        <div class="flex items-center gap-4">
-          <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-brand-600 to-accent-pink flex items-center justify-center text-white font-heading font-black text-2xl shadow-lg">
-            <span id="profile-level-badge">1</span>
-          </div>
-          <div class="flex-grow">
-            <div class="flex items-center gap-2">
-              <input type="text" id="profile-name-input" class="bg-transparent font-heading font-black text-xl text-slate-900 dark:text-white border-b border-dashed border-slate-400 focus:border-brand-500 outline-none w-full" value="Dev" maxlength="15">
-              <button onclick="app.saveProfileName()" class="p-1.5 bg-brand-500 text-white rounded-lg text-xs" title="Salvar Nome"><i data-lucide="check" class="w-4 h-4"></i></button>
-            </div>
-            <p class="text-xs text-slate-400 mt-1">Toque no nome para editar</p>
-          </div>
-        </div>
-
-        <div class="space-y-1">
-          <div class="flex justify-between text-xs font-bold text-slate-400">
-            <span>EXPERIÊNCIA (XP)</span>
-            <span id="profile-xp-text">0 / 100 XP</span>
-          </div>
-          <div class="w-full h-3 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
-            <div id="profile-xp-bar" class="h-full bg-gradient-to-r from-brand-500 to-accent-pink transition-all duration-300 w-0"></div>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-2 gap-3 text-center border-t border-slate-200 dark:border-slate-800 pt-4">
-          <div class="p-2.5 bg-slate-100 dark:bg-slate-900/60 rounded-xl">
-            <p class="text-[10px] text-slate-400 font-bold uppercase">RECORDE</p>
-            <p id="profile-stat-score" class="font-heading text-xl font-bold text-brand-500">0</p>
-          </div>
-          <div class="p-2.5 bg-slate-100 dark:bg-slate-900/60 rounded-xl">
-            <p class="text-[10px] text-slate-400 font-bold uppercase">MAIOR COMBO</p>
-            <p id="profile-stat-combo" class="font-heading text-xl font-bold text-accent-amber">x0</p>
-          </div>
+        <div class="flex gap-3">
+          <span class="w-6 h-6 rounded-full bg-brand-500 text-white flex items-center justify-center font-bold flex-shrink-0">4</span>
+          <p><strong class="text-slate-900 dark:text-white">Dificuldade Crescente:</strong> Quanto maior a fase, mais elementos para memorizar e menos tempo disponível!</p>
         </div>
       </div>
     </section>
 
   </main>
 
-  <!-- MODAL: NOME DO JOGADOR (INÍCIO RÁPIDO) -->
-  <div id="modal-player-name" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-md flex items-center justify-center p-4 hidden animate-scale-up">
-    <div class="glass-panel max-w-sm w-full p-6 rounded-3xl space-y-4 shadow-2xl">
-      <div class="text-center space-y-1">
-        <h3 class="font-heading text-2xl font-black text-slate-900 dark:text-white">IDENTIFICAÇÃO</h3>
-        <p class="text-xs text-slate-400">Digite seu apelido ou nick de desenvolvedor:</p>
-      </div>
-
-      <input type="text" id="modal-name-input" placeholder="Seu Nick Ex: DevMaster" maxlength="15" class="w-full px-4 py-3 bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-xl font-bold text-slate-900 dark:text-white focus:outline-none focus:border-brand-500 text-center">
-
-      <button onclick="app.confirmPlayerName()" class="w-full py-3.5 bg-gradient-to-r from-brand-600 to-accent-pink text-white font-bold rounded-xl shadow-md">
-        INICIAR DESAFIO
-      </button>
-    </div>
-  </div>
-
-  <!-- MODAL: CONFIRMAÇÃO DE LIMPEZA -->
-  <div id="modal-clear-confirm" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-md flex items-center justify-center p-4 hidden animate-scale-up">
-    <div class="glass-panel max-w-sm w-full p-6 rounded-3xl space-y-4 text-center shadow-2xl">
-      <div class="p-3 bg-rose-500/10 text-accent-rose rounded-full w-12 h-12 mx-auto flex items-center justify-center">
-        <i data-lucide="alert-triangle" class="w-6 h-6"></i>
-      </div>
-      <h3 class="font-heading text-xl font-black text-slate-900 dark:text-white">Zerar Dados?</h3>
-      <p class="text-xs text-slate-400">Deseja realmente apagar todo o seu histórico de ranking do localStorage?</p>
-      
-      <div class="grid grid-cols-2 gap-2">
-        <button onclick="app.closeClearModal()" class="py-2.5 bg-slate-200 dark:bg-slate-800 font-bold text-xs rounded-xl">CANCELAR</button>
-        <button onclick="app.clearRanking()" class="py-2.5 bg-rose-600 text-white font-bold text-xs rounded-xl">SIM, ZERAR</button>
-      </div>
-    </div>
-  </div>
-
   <!-- RODAPÉ -->
-  <footer class="w-full text-center py-3 text-[10px] text-slate-500 font-mono border-t border-slate-200 dark:border-slate-800/80">
-    MEMO RUSH &copy; 2026 // IA ADAPTATIVA & PERFORMANCE ENGINE
+  <footer class="w-full py-4 text-center text-xs font-semibold text-slate-400 border-t border-slate-200/50 dark:border-slate-800/50">
+    MEMO RUSH &copy; 2026 — Edição Pro para Desenvolvedores
   </footer>
 
   <script>
-    /* ==========================================================================
-       1. SISTEMA DE ÁUDIO SINTETIZADO (Web Audio API)
-       ========================================================================== */
+    // SINTETIZADOR DE SOM VIA WEB AUDIO API
     class SoundEngine {
       constructor() {
         this.ctx = null;
         this.enabled = true;
       }
 
-      init() {
+      initCtx() {
         if (!this.ctx) {
-          const AudioContext = window.AudioContext || window.webkitAudioContext;
-          if (AudioContext) this.ctx = new AudioContext();
+          const AudioCtx = window.AudioContext || window.webkitAudioContext;
+          if (AudioCtx) this.ctx = new AudioCtx();
+        }
+        if (this.ctx && this.ctx.state === 'suspended') {
+          this.ctx.resume();
         }
       }
 
-      playBeep(freq, duration, type = 'sine', gainVal = 0.1) {
+      playClick() {
         if (!this.enabled) return;
-        this.init();
+        this.initCtx();
         if (!this.ctx) return;
-
-        try {
-          const osc = this.ctx.createOscillator();
-          const gain = this.ctx.createGain();
-          osc.type = type;
-          osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
-          gain.gain.setValueAtTime(gainVal, this.ctx.currentTime);
-          gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + duration);
-
-          osc.connect(gain);
-          gain.connect(this.ctx.destination);
-
-          osc.start();
-          osc.stop(this.ctx.currentTime + duration);
-        } catch (e) {}
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(600, this.ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(800, this.ctx.currentTime + 0.05);
+        gain.gain.setValueAtTime(0.15, this.ctx.currentTime);
+        gain.gain.linearRampToValueAtTime(0.01, this.ctx.currentTime + 0.05);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start();
+        osc.stop(this.ctx.currentTime + 0.05);
       }
 
       playCorrect() {
         if (!this.enabled) return;
-        this.playBeep(523.25, 0.1, 'triangle', 0.15); // C5
-        setTimeout(() => this.playBeep(659.25, 0.1, 'triangle', 0.15), 80); // E5
-        setTimeout(() => this.playBeep(783.99, 0.2, 'triangle', 0.15), 160); // G5
+        this.initCtx();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        [523.25, 659.25, 783.99, 1046.50].forEach((freq, idx) => {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(freq, now + idx * 0.06);
+          gain.gain.setValueAtTime(0.2, now + idx * 0.06);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.06 + 0.2);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(now + idx * 0.06);
+          osc.stop(now + idx * 0.06 + 0.2);
+        });
       }
 
       playWrong() {
         if (!this.enabled) return;
-        this.playBeep(220, 0.15, 'sawtooth', 0.2); // A3
-        setTimeout(() => this.playBeep(180, 0.25, 'sawtooth', 0.2), 120);
+        this.initCtx();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(220, now);
+        osc.frequency.linearRampToValueAtTime(110, now + 0.3);
+        gain.gain.setValueAtTime(0.3, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.3);
       }
 
-      playCombo() {
+      playGameOver() {
         if (!this.enabled) return;
-        this.playBeep(880, 0.08, 'sine', 0.12);
-        setTimeout(() => this.playBeep(1108.73, 0.15, 'sine', 0.12), 70);
-      }
-
-      playAchievement() {
-        if (!this.enabled) return;
-        this.playBeep(440, 0.1, 'square', 0.1);
-        setTimeout(() => this.playBeep(554.37, 0.1, 'square', 0.1), 100);
-        setTimeout(() => this.playBeep(659.25, 0.15, 'square', 0.1), 200);
-        setTimeout(() => this.playBeep(880, 0.3, 'square', 0.12), 300);
+        this.initCtx();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        [300, 260, 220, 150].forEach((freq, idx) => {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(freq, now + idx * 0.12);
+          gain.gain.setValueAtTime(0.25, now + idx * 0.12);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + idx * 0.12 + 0.25);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(now + idx * 0.12);
+          osc.stop(now + idx * 0.12 + 0.25);
+        });
       }
     }
 
-    /* ==========================================================================
-       2. REPOSITÓRIOS DE DADOS DE CONTEÚDO (EMOJIS, PALAVRAS, CORES, NÚMEROS)
-       ========================================================================== */
-    const DATA_ITEMS = {
-      emojis: ['⚡', '🚀', '🧠', '🔥', '💎', '🎯', '💻', '🎮', '🤖', '👾', '👑', '🔮', '🛡️', '🔑', '⭐'],
-      words: ['JS', 'HTML', 'CSS', 'REACT', 'PYTHON', 'NODE', 'DATA', 'CODE', 'LOOP', 'BYTE', 'ARRAY', 'STACK', 'DEBUG', 'LOGIC', 'API'],
-      colors: [
-        { name: 'Vermelho', hex: '#ef4444' },
-        { name: 'Azul', hex: '#3b82f6' },
-        { name: 'Verde', hex: '#10b981' },
-        { name: 'Amarelo', hex: '#f59e0b' },
-        { name: 'Roxo', hex: '#a855f7' },
-        { name: 'Rosa', hex: '#ec4899' },
-        { name: 'Ciano', hex: '#06b6d4' }
-      ],
-      numbers: ['10', '25', '42', '99', '128', '256', '512', '7', '13', '88']
-    };
+    // BANCO MASSIÇO DE PALAVRAS E ELEMENTOS DE PROGRAMAÇÃO
+    const WORD_BANK = [
+      'HTML', 'CSS', 'PYTHON', 'JAVASCRIPT', 'JAVA', 'PHP', 'SQL', 'CÓDIGO', 'VARIÁVEL', 'FUNÇÃO',
+      'LOOP', 'ARRAY', 'STRING', 'BOOLEAN', 'INTEGER', 'OBJETO', 'CLASSE', 'MÉTODO', 'EVENTO', 'DOM',
+      'API', 'BANCO', 'DADOS', 'SERVIDOR', 'CLIENTE', 'FRONTEND', 'BACKEND', 'FULLSTACK', 'GITHUB', 'GIT',
+      'COMMIT', 'BRANCH', 'MERGE', 'DEBUG', 'BUG', 'ERRO', 'TESTE', 'ALGORITMO', 'LÓGICA', 'REQUISITO',
+      'INTERFACE', 'USUÁRIO', 'SISTEMA', 'PROGRAMA', 'COMPILADOR', 'FRAMEWORK', 'BIBLIOTECA', 'TERMINAL', 'CONSOLE', 'INPUT',
+      'OUTPUT', 'IF', 'ELSE', 'FOR', 'WHILE', 'RETURN', 'IMPORT', 'CLASS', 'DEF', 'PRINT',
+      'SELECT', 'INSERT', 'UPDATE', 'DELETE', 'TABLE', 'DATABASE', 'QUERY', 'LOGIN', 'SENHA', 'TOKEN',
+      'SEGURANÇA', 'REDE', 'URL', 'HTTP', 'JSON', 'RESPONSIVO', 'LAYOUT', 'DESIGN', 'FIREWALL', 'CLOUD',
+      'SERVIÇO', 'DEPLOY', 'VERSÃO', 'REPOSITÓRIO', 'PROJETO', 'DESENVOLVEDOR', 'SOFTWARE', 'HARDWARE', 'TECNOLOGIA', 'COMPUTADOR',
+      'TYPESCRIPT', 'REACT', 'ANGULAR', 'VUE', 'DOCKER', 'KUBERNETES', 'LINUX', 'CYBER', 'CACHE', 'COOKIE',
+      'ENDPOINT', 'GRAPHQL', 'REST', 'MICROSERVICES', 'RECURSÃO', 'PONTEIRO', 'STACK', 'QUEUE', 'HASH', 'SYNTAX'
+    ];
 
-    /* ==========================================================================
-       3. ESTADO GLOBAL DO JOGO E LOCALSTORAGE
-       ========================================================================== */
+    const EMOJI_BANK = ['🚀', '💻', '⚡', '🔥', '🛡️', '⚙️', '🔍', '📦', '🔑', '📊', '🤖', '🌐', '🧠', '💡', '🎯', '💾', '📱', '🔒'];
+    const COLOR_BANK = ['AZUL', 'VERMELHO', 'VERDE', 'AMARELO', 'ROXO', 'ROSA', 'CIANO', 'LARANJA', 'PRETO', 'BRANCO'];
+    const NUMBER_BANK = ['404', '200', '500', '101', '8080', '3000', '42', '127', '255', '1024', '64'];
+
+    // MAPPING DE DIFICULDADE CONFORME SOLICITADO EXACTAMENTE
+    function getStageConfig(stage) {
+      if (stage === 1) return { count: 3, memoTime: 5.0, diffName: 'INICIANTE' };
+      if (stage === 2) return { count: 4, memoTime: 4.5, diffName: 'FÁCIL' };
+      if (stage === 3) return { count: 5, memoTime: 4.0, diffName: 'MÉDIA' };
+      if (stage === 4) return { count: 6, memoTime: 3.8, diffName: 'MÉDIA' };
+      if (stage === 5) return { count: 7, memoTime: 3.5, diffName: 'DIFÍCIL' };
+      if (stage === 6) return { count: 8, memoTime: 3.2, diffName: 'DIFÍCIL' };
+      if (stage === 7) return { count: 9, memoTime: 3.0, diffName: 'AVANÇADA' };
+      if (stage === 8) return { count: 10, memoTime: 2.8, diffName: 'EXTREMA' };
+      if (stage === 9) return { count: 11, memoTime: 2.6, diffName: 'INSANA' };
+      if (stage === 10) return { count: 12, memoTime: 2.5, diffName: 'MEGAMIND' };
+      
+      // Fases superiores a 10
+      const extra = stage - 10;
+      const count = Math.min(16, 12 + Math.floor(extra / 2));
+      const memoTime = Math.max(1.8, (2.5 - extra * 0.08)).toFixed(1);
+      return { count, memoTime: parseFloat(memoTime), diffName: 'GODLIKE' };
+    }
+
     class MemoRushApp {
       constructor() {
         this.sound = new SoundEngine();
-
-        // Estado do Usuário
+        
+        // Estado do Jogador
         this.player = {
           name: 'Dev',
-          level: 1,
           xp: 0,
-          highScore: 0,
-          maxStage: 1,
-          maxCombo: 0,
-          stats: {
-            matches: 0,
-            hits: 0,
-            misses: 0,
-            totalResponseTime: 0,
-            missionsDone: 0,
-            achievementsDone: 0
-          }
-        };
-
-        // Configurações
-        this.settings = {
+          level: 1,
           theme: 'dark',
           soundEnabled: true,
-          difficulty: 'normal',
-          categories: { emojis: true, words: true, colors: true, numbers: true }
+          categories: { words: true, emojis: true, colors: true, numbers: true },
+          stats: {
+            gamesPlayed: 0,
+            correctAnswers: 0,
+            wrongAnswers: 0,
+            highScore: 0,
+            maxStage: 1,
+            maxCombo: 0
+          },
+          missions: [
+            { id: 1, text: 'Acertar 5 perguntas', target: 5, progress: 0, reward: 50, claimed: false },
+            { id: 2, text: 'Alcançar Fase 5', target: 5, progress: 0, reward: 100, claimed: false },
+            { id: 3, text: 'Obter Combo x3', target: 3, progress: 0, reward: 75, claimed: false }
+          ],
+          achievements: [
+            { id: 'first_win', name: 'Primeiros Passos', desc: 'Acerte sua primeira pergunta', unlocked: false },
+            { id: 'dev_master', name: 'Mestre do Código', desc: 'Alcançar a Fase 5', unlocked: false },
+            { id: 'combo_king', name: 'Super Combo', desc: 'Atingir combo x5', unlocked: false },
+            { id: 'godlike_memory', name: 'Memória Godlike', desc: 'Alcançar a Fase 10', unlocked: false }
+          ],
+          ranking: []
         };
 
-        // Partida Atual
-        this.currentMode = 'classic'; // classic, timeattack, endless, suddendeath, practice
-        this.stage = 1;
-        this.score = 0;
-        this.combo = 1;
-        this.maxComboInSession = 1;
-        this.lives = 3;
-        this.timeAttackLeft = 45; // em segundos
-        this.timeAttackTimer = null;
-
-        // Sequência e Pergunta
-        this.currentSequence = [];
-        this.currentQuestion = null;
-        this.memorizeTimer = null;
-        this.answerTimerInterval = null;
-        this.answerStartTime = 0;
-
-        // Missões Diárias
-        this.dailyMissions = [];
-
-        // Conquistas
-        this.achievements = [
-          { id: 'ach_1', name: '🧠 Memória de Aço', desc: 'Complete 10 fases no total', reqType: 'stage', reqVal: 10, unlocked: false },
-          { id: 'ach_2', name: '⚡ Velocista', desc: 'Responda uma pergunta em menos de 1.0 segundo', reqType: 'speed', reqVal: 1.0, unlocked: false },
-          { id: 'ach_3', name: '🔥 Combo Insano', desc: 'Alcance um combo de x10', reqType: 'combo', reqVal: 10, unlocked: false },
-          { id: 'ach_4', name: '👑 Mestre da Memória', desc: 'Chegue até a Fase 15', reqType: 'maxStage', reqVal: 15, unlocked: false },
-          { id: 'ach_5', name: '❤️ Sobrevivente', desc: 'Vença 5 fases sem perder nenhuma vida', reqType: 'flawless_stages', reqVal: 5, unlocked: false },
-          { id: 'ach_6', name: '🎯 Precisão', desc: 'Alcance 10 acertos consecutivos', reqType: 'streak', reqVal: 10, unlocked: false },
-          { id: 'ach_7', name: '💯 Perfeccionista', desc: 'Alcance 1000 pontos em uma única partida', reqType: 'score', reqVal: 1000, unlocked: false },
-          { id: 'ach_8', name: '🚀 Alta Performance', desc: 'Alcance o Nível 5 do perfil', reqType: 'level', reqVal: 5, unlocked: false },
-          { id: 'ach_9', name: '🔓 Explorador', desc: 'Jogue pelo menos 5 partidas', reqType: 'matches', reqVal: 5, unlocked: false }
-        ];
-
-        this.streakCount = 0;
-        this.flawlessStagesCount = 0;
-
-        // IA Adaptativa (Histórico de resposta)
-        this.aiMetrics = {
-          avgResponseTime: 1.5,
-          accuracyRate: 0.8
+        // Estado do Jogo em Execução
+        this.state = {
+          mode: 'classic', // classic, timeattack, endless, suddendeath, practice
+          stage: 1,
+          score: 0,
+          combo: 1,
+          maxComboThisGame: 1,
+          lives: 3,
+          maxLives: 3,
+          sequence: [],
+          currentQuestion: null,
+          memoTimer: null,
+          answerTimer: null,
+          globalTimer: null,
+          timeRemaining: 0,
+          globalTimeRemaining: 45,
+          answerStartTime: 0
         };
 
-        this.ranking = [];
+        this.loadData();
       }
 
-      init() {
-        this.loadStorage();
-        this.applyThemeStyle(this.settings.theme);
-        this.checkDailyMissions();
-        this.updateHeaderUI();
-        this.renderMissions();
-        this.renderAchievements();
-        lucide.createIcons();
-      }
-
-      loadStorage() {
+      loadData() {
         try {
-          const savedPlayer = localStorage.getItem('memorush_player');
-          if (savedPlayer) this.player = { ...this.player, ...JSON.parse(savedPlayer) };
-
-          const savedSettings = localStorage.getItem('memorush_settings');
-          if (savedSettings) this.settings = { ...this.settings, ...JSON.parse(savedSettings) };
-
-          const savedRanking = localStorage.getItem('memorush_ranking');
-          if (savedRanking) this.ranking = JSON.parse(savedRanking);
-
-          const savedAchievements = localStorage.getItem('memorush_achievements');
-          if (savedAchievements) {
-            const unlockedIds = JSON.parse(savedAchievements);
-            this.achievements.forEach(a => { if (unlockedIds.includes(a.id)) a.unlocked = true; });
+          const saved = localStorage.getItem('memorush_pro_save');
+          if (saved) {
+            const data = JSON.parse(saved);
+            this.player = { ...this.player, ...data };
           }
-        } catch (e) {
-          console.error("Erro ao carregar localStorage:", e);
+        } catch(e) {
+          console.error("Erro ao carregar dados", e);
+        }
+        this.applyTheme(this.player.theme);
+        this.updateProfileUI();
+        this.updateMissionsUI();
+        this.updateAchievementsUI();
+        this.updateStatsUI();
+        this.updateRankingUI();
+      }
+
+      saveData() {
+        try {
+          localStorage.setItem('memorush_pro_save', JSON.stringify(this.player));
+        } catch(e) {
+          console.error("Erro ao salvar dados", e);
         }
       }
 
-      saveStorage() {
-        try {
-          localStorage.setItem('memorush_player', JSON.stringify(this.player));
-          localStorage.setItem('memorush_settings', JSON.stringify(this.settings));
-          localStorage.setItem('memorush_ranking', JSON.stringify(this.ranking));
-          
-          const unlockedIds = this.achievements.filter(a => a.unlocked).map(a => a.id);
-          localStorage.setItem('memorush_achievements', JSON.stringify(unlockedIds));
-        } catch (e) {
-          console.error("Erro ao salvar localStorage:", e);
+      resetData() {
+        if (confirm("Tem certeza que deseja zerar todo o progresso e estatísticas?")) {
+          localStorage.removeItem('memorush_pro_save');
+          location.reload();
         }
       }
 
       showScreen(screenId) {
+        this.sound.playClick();
         document.querySelectorAll('.screen-view').forEach(el => el.classList.add('hidden'));
         const target = document.getElementById(`screen-${screenId}`);
         if (target) {
           target.classList.remove('hidden');
           target.classList.add('flex');
         }
-
-        if (screenId === 'main-menu') this.updateMenuUI();
-        if (screenId === 'ranking') this.renderRanking();
-        if (screenId === 'stats') this.renderStats();
-        if (screenId === 'profile') this.renderProfile();
-        if (screenId === 'missions') this.renderMissions();
-        if (screenId === 'achievements') this.renderAchievements();
+        lucide.createIcons();
       }
 
-      setThemeStyle(themeName) {
-        this.settings.theme = themeName;
-        this.applyThemeStyle(themeName);
-        this.saveStorage();
-        this.showToast('🎨 Tema Atualizado!', `O tema ${themeName.toUpperCase()} foi aplicado.`);
+      toggleTheme() {
+        const themes = ['dark', 'light', 'neon', 'purple', 'hacker', 'azul'];
+        const currentIdx = themes.indexOf(this.player.theme);
+        const nextTheme = themes[(currentIdx + 1) % themes.length];
+        this.setTheme(nextTheme);
       }
 
-      applyThemeStyle(themeName) {
+      setTheme(themeName) {
         document.body.className = `theme-${themeName} min-h-screen flex flex-col justify-between overflow-x-hidden`;
         if (themeName === 'light') {
           document.documentElement.classList.remove('dark');
         } else {
           document.documentElement.classList.add('dark');
         }
+        this.player.theme = themeName;
+        this.saveData();
       }
 
-      toggleTheme() {
-        const nextTheme = this.settings.theme === 'light' ? 'dark' : 'light';
-        this.setThemeStyle(nextTheme);
+      applyTheme(themeName) {
+        this.setTheme(themeName);
       }
 
       toggleSound() {
-        this.settings.soundEnabled = !this.settings.soundEnabled;
-        this.sound.enabled = this.settings.soundEnabled;
+        this.player.soundEnabled = !this.player.soundEnabled;
+        this.sound.enabled = this.player.soundEnabled;
+        document.getElementById('sound-on-icon').classList.toggle('hidden', !this.player.soundEnabled);
+        document.getElementById('sound-off-icon').classList.toggle('hidden', this.player.soundEnabled);
+        this.saveData();
+      }
+
+      toggleCategory(catName) {
+        this.player.categories[catName] = document.getElementById(`cat-${catName}`).checked;
         
-        const soundOnIcon = document.getElementById('sound-on-icon');
-        const soundOffIcon = document.getElementById('sound-off-icon');
-        if (this.settings.soundEnabled) {
-          soundOnIcon.classList.remove('hidden');
-          soundOffIcon.classList.add('hidden');
-          this.sound.playBeep(600, 0.1);
-        } else {
-          soundOnIcon.classList.add('hidden');
-          soundOffIcon.classList.remove('hidden');
-        }
-        this.saveStorage();
-      }
-
-      toggleCategory(cat) {
-        this.settings.categories[cat] = document.getElementById(`cat-${cat}`).checked;
-        // Garantir ao menos uma categoria
-        const anyActive = Object.values(this.settings.categories).some(v => v);
+        // Garante que pelo menos 1 categoria esteja selecionada
+        const anyActive = Object.values(this.player.categories).some(Boolean);
         if (!anyActive) {
-          this.settings.categories[cat] = true;
-          document.getElementById(`cat-${cat}`).checked = true;
-          this.showToast('⚠️ Categoria Mantida', 'Ao menos uma categoria de elementos deve ficar ativa!');
+          this.player.categories.words = true;
+          document.getElementById('cat-words').checked = true;
         }
-        this.saveStorage();
+        this.saveData();
       }
 
-      showToast(title, message, icon = 'sparkles') {
-        const container = document.getElementById('toast-container');
-        const toast = document.createElement('div');
-        toast.className = 'glass-panel p-3.5 rounded-2xl shadow-xl flex items-center gap-3 border border-brand-500/30 text-slate-900 dark:text-white pointer-events-auto animate-slide-down';
-        toast.innerHTML = `
-          <div class="p-2 rounded-xl bg-brand-500 text-white">
-            <i data-lucide="${icon}" class="w-4 h-4"></i>
-          </div>
-          <div>
-            <h4 class="font-bold text-xs">${title}</h4>
-            <p class="text-[11px] text-slate-500 dark:text-slate-400">${message}</p>
-          </div>
-        `;
-        container.appendChild(toast);
-        lucide.createIcons();
-
-        setTimeout(() => {
-          toast.style.opacity = '0';
-          toast.style.transform = 'translateY(-20px)';
-          toast.style.transition = 'all 0.3s ease';
-          setTimeout(() => toast.remove(), 300);
-        }, 3000);
+      saveProfileName() {
+        const val = document.getElementById('input-player-name').value.trim();
+        if (val) {
+          this.player.name = val;
+          this.saveData();
+          this.updateProfileUI();
+          this.toast("Nome atualizado com sucesso!");
+        }
       }
 
       addXP(amount) {
         this.player.xp += amount;
         const requiredXP = this.player.level * 100;
-        
         if (this.player.xp >= requiredXP) {
           this.player.xp -= requiredXP;
-          this.player.level += 1;
-          this.sound.playAchievement();
-          this.showToast('⭐ SUBIU DE NÍVEL!', `Parabéns! Você alcançou o Nível ${this.player.level}!`, 'award');
-          this.checkAchievements();
+          this.player.level++;
+          this.sound.playCorrect();
+          this.toast(`🎉 PARABÉNS! Você subiu para o Nível ${this.player.level}!`);
         }
-        this.updateHeaderUI();
-        this.saveStorage();
+        this.saveData();
+        this.updateProfileUI();
       }
 
-      checkDailyMissions() {
-        const today = new Date().toDateString();
-        const savedMissionsDate = localStorage.getItem('memorush_missions_date');
-        const savedMissions = localStorage.getItem('memorush_missions');
+      updateProfileUI() {
+        document.getElementById('nav-level-badge').innerText = this.player.level;
+        document.getElementById('nav-player-name').innerText = this.player.name;
+        document.getElementById('menu-player-name').innerText = this.player.name;
+        document.getElementById('menu-player-level').innerText = `NÍVEL ${this.player.level}`;
+        
+        const reqXP = this.player.level * 100;
+        const pct = Math.min(100, (this.player.xp / reqXP) * 100);
+        document.getElementById('menu-xp-bar').style.width = `${pct}%`;
+        document.getElementById('menu-xp-text').innerText = `${this.player.xp} / ${reqXP} XP`;
 
-        if (savedMissionsDate === today && savedMissions) {
-          this.dailyMissions = JSON.parse(savedMissions);
-        } else {
-          // Gerar novas 3 missões diárias
-          this.dailyMissions = [
-            { id: 'm1', name: 'Completar 3 Fases', desc: 'Chegue à Fase 3 em qualquer modo', progress: 0, total: 3, xp: 50, done: false },
-            { id: 'm2', name: 'Combo Poderoso', desc: 'Alcance um combo de x3', progress: 0, total: 3, xp: 60, done: false },
-            { id: 'm3', name: 'Mestre do Raciocínio', desc: 'Acerte 5 perguntas na partida', progress: 0, total: 5, xp: 80, done: false }
-          ];
-          localStorage.setItem('memorush_missions_date', today);
-          localStorage.setItem('memorush_missions', JSON.stringify(this.dailyMissions));
-        }
+        document.getElementById('menu-stat-high-score').innerText = this.player.stats.highScore;
+        document.getElementById('menu-stat-max-stage').innerText = this.player.stats.maxStage;
+        document.getElementById('menu-stat-max-combo').innerText = `x${this.player.stats.maxCombo}`;
+
+        document.getElementById('input-player-name').value = this.player.name;
+        document.getElementById('profile-level-text').innerText = `NÍVEL ${this.player.level}`;
+        document.getElementById('profile-xp-text').innerText = `${this.player.xp} / ${reqXP} XP`;
       }
 
-      updateMissionProgress(type, amount) {
-        let changed = false;
-        this.dailyMissions.forEach(m => {
-          if (!m.done) {
-            if (type === 'stage' && m.id === 'm1') {
-              m.progress = Math.min(m.total, amount);
-            } else if (type === 'combo' && m.id === 'm2') {
-              m.progress = Math.min(m.total, amount);
-            } else if (type === 'hits' && m.id === 'm3') {
-              m.progress = Math.min(m.total, m.progress + amount);
-            }
-
-            if (m.progress >= m.total && !m.done) {
-              m.done = true;
-              changed = true;
-              this.addXP(m.xp);
-              this.player.stats.missionsDone += 1;
-              this.showToast('MISSÃO CONCLUÍDA!', `${m.name} (+${m.xp} XP)`, 'target');
-            }
-          }
-        });
-
-        if (changed) {
-          localStorage.setItem('memorush_missions', JSON.stringify(this.dailyMissions));
-          this.saveStorage();
-        }
+      toast(msg) {
+        const container = document.getElementById('toast-container');
+        const div = document.createElement('div');
+        div.className = 'bg-slate-900/90 border border-brand-500 text-white px-4 py-2.5 rounded-xl shadow-xl text-xs font-bold animate-slide-down pointer-events-auto flex items-center gap-2';
+        div.innerHTML = `<i data-lucide="info" class="w-4 h-4 text-brand-400"></i> ${msg}`;
+        container.appendChild(div);
+        lucide.createIcons();
+        setTimeout(() => div.remove(), 3500);
       }
 
-      checkAchievements() {
-        let unlockedAny = false;
-        this.achievements.forEach(a => {
-          if (!a.unlocked) {
-            let unlock = false;
-            if (a.reqType === 'stage' && this.player.maxStage >= a.reqVal) unlock = true;
-            if (a.reqType === 'combo' && this.player.maxCombo >= a.reqVal) unlock = true;
-            if (a.reqType === 'maxStage' && this.player.maxStage >= a.reqVal) unlock = true;
-            if (a.reqType === 'level' && this.player.level >= a.reqVal) unlock = true;
-            if (a.reqType === 'matches' && this.player.stats.matches >= a.reqVal) unlock = true;
-            if (a.reqType === 'score' && this.score >= a.reqVal) unlock = true;
+      // GERADOR DE ELEMENTOS EMBARALHADOS E DIVERSOS
+      generateSequence(count) {
+        const pool = [];
+        const cats = this.player.categories;
 
-            if (unlock) {
-              a.unlocked = true;
-              unlockedAny = true;
-              this.player.stats.achievementsDone += 1;
-              this.sound.playAchievement();
-              this.showToast('🏆 CONQUISTA DESBLOQUEADA!', a.name, 'trophy');
-            }
-          }
-        });
+        if (cats.words) pool.push(...WORD_BANK);
+        if (cats.emojis) pool.push(...EMOJI_BANK);
+        if (cats.colors) pool.push(...COLOR_BANK);
+        if (cats.numbers) pool.push(...NUMBER_BANK);
 
-        if (unlockedAny) this.saveStorage();
-      }
+        // Se por algum motivo o pool estiver vazio
+        if (pool.length === 0) pool.push(...WORD_BANK);
 
-      /* ==========================================================================
-         4. GERADOR AVANÇADO DE PERGUNTAS (16+ TIPOS INTELIGENTES)
-         ========================================================================== */
-      generateSequence() {
-        const activeCategories = [];
-        if (this.settings.categories.emojis) activeCategories.push('emojis');
-        if (this.settings.categories.words) activeCategories.push('words');
-        if (this.settings.categories.colors) activeCategories.push('colors');
-        if (this.settings.categories.numbers) activeCategories.push('numbers');
-
-        // IA Adaptativa determina o tamanho da sequência
-        let length = Math.min(3 + Math.floor(this.stage / 2), 8);
-
+        // Shuffle do pool
+        const shuffledPool = [...pool].sort(() => 0.5 - Math.random());
+        
         const sequence = [];
-        for (let i = 0; i < length; i++) {
-          const cat = activeCategories[Math.floor(Math.random() * activeCategories.length)];
-          const items = DATA_ITEMS[cat];
-          const item = items[Math.floor(Math.random() * items.length)];
-
-          if (cat === 'colors') {
-            sequence.push({ type: 'color', label: item.name, hex: item.hex, val: item.name });
-          } else {
-            const valStr = typeof item === 'object' ? item.name : item;
-            sequence.push({ type: cat.slice(0, -1), label: valStr, val: valStr });
-          }
+        for (let i = 0; i < count; i++) {
+          // Pega aleatório sem repetir consecutivamente se possível
+          const item = shuffledPool[i % shuffledPool.length];
+          sequence.push(item);
         }
+
         return sequence;
       }
 
-      generateQuestion(seq) {
-        const questionTypes = [];
+      // GERADOR DE PERGUNTAS DIVERSAS CONFORME FASE
+      generateQuestion(sequence, stage) {
+        const len = sequence.length;
+        const types = [];
 
-        // 1. Posição específica
-        questionTypes.push('position');
-        // 2. Primeiro item
-        questionTypes.push('first');
-        // 3. Último item
-        questionTypes.push('last');
-        // 4. Antes de X
-        if (seq.length > 1) questionTypes.push('before_x');
-        // 5. Depois de X
-        if (seq.length > 1) questionTypes.push('after_x');
-        // 6. Entre X e Y
-        if (seq.length >= 3) questionTypes.push('between_x_y');
-        // 7. Ausente
-        questionTypes.push('missing');
-        // 8. Frequência
-        questionTypes.push('frequency');
-        // 9. Categoria mais frequente
-        questionTypes.push('most_frequent_category');
-        // 10. Houve item repetido?
-        questionTypes.push('has_duplicate');
+        // Nível baixo (1-3): Perguntas simples de Posição
+        types.push('first', 'last', 'position');
 
-        const numbersInSeq = seq.filter(s => s.type === 'number');
-        if (numbersInSeq.length >= 2) {
-          questionTypes.push('number_order');
+        // Nível médio (4-7): Vizinhos e Posições intermediárias
+        if (stage >= 3) {
+          types.push('before', 'after', 'between');
         }
 
-        const selectedType = questionTypes[Math.floor(Math.random() * questionTypes.length)];
-        let text = '';
-        let correctAnswer = '';
-        let distractors = [];
+        // Nível alto (8+): Ausência e Ordem Complexa
+        if (stage >= 6) {
+          types.push('not_present', 'exact_index');
+        }
 
-        const allLabels = seq.map(s => s.label);
+        const chosenType = types[Math.floor(Math.random() * types.length)];
+        let qText = '';
+        let correct = '';
+        let options = [];
 
-        if (selectedType === 'position') {
-          const idx = Math.floor(Math.random() * seq.length);
-          const posNames = ['primeiro', 'segundo', 'terceiro', 'quarto', 'quinto', 'sexto', 'sétimo', 'oitavo'];
-          text = `Qual era o ${posNames[idx]} item da sequência?`;
-          correctAnswer = seq[idx].label;
-          distractors = this.getDistractors(correctAnswer);
-        } 
-        else if (selectedType === 'first') {
-          text = 'Qual foi o PRIMEIRO item exibido?';
-          correctAnswer = seq[0].label;
-          distractors = this.getDistractors(correctAnswer);
-        } 
-        else if (selectedType === 'last') {
-          text = 'Qual foi o ÚLTIMO item exibido?';
-          correctAnswer = seq[seq.length - 1].label;
-          distractors = this.getDistractors(correctAnswer);
-        } 
-        else if (selectedType === 'before_x') {
-          const idx = Math.floor(Math.random() * (seq.length - 1)) + 1;
-          text = `Qual item apareceu IMEDIATAMENTE ANTES de "${seq[idx].label}"?`;
-          correctAnswer = seq[idx - 1].label;
-          distractors = this.getDistractors(correctAnswer);
-        } 
-        else if (selectedType === 'after_x') {
-          const idx = Math.floor(Math.random() * (seq.length - 1));
-          text = `Qual item apareceu IMEDIATAMENTE DEPOIS de "${seq[idx].label}"?`;
-          correctAnswer = seq[idx + 1].label;
-          distractors = this.getDistractors(correctAnswer);
-        } 
-        else if (selectedType === 'between_x_y') {
-          const idx = Math.floor(Math.random() * (seq.length - 2)) + 1;
-          text = `Qual item estava ENTRE "${seq[idx - 1].label}" e "${seq[idx + 1].label}"?`;
-          correctAnswer = seq[idx].label;
-          distractors = this.getDistractors(correctAnswer);
-        } 
-        else if (selectedType === 'missing') {
-          text = 'Qual dos itens abaixo NÃO apareceu na sequência?';
-          distractors = [...new Set(allLabels)];
-          const pool = [...DATA_ITEMS.emojis, ...DATA_ITEMS.words, ...DATA_ITEMS.colors.map(c => c.name), ...DATA_ITEMS.numbers];
-          const unused = pool.filter(p => !allLabels.includes(p));
-          correctAnswer = unused[Math.floor(Math.random() * unused.length)];
-        } 
-        else if (selectedType === 'frequency') {
-          const item = seq[Math.floor(Math.random() * seq.length)].label;
-          const count = allLabels.filter(l => l === item).length;
-          text = `Quantas vezes o item "${item}" apareceu?`;
-          correctAnswer = `${count} vez(es)`;
-          distractors = [`${count + 1} vez(es)`, `${Math.max(0, count - 1)} vez(es)`, `${count + 2} vez(es)`];
-        } 
-        else if (selectedType === 'most_frequent_category') {
-          text = 'Qual categoria de item apareceu mais vezes?';
-          const counts = {};
-          seq.forEach(s => counts[s.type] = (counts[s.type] || 0) + 1);
-          const topCat = Object.keys(counts).reduce((a, b) => counts[a] > counts[b] ? a : b);
-          const catMap = { emoji: 'Emojis', word: 'Palavras', color: 'Cores', number: 'Números' };
-          correctAnswer = catMap[topCat];
-          distractors = Object.values(catMap).filter(c => c !== correctAnswer);
-        } 
-        else if (selectedType === 'has_duplicate') {
-          text = 'Havia algum item REPETIDO na sequência?';
-          const hasDup = new Set(allLabels).size !== allLabels.length;
-          correctAnswer = hasDup ? 'Sim' : 'Não';
-          distractors = [hasDup ? 'Não' : 'Sim'];
-        } 
-        else if (selectedType === 'number_order') {
-          text = 'A ordem dos NÚMEROS na sequência era crescente ou decrescente?';
-          const nums = seq.filter(s => s.type === 'number').map(s => parseInt(s.label));
-          let isAsc = true;
-          for (let i = 0; i < nums.length - 1; i++) {
-            if (nums[i] > nums[i + 1]) isAsc = false;
+        switch (chosenType) {
+          case 'first':
+            qText = 'Qual era o PRIMEIRO elemento da sequência?';
+            correct = sequence[0];
+            break;
+
+          case 'last':
+            qText = 'Qual era o ÚLTIMO elemento da sequência?';
+            correct = sequence[len - 1];
+            break;
+
+          case 'position': {
+            const idx = Math.floor(Math.random() * len);
+            qText = `Qual era o ${idx + 1}º elemento da sequência?`;
+            correct = sequence[idx];
+            break;
           }
-          correctAnswer = isAsc ? 'Crescente' : 'Decrescente / Mista';
-          distractors = [isAsc ? 'Decrescente / Mista' : 'Crescente'];
+
+          case 'before': {
+            // Escolhe elemento do indice 1 até len-1
+            const idx = Math.floor(Math.random() * (len - 1)) + 1;
+            const target = sequence[idx];
+            qText = `Qual elemento apareceu imediatamente ANTES de "${target}"?`;
+            correct = sequence[idx - 1];
+            break;
+          }
+
+          case 'after': {
+            // Escolhe elemento do indice 0 até len-2
+            const idx = Math.floor(Math.random() * (len - 1));
+            const target = sequence[idx];
+            qText = `Qual elemento apareceu imediatamente DEPOIS de "${target}"?`;
+            correct = sequence[idx + 1];
+            break;
+          }
+
+          case 'between': {
+            if (len >= 3) {
+              const idx = Math.floor(Math.random() * (len - 2)) + 1;
+              const prev = sequence[idx - 1];
+              const next = sequence[idx + 1];
+              qText = `Qual elemento estava ENTRE "${prev}" e "${next}"?`;
+              correct = sequence[idx];
+            } else {
+              qText = 'Qual era o 2º elemento da sequência?';
+              correct = sequence[1];
+            }
+            break;
+          }
+
+          case 'not_present': {
+            qText = 'Qual destes elementos NÃO apareceu na sequência?';
+            // Pega uma palavra que não está na sequência
+            const notInSeqPool = WORD_BANK.filter(w => !sequence.includes(w));
+            correct = notInSeqPool[Math.floor(Math.random() * notInSeqPool.length)];
+            
+            // As opções incorretas (distractors) serão elementos QUE APARECERAM na sequência
+            const inSeqDistractors = [...sequence].sort(() => 0.5 - Math.random()).slice(0, 3);
+            options = [correct, ...inSeqDistractors].sort(() => 0.5 - Math.random());
+            return { text: qText, correct, options };
+          }
+
+          default: {
+            const idx = Math.floor(Math.random() * len);
+            qText = `Qual elemento ocupava a posição ${idx + 1}?`;
+            correct = sequence[idx];
+            break;
+          }
         }
 
-        // Embaralhar alternativas
-        const options = [correctAnswer, ...distractors.slice(0, 3)];
-        for (let i = options.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [options[i], options[j]] = [options[j], options[i]];
+        // Criar 3 opções erradas distintas para as perguntas normais
+        const allPool = [...WORD_BANK, ...EMOJI_BANK, ...COLOR_BANK, ...NUMBER_BANK];
+        const distractors = new Set();
+        
+        while (distractors.size < 3) {
+          const rand = allPool[Math.floor(Math.random() * allPool.length)];
+          if (rand !== correct && !distractors.has(rand)) {
+            distractors.add(rand);
+          }
         }
 
-        return { text, correctAnswer, options };
+        options = [correct, ...Array.from(distractors)].sort(() => 0.5 - Math.random());
+        return { text: qText, correct, options };
       }
 
-      getDistractors(correct) {
-        const pool = [...DATA_ITEMS.emojis, ...DATA_ITEMS.words, ...DATA_ITEMS.colors.map(c => c.name), ...DATA_ITEMS.numbers];
-        return pool.filter(p => p !== correct).sort(() => 0.5 - Math.random());
-      }
+      selectMode(modeKey) {
+        this.state.mode = modeKey;
+        this.state.stage = 1;
+        this.state.score = 0;
+        this.state.combo = 1;
+        this.state.maxComboThisGame = 1;
+        this.state.globalTimeRemaining = 45;
 
-      /* ==========================================================================
-         5. FLUXO DE EXECUÇÃO DAS PARTIDAS
-         ========================================================================== */
-      selectMode(mode) {
-        this.currentMode = mode;
-        this.openNameModal();
-      }
-
-      openNameModal() {
-        document.getElementById('modal-player-name').classList.remove('hidden');
-        document.getElementById('modal-name-input').value = this.player.name;
-      }
-
-      confirmPlayerName() {
-        const nameInput = document.getElementById('modal-name-input').value.trim();
-        if (nameInput) {
-          this.player.name = nameInput;
-          this.saveStorage();
-        }
-        document.getElementById('modal-player-name').classList.add('hidden');
-        this.startSelectedGame();
-      }
-
-      startSelectedGame() {
-        this.stage = 1;
-        this.score = 0;
-        this.combo = 1;
-        this.maxComboInSession = 1;
-        this.streakCount = 0;
-        this.flawlessStagesCount = 0;
-
-        // Configurações por modo
-        if (this.currentMode === 'suddendeath') {
-          this.lives = 1;
-        } else if (this.currentMode === 'practice') {
-          this.lives = 99;
+        // Configuração de vidas por modo
+        if (modeKey === 'suddendeath') {
+          this.state.lives = 1;
+          this.state.maxLives = 1;
+        } else if (modeKey === 'practice') {
+          this.state.lives = 99;
+          this.state.maxLives = 99;
         } else {
-          this.lives = 3;
+          this.state.lives = 3;
+          this.state.maxLives = 3;
         }
-
-        this.timeAttackLeft = 45;
 
         this.showScreen('game');
-        this.updateHUDUI();
-        this.startStage();
+        this.setupHUD();
+        this.startRound();
       }
 
-      startStage() {
-        this.currentSequence = this.generateSequence();
-        this.currentQuestion = this.generateQuestion(this.currentSequence);
+      restartGame() {
+        this.selectMode(this.state.mode);
+      }
 
-        // Mostrar fase de memorização
-        document.getElementById('game-memorize-phase').classList.remove('hidden');
-        document.getElementById('game-question-phase').classList.add('hidden');
+      // CORREÇÃO CRÍTICA DO SISTEMA DE VIDAS E HUD
+      setupHUD() {
+        const modeBadge = document.getElementById('hud-mode-badge');
+        const livesContainer = document.getElementById('hud-lives-container');
+        const timerContainer = document.getElementById('hud-timer-container');
+
+        const modeNames = {
+          classic: 'CLÁSSICO',
+          timeattack: 'TIME ATTACK',
+          endless: 'INFINITO',
+          suddendeath: 'SUDDEN DEATH',
+          practice: 'TREINO'
+        };
+
+        modeBadge.innerText = modeNames[this.state.mode] || 'CLÁSSICO';
+
+        if (this.state.mode === 'timeattack') {
+          livesContainer.classList.add('hidden');
+          timerContainer.classList.remove('hidden');
+          this.startGlobalTimer();
+        } else {
+          livesContainer.classList.remove('hidden');
+          timerContainer.classList.add('hidden');
+          if (this.state.globalTimer) clearInterval(this.state.globalTimer);
+        }
+
+        this.updateHUDValues();
+      }
+
+      updateHUDValues() {
+        const config = getStageConfig(this.state.stage);
+
+        document.getElementById('hud-stage').innerText = this.state.stage;
+        document.getElementById('hud-score').innerText = this.state.score;
+        document.getElementById('hud-combo').innerText = `x${this.state.combo}`;
+        document.getElementById('hud-difficulty-text').innerText = `${config.diffName} (${config.count} ELEM)`;
+        document.getElementById('hud-memo-time').innerText = `${config.memoTime}s`;
+        document.getElementById('hud-elements-count').innerText = `${config.count} ELEMENTOS`;
+
+        // ATUALIZAÇÃO RIGOROSA DAS VIDAS VISUAIS
+        if (this.state.mode !== 'timeattack') {
+          const livesEl = document.getElementById('hud-lives');
+          livesEl.innerHTML = '';
+
+          if (this.state.mode === 'practice') {
+            document.getElementById('hud-lives-text').innerText = 'INFINITAS';
+            livesEl.innerHTML = '<span class="text-accent-emerald text-sm font-bold">♾️ SEM FIM</span>';
+          } else {
+            document.getElementById('hud-lives-text').innerText = `${this.state.lives} DE ${this.state.maxLives}`;
+            for (let i = 0; i < this.state.maxLives; i++) {
+              const heart = document.createElement('i');
+              heart.setAttribute('data-lucide', 'heart');
+              if (i < this.state.lives) {
+                heart.className = 'w-5 h-5 fill-current text-accent-rose animate-pulse-fast';
+              } else {
+                // Coração perdido/vazio
+                heart.className = 'w-5 h-5 text-slate-600 dark:text-slate-700 opacity-40';
+              }
+              livesEl.appendChild(heart);
+            }
+            lucide.createIcons();
+          }
+        }
+      }
+
+      startGlobalTimer() {
+        if (this.state.globalTimer) clearInterval(this.state.globalTimer);
+        this.state.globalTimer = setInterval(() => {
+          this.state.globalTimeRemaining -= 0.1;
+          if (this.state.globalTimeRemaining <= 0) {
+            this.state.globalTimeRemaining = 0;
+            clearInterval(this.state.globalTimer);
+            this.gameOver("Tempo esgotado no Time Attack!");
+          }
+          document.getElementById('hud-timer').innerText = `${this.state.globalTimeRemaining.toFixed(1)}s`;
+        }, 100);
+      }
+
+      startRound() {
+        // Esconder feedback
         document.getElementById('answer-feedback').classList.add('hidden');
+        document.getElementById('game-question-phase').classList.add('hidden');
+        document.getElementById('game-memorize-phase').classList.remove('hidden');
 
-        // Renderizar Elementos da Sequência
+        this.updateHUDValues();
+
+        const config = getStageConfig(this.state.stage);
+        this.state.sequence = this.generateSequence(config.count);
+
+        // Renderizar elementos da sequência
         const container = document.getElementById('elements-container');
         container.innerHTML = '';
-        this.currentSequence.forEach((item, idx) => {
+
+        this.state.sequence.forEach((item, idx) => {
           const card = document.createElement('div');
-          card.className = 'glass-panel p-4 rounded-2xl min-w-[70px] min-h-[70px] flex flex-col items-center justify-center font-heading font-black text-xl shadow-md animate-scale-up';
-          
-          if (item.type === 'color') {
-            card.style.borderColor = item.hex;
-            card.innerHTML = `<div class="w-6 h-6 rounded-full" style="background-color: ${item.hex}"></div><span class="text-xs mt-1 font-bold">${item.label}</span>`;
-          } else {
-            card.innerText = item.label;
-          }
+          card.className = 'px-3.5 py-2.5 bg-white dark:bg-slate-900 border-2 border-brand-500/40 dark:border-brand-500/50 rounded-2xl shadow-md flex flex-col items-center justify-center font-heading font-extrabold text-slate-800 dark:text-white text-base md:text-lg animate-scale-up';
+          card.style.animationDelay = `${idx * 0.05}s`;
+          card.innerHTML = `<span class="text-[9px] font-code text-brand-500 font-bold mb-0.5">#${idx + 1}</span> <span>${item}</span>`;
           container.appendChild(card);
         });
 
-        // Tempo de memorização adaptativo
-        let memorizeTime = Math.max(2.5, 6.0 - (this.stage * 0.3));
-        let timeLeft = memorizeTime;
+        // Timer de memorização
+        this.state.timeRemaining = config.memoTime;
         const progressBar = document.getElementById('memorize-progress-bar');
         const timerText = document.getElementById('memorize-timer-text');
 
-        if (this.memorizeTimer) clearInterval(this.memorizeTimer);
+        progressBar.style.width = '100%';
+        timerText.innerText = `${config.memoTime.toFixed(1)}s`;
 
-        this.memorizeTimer = setInterval(() => {
-          timeLeft -= 0.1;
-          const pct = Math.max(0, (timeLeft / memorizeTime) * 100);
-          progressBar.style.width = `${pct}%`;
-          timerText.innerText = `${Math.max(0, timeLeft).toFixed(1)}s`;
+        const totalMs = config.memoTime * 1000;
+        const startTime = Date.now();
 
-          if (timeLeft <= 0) {
-            clearInterval(this.memorizeTimer);
+        if (this.state.memoTimer) clearInterval(this.state.memoTimer);
+
+        this.state.memoTimer = setInterval(() => {
+          const elapsed = Date.now() - startTime;
+          const remaining = Math.max(0, totalMs - elapsed);
+          const remainingSec = (remaining / 1000).toFixed(1);
+
+          timerText.innerText = `${remainingSec}s`;
+          progressBar.style.width = `${(remaining / totalMs) * 100}%`;
+
+          if (remaining <= 0) {
+            clearInterval(this.state.memoTimer);
             this.startQuestionPhase();
           }
-        }, 100);
+        }, 50);
       }
 
       startQuestionPhase() {
         document.getElementById('game-memorize-phase').classList.add('hidden');
         document.getElementById('game-question-phase').classList.remove('hidden');
 
-        document.getElementById('question-text').innerText = this.currentQuestion.text;
+        const q = this.generateQuestion(this.state.sequence, this.state.stage);
+        this.state.currentQuestion = q;
+
+        document.getElementById('question-text').innerText = `"${q.text}"`;
 
         const optionsContainer = document.getElementById('options-container');
         optionsContainer.innerHTML = '';
 
-        this.currentQuestion.options.forEach(opt => {
+        q.options.forEach((opt) => {
           const btn = document.createElement('button');
-          btn.className = 'w-full py-3.5 px-4 glass-panel hover:bg-brand-500 hover:text-white font-heading font-bold text-base rounded-2xl transition active:scale-95 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-white';
+          btn.className = 'w-full py-3.5 px-4 bg-white dark:bg-slate-900 hover:bg-brand-500 hover:text-white border border-slate-200 dark:border-slate-800 font-heading font-extrabold text-base rounded-2xl shadow-sm active:scale-95 transition-all text-slate-800 dark:text-slate-100 flex items-center justify-center';
           btn.innerText = opt;
           btn.onclick = () => this.handleAnswer(opt);
           optionsContainer.appendChild(btn);
         });
 
-        this.answerStartTime = performance.now();
-        if (this.answerTimerInterval) clearInterval(this.answerTimerInterval);
-
-        const timerDisplay = document.getElementById('answer-timer');
-        this.answerTimerInterval = setInterval(() => {
-          const elapsed = (performance.now() - this.answerStartTime) / 1000;
-          timerDisplay.innerText = `${elapsed.toFixed(2)}s`;
+        // Timer de resposta
+        this.state.answerStartTime = Date.now();
+        if (this.state.answerTimer) clearInterval(this.state.answerTimer);
+        this.state.answerTimer = setInterval(() => {
+          const elapsed = ((Date.now() - this.state.answerStartTime) / 1000).toFixed(2);
+          document.getElementById('answer-timer').innerText = `${elapsed}s`;
         }, 50);
       }
 
-      handleAnswer(selectedOption) {
-        clearInterval(this.answerTimerInterval);
-        const responseTime = (performance.now() - this.answerStartTime) / 1000;
+      // PROCESSAMENTO DE RESPOSTA E DEDUÇÃO REAL DE VIDA
+      handleAnswer(selected) {
+        if (this.state.answerTimer) clearInterval(this.state.answerTimer);
+        const elapsedSec = (Date.now() - this.state.answerStartTime) / 1000;
 
-        // Atualizar estatísticas de resposta
-        this.player.stats.totalResponseTime += responseTime;
-
-        const isCorrect = selectedOption === this.currentQuestion.correctAnswer;
+        const isCorrect = selected === this.state.currentQuestion.correct;
         const feedbackOverlay = document.getElementById('answer-feedback');
-        const feedbackIconBg = document.getElementById('feedback-icon-bg');
-        const feedbackIcon = document.getElementById('feedback-icon');
-        const feedbackTitle = document.getElementById('feedback-title');
-        const feedbackSubtitle = document.getElementById('feedback-subtitle');
-        const feedbackDetails = document.getElementById('feedback-details');
+        const iconBg = document.getElementById('feedback-icon-bg');
+        const icon = document.getElementById('feedback-icon');
+        const title = document.getElementById('feedback-title');
+        const detail = document.getElementById('feedback-detail');
+        const livesBox = document.getElementById('feedback-lives-box');
+        const livesIcons = document.getElementById('feedback-lives-icons');
+        const livesText = document.getElementById('feedback-lives-text');
+        const continueBtn = document.getElementById('feedback-continue-btn');
+
+        feedbackOverlay.classList.remove('hidden');
 
         if (isCorrect) {
+          // ACERTO
           this.sound.playCorrect();
-          this.player.stats.hits += 1;
-          this.streakCount += 1;
+          this.state.combo++;
+          if (this.state.combo > this.state.maxComboThisGame) {
+            this.state.maxComboThisGame = this.state.combo;
+          }
 
-          // Cálculo de Pontuação e Bônus
-          let basePoints = 100;
-          let speedBonus = responseTime < 1.5 ? 50 : 0;
-          let totalGained = (basePoints + speedBonus) * this.combo;
+          const points = Math.round((100 * this.state.stage * this.state.combo) / Math.max(1, elapsedSec));
+          this.state.score += points;
 
-          this.score += totalGained;
-          this.combo += 1;
-          if (this.combo > this.maxComboInSession) this.maxComboInSession = this.combo;
+          if (this.state.mode === 'timeattack') {
+            this.state.globalTimeRemaining += 3.0;
+          }
 
-          // Bônus XP
-          const xpEarned = 10 + Math.floor(totalGained / 20);
-          this.addXP(xpEarned);
+          iconBg.className = 'p-4 rounded-full mb-3 bg-accent-emerald';
+          icon.setAttribute('data-lucide', 'check-circle-2');
+          title.className = 'font-heading text-2xl font-black mb-1 text-accent-emerald';
+          title.innerText = 'RESPOSTA CORRETA!';
+          detail.innerText = `Excelente! +${points} Pontos (${elapsedSec.toFixed(1)}s)`;
 
-          // Atualizar Missões
-          this.updateMissionProgress('hits', 1);
-          this.updateMissionProgress('combo', this.combo);
-          this.updateMissionProgress('stage', this.stage);
+          livesBox.className = 'mb-4 bg-emerald-500/10 border border-emerald-500/30 px-4 py-2 rounded-xl text-center';
+          livesIcons.innerHTML = '✨ MANDOU BEM! ✨';
+          livesText.innerText = `COMBO ATUAL: x${this.state.combo}`;
 
-          // Verificação de Velocista
-          if (responseTime <= 1.0) this.checkAchievements();
+          continueBtn.innerText = 'PRÓXIMA FASE';
+          continueBtn.onclick = () => {
+            this.state.stage++;
+            this.startRound();
+          };
 
-          feedbackIconBg.className = 'p-4 rounded-full mb-3 bg-emerald-500 text-white';
-          feedbackIcon.setAttribute('data-lucide', 'check-circle-2');
-          feedbackTitle.innerText = 'CORRETO!';
-          feedbackSubtitle.innerText = `+${totalGained} PONTOS`;
+          // Atualizar estatísticas e missões
+          this.player.stats.correctAnswers++;
+          this.updateMissionProgress(1, 1);
+          if (this.state.stage >= 5) this.updateMissionProgress(2, this.state.stage);
+          this.updateMissionProgress(3, this.state.combo);
+          this.checkAchievements();
 
-          feedbackDetails.innerHTML = `
-            <span class="px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-500 text-xs font-bold">${responseTime.toFixed(2)}s</span>
-            ${speedBonus ? '<span class="px-2.5 py-1 rounded-full bg-accent-cyan/10 text-accent-cyan text-xs font-bold">⚡ VELOZ</span>' : ''}
-            <span class="px-2.5 py-1 rounded-full bg-accent-amber/10 text-accent-amber text-xs font-bold">COMBO x${this.combo}</span>
-          `;
-
-          this.stage += 1;
         } else {
+          // ERRO REAL
           this.sound.playWrong();
-          this.player.stats.misses += 1;
-          this.combo = 1;
-          this.streakCount = 0;
+          this.state.combo = 1;
+          this.player.stats.wrongAnswers++;
 
-          if (this.currentMode !== 'practice') {
-            this.lives -= 1;
-          }
+          iconBg.className = 'p-4 rounded-full mb-3 bg-accent-rose';
+          icon.setAttribute('data-lucide', 'x-circle');
+          title.className = 'font-heading text-2xl font-black mb-1 text-accent-rose';
+          title.innerText = 'RESPOSTA INCORRETA!';
+          detail.innerText = `A resposta correta era: ${this.state.currentQuestion.correct}`;
 
-          feedbackIconBg.className = 'p-4 rounded-full mb-3 bg-rose-500 text-white';
-          feedbackIcon.setAttribute('data-lucide', 'x-circle');
-          feedbackTitle.innerText = 'INCORRETO!';
-          feedbackSubtitle.innerText = `Resposta certa: ${this.currentQuestion.correctAnswer}`;
-          feedbackDetails.innerHTML = `<span class="px-2.5 py-1 rounded-full bg-rose-500/10 text-accent-rose text-xs font-bold">-1 VIDA</span>`;
-        }
+          if (this.state.mode === 'timeattack') {
+            this.state.globalTimeRemaining = Math.max(0, this.state.globalTimeRemaining - 5.0);
+            livesBox.className = 'mb-4 bg-rose-500/10 border border-rose-500/30 px-4 py-2 rounded-xl text-center';
+            livesIcons.innerHTML = '⚡ PENALIDADE DE TEMPO ⚡';
+            livesText.innerText = '-5 SEGUNDOS NO RELÓGIO!';
 
-        lucide.createIcons();
-        feedbackOverlay.classList.remove('hidden');
-        this.updateHUDUI();
+            continueBtn.innerText = 'CONTINUAR';
+            continueBtn.onclick = () => this.startRound();
 
-        setTimeout(() => {
-          feedbackOverlay.classList.add('hidden');
-          if (this.lives <= 0) {
-            this.endGame('Suas vidas esgotaram!');
+          } else if (this.state.mode === 'practice') {
+            livesBox.className = 'mb-4 bg-slate-500/10 px-4 py-2 rounded-xl text-center';
+            livesIcons.innerHTML = '🎯 MODO TREINO';
+            livesText.innerText = 'SEM PERDA DE VIDAS';
+
+            continueBtn.innerText = 'CONTINUAR';
+            continueBtn.onclick = () => this.startRound();
+
           } else {
-            this.startStage();
+            // MODO CLÁSSICO, INFINITO OU SUDDEN DEATH -> DECREMENTA EXATAMENTE 1 VIDA
+            this.state.lives = Math.max(0, this.state.lives - 1);
+            this.updateHUDValues();
+
+            let heartsHtml = '';
+            for (let i = 0; i < this.state.maxLives; i++) {
+              heartsHtml += i < this.state.lives ? '❤️ ' : '🖤 ';
+            }
+
+            livesBox.className = 'mb-4 bg-rose-500/10 border border-rose-500/30 px-4 py-2 rounded-xl text-center';
+            livesIcons.innerHTML = heartsHtml.trim();
+
+            if (this.state.lives > 0) {
+              livesText.innerText = `${this.state.lives} ${this.state.lives === 1 ? 'VIDA RESTANTE' : 'VIDAS RESTANTES'}`;
+              continueBtn.innerText = 'CONTINUAR PARTIDA';
+              continueBtn.onclick = () => this.startRound();
+            } else {
+              livesText.innerText = '💀 SUAS VIDAS CHEGARAM A 0';
+              continueBtn.innerText = 'VER RESULTADO';
+              continueBtn.onclick = () => this.gameOver("Suas vidas chegaram a 0.");
+            }
           }
-        }, 1600);
-      }
-
-      endGame(reason) {
-        this.player.stats.matches += 1;
-
-        if (this.score > this.player.highScore) {
-          this.player.highScore = this.score;
-          document.getElementById('go-new-record').classList.remove('hidden');
-        } else {
-          document.getElementById('go-new-record').classList.add('hidden');
         }
 
-        if (this.stage > this.player.maxStage) this.player.maxStage = this.stage;
-        if (this.maxComboInSession > this.player.maxCombo) this.player.maxCombo = this.maxComboInSession;
+        lucide.createIcons();
+        this.saveData();
+      }
 
-        // Salvar Ranking
-        this.ranking.push({
-          name: this.player.name,
-          score: this.score,
-          stage: this.stage,
-          date: new Date().toLocaleDateString('pt-BR')
+      gameOver(reason) {
+        if (this.state.memoTimer) clearInterval(this.state.memoTimer);
+        if (this.state.answerTimer) clearInterval(this.state.answerTimer);
+        if (this.state.globalTimer) clearInterval(this.state.globalTimer);
+
+        this.sound.playGameOver();
+
+        this.player.stats.gamesPlayed++;
+        if (this.state.score > this.player.stats.highScore) {
+          this.player.stats.highScore = this.state.score;
+        }
+        if (this.state.stage > this.player.stats.maxStage) {
+          this.player.stats.maxStage = this.state.stage;
+        }
+        if (this.state.maxComboThisGame > this.player.stats.maxCombo) {
+          this.player.stats.maxCombo = this.state.maxComboThisGame;
+        }
+
+        // Adicionar XP acumulado
+        const earnedXP = Math.round(this.state.score / 10) + (this.state.stage * 15);
+        this.addXP(earnedXP);
+
+        // Salvar entrada no Ranking
+        if (this.state.score > 0) {
+          this.player.ranking.push({
+            name: this.player.name,
+            score: this.state.score,
+            stage: this.state.stage,
+            date: new Date().toLocaleDateString('pt-BR')
+          });
+          this.player.ranking.sort((a, b) => b.score - a.score);
+          this.player.ranking = this.player.ranking.slice(0, 10);
+        }
+
+        this.saveData();
+        this.updateProfileUI();
+        this.updateStatsUI();
+        this.updateRankingUI();
+
+        document.getElementById('gameover-reason').innerText = reason;
+        document.getElementById('gameover-score').innerText = this.state.score;
+        document.getElementById('gameover-stage').innerText = this.state.stage;
+        document.getElementById('gameover-xp').innerText = `+${earnedXP} XP`;
+        document.getElementById('gameover-combo').innerText = `x${this.state.maxComboThisGame}`;
+
+        this.showScreen('gameover');
+      }
+
+      updateMissionProgress(id, currentVal) {
+        const m = this.player.missions.find(x => x.id === id);
+        if (m && !m.claimed) {
+          m.progress = Math.min(m.target, m.progress + currentVal);
+          if (m.progress >= m.target && !m.claimed) {
+            m.claimed = true;
+            this.addXP(m.reward);
+            this.toast(`🎯 Missão Concluída: ${m.text}! (+${m.reward} XP)`);
+          }
+          this.saveData();
+          this.updateMissionsUI();
+        }
+      }
+
+      checkAchievements() {
+        this.player.achievements.forEach(ach => {
+          if (!ach.unlocked) {
+            if (ach.id === 'first_win' && this.player.stats.correctAnswers >= 1) ach.unlocked = true;
+            if (ach.id === 'dev_master' && this.state.stage >= 5) ach.unlocked = true;
+            if (ach.id === 'combo_king' && this.state.combo >= 5) ach.unlocked = true;
+            if (ach.id === 'godlike_memory' && this.state.stage >= 10) ach.unlocked = true;
+
+            if (ach.unlocked) {
+              this.toast(`🏆 Conquista Desbloqueada: ${ach.name}!`);
+            }
+          }
         });
-        this.ranking.sort((a, b) => b.score - a.score);
-        this.ranking = this.ranking.slice(0, 10); // Manter top 10
-
-        this.checkAchievements();
-        this.saveStorage();
-
-        // Atualizar Tela Game Over
-        document.getElementById('go-score').innerText = this.score;
-        document.getElementById('go-player-name').innerText = this.player.name;
-        document.getElementById('go-stage').innerText = this.stage;
-        document.getElementById('go-combo').innerText = `x${this.maxComboInSession}`;
-        document.getElementById('go-xp').innerText = `+${Math.floor(this.score / 10)} XP`;
-        document.getElementById('go-reason').innerText = reason;
-
-        this.showScreen('game-over');
+        this.saveData();
+        this.updateAchievementsUI();
       }
 
-      /* ==========================================================================
-         6. ATUALIZAÇÃO E RENDERIZAÇÃO DAS INTERFACES
-         ========================================================================== */
-      updateHeaderUI() {
-        document.getElementById('nav-level-badge').innerText = this.player.level;
-        document.getElementById('nav-player-name').innerText = this.player.name;
-      }
+      updateMissionsUI() {
+        const container = document.getElementById('missions-list-container');
+        container.innerHTML = '';
+        let unclaimedCount = 0;
 
-      updateMenuUI() {
-        this.updateHeaderUI();
-        document.getElementById('menu-player-name').innerText = this.player.name;
-        document.getElementById('menu-player-level').innerText = `NÍVEL ${this.player.level}`;
-        
-        const reqXP = this.player.level * 100;
-        document.getElementById('menu-xp-text').innerText = `${this.player.xp} / ${reqXP} XP`;
-        document.getElementById('menu-xp-bar').style.width = `${Math.min(100, (this.player.xp / reqXP) * 100)}%`;
+        this.player.missions.forEach(m => {
+          if (!m.claimed) unclaimedCount++;
+          const pct = Math.min(100, (m.progress / m.target) * 100);
+          const div = document.createElement('div');
+          div.className = 'glass-panel p-4 rounded-2xl flex items-center gap-3';
+          div.innerHTML = `
+            <div class="p-3 rounded-xl ${m.claimed ? 'bg-emerald-500/20 text-emerald-500' : 'bg-brand-500/10 text-brand-500'}">
+              <i data-lucide="${m.claimed ? 'check-circle' : 'target'}" class="w-5 h-5"></i>
+            </div>
+            <div class="flex-grow">
+              <div class="flex justify-between items-center text-xs font-bold mb-1">
+                <span class="text-slate-800 dark:text-white">${m.text}</span>
+                <span class="text-accent-pink">+${m.reward} XP</span>
+              </div>
+              <div class="w-full h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+                <div class="h-full bg-brand-500" style="width: ${pct}%"></div>
+              </div>
+            </div>
+          `;
+          container.appendChild(div);
+        });
 
-        document.getElementById('menu-stat-high-score').innerText = this.player.highScore;
-        document.getElementById('menu-stat-max-stage').innerText = this.player.maxStage;
-        document.getElementById('menu-stat-max-combo').innerText = `x${this.player.maxCombo}`;
-      }
-
-      updateHUDUI() {
-        document.getElementById('hud-stage').innerText = this.stage;
-        document.getElementById('hud-score').innerText = this.score;
-        document.getElementById('hud-combo').innerText = `x${this.combo}`;
-        document.getElementById('hud-mode-badge').innerText = this.currentMode.toUpperCase();
-
-        const livesContainer = document.getElementById('hud-lives');
-        livesContainer.innerHTML = '';
-        for (let i = 0; i < Math.min(5, this.lives); i++) {
-          livesContainer.innerHTML += `<i data-lucide="heart" class="w-5 h-5 fill-current"></i>`;
+        const badge = document.getElementById('badge-missions-count');
+        if (unclaimedCount > 0) {
+          badge.innerText = unclaimedCount;
+          badge.classList.remove('hidden');
+        } else {
+          badge.classList.add('hidden');
         }
         lucide.createIcons();
       }
 
-      renderRanking() {
-        const container = document.getElementById('ranking-list');
+      updateAchievementsUI() {
+        const container = document.getElementById('achievements-list-container');
         container.innerHTML = '';
 
-        if (this.ranking.length === 0) {
-          container.innerHTML = `<div class="text-center text-xs text-slate-400 py-6">Nenhum recorde registrado ainda. Seja o primeiro!</div>`;
+        this.player.achievements.forEach(ach => {
+          const div = document.createElement('div');
+          div.className = `glass-panel p-4 rounded-2xl flex items-center gap-3 ${ach.unlocked ? 'border-accent-amber/50' : 'opacity-60'}`;
+          div.innerHTML = `
+            <div class="p-3 rounded-xl ${ach.unlocked ? 'bg-accent-amber/20 text-accent-amber' : 'bg-slate-700/20 text-slate-500'}">
+              <i data-lucide="award" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <h4 class="font-bold text-sm text-slate-800 dark:text-white">${ach.name}</h4>
+              <p class="text-xs text-slate-500 dark:text-slate-400">${ach.desc}</p>
+            </div>
+          `;
+          container.appendChild(div);
+        });
+        lucide.createIcons();
+      }
+
+      updateStatsUI() {
+        document.getElementById('stat-total-games').innerText = this.player.stats.gamesPlayed;
+        const totalAnswers = this.player.stats.correctAnswers + this.player.stats.wrongAnswers;
+        const accuracy = totalAnswers > 0 ? Math.round((this.player.stats.correctAnswers / totalAnswers) * 100) : 0;
+        document.getElementById('stat-accuracy').innerText = `${accuracy}%`;
+        document.getElementById('stat-correct-answers').innerText = this.player.stats.correctAnswers;
+        document.getElementById('stat-wrong-answers').innerText = this.player.stats.wrongAnswers;
+      }
+
+      updateRankingUI() {
+        const container = document.getElementById('ranking-list-container');
+        container.innerHTML = '';
+
+        if (this.player.ranking.length === 0) {
+          container.innerHTML = '<p class="text-xs font-bold text-slate-400 text-center py-4">Nenhum recorde registrado ainda.</p>';
           return;
         }
 
-        this.ranking.forEach((rk, idx) => {
-          const item = document.createElement('div');
-          item.className = 'flex items-center justify-between p-3 rounded-2xl bg-slate-100 dark:bg-slate-900/60 font-bold text-xs';
-          item.innerHTML = `
+        this.player.ranking.forEach((rk, idx) => {
+          const div = document.createElement('div');
+          div.className = 'flex justify-between items-center p-2.5 bg-slate-100 dark:bg-slate-900/60 rounded-xl text-xs font-bold';
+          div.innerHTML = `
+            <div class="flex items-center gap-2">
+              <span class="w-5 h-5 rounded-md bg-brand-500 text-white flex items-center justify-center font-heading text-[10px]">${idx + 1}</span>
+              <span class="text-slate-800 dark:text-white">${rk.name}</span>
+            </div>
             <div class="flex items-center gap-3">
-              <span class="w-6 h-6 rounded-lg font-heading font-black flex items-center justify-center ${idx === 0 ? 'bg-amber-500 text-slate-900' : 'bg-slate-200 dark:bg-slate-800'}">${idx + 1}</span>
-              <div>
-                <p class="text-slate-900 dark:text-white font-bold">${rk.name}</p>
-                <p class="text-[10px] text-slate-400 font-normal">Fase ${rk.stage} • ${rk.date}</p>
-              </div>
-            </div>
-            <span class="font-heading font-black text-brand-500 text-sm">${rk.score} pts</span>
-          `;
-          container.appendChild(item);
-        });
-      }
-
-      renderMissions() {
-        const container = document.getElementById('missions-list');
-        container.innerHTML = '';
-
-        this.dailyMissions.forEach(m => {
-          const card = document.createElement('div');
-          card.className = `glass-panel p-4 rounded-2xl space-y-2 border ${m.done ? 'border-emerald-500/40 bg-emerald-500/5' : 'border-slate-200 dark:border-slate-800'}`;
-          
-          const pct = Math.min(100, (m.progress / m.total) * 100);
-
-          card.innerHTML = `
-            <div class="flex justify-between items-start">
-              <div>
-                <h4 class="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-1.5">
-                  ${m.done ? '✅' : '🎯'} ${m.name}
-                </h4>
-                <p class="text-xs text-slate-400 mt-0.5">${m.desc}</p>
-              </div>
-              <span class="text-xs font-black px-2 py-0.5 rounded-full bg-brand-500/10 text-brand-500">+${m.xp} XP</span>
-            </div>
-            <div class="space-y-1">
-              <div class="flex justify-between text-[10px] font-bold text-slate-400">
-                <span>PROGRESSO</span>
-                <span>${m.progress} / ${m.total}</span>
-              </div>
-              <div class="w-full h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
-                <div class="h-full bg-gradient-to-r from-brand-500 to-accent-pink transition-all duration-300" style="width: ${pct}%"></div>
-              </div>
+              <span class="text-accent-pink">Fase ${rk.stage}</span>
+              <span class="text-brand-500 font-heading text-sm">${rk.score} pts</span>
             </div>
           `;
-          container.appendChild(card);
+          container.appendChild(div);
         });
-      }
-
-      renderAchievements() {
-        const container = document.getElementById('achievements-grid');
-        container.innerHTML = '';
-
-        let count = 0;
-        this.achievements.forEach(a => {
-          if (a.unlocked) count++;
-
-          const card = document.createElement('div');
-          card.className = `glass-panel p-3.5 rounded-2xl flex items-center gap-3 border ${a.unlocked ? 'border-amber-500/40 bg-amber-500/5' : 'opacity-60 border-slate-200 dark:border-slate-800'}`;
-          
-          card.innerHTML = `
-            <div class="p-3 rounded-xl ${a.unlocked ? 'bg-amber-500 text-slate-900' : 'bg-slate-200 dark:bg-slate-800 text-slate-400'} font-black">
-              <i data-lucide="${a.unlocked ? 'award' : 'lock'}" class="w-5 h-5"></i>
-            </div>
-            <div class="flex-grow">
-              <h4 class="font-bold text-xs text-slate-900 dark:text-white">${a.name}</h4>
-              <p class="text-[11px] text-slate-400">${a.desc}</p>
-            </div>
-          `;
-          container.appendChild(card);
-        });
-
-        document.getElementById('achievements-count').innerText = `${count} / ${this.achievements.length}`;
-        lucide.createIcons();
-      }
-
-      renderStats() {
-        const total = this.player.stats.hits + this.player.stats.misses;
-        const accuracy = total > 0 ? Math.round((this.player.stats.hits / total) * 100) : 0;
-        const avgTime = total > 0 ? (this.player.stats.totalResponseTime / total).toFixed(2) : '0.00';
-
-        document.getElementById('stat-matches').innerText = this.player.stats.matches;
-        document.getElementById('stat-accuracy').innerText = `${accuracy}%`;
-        document.getElementById('stat-hits').innerText = this.player.stats.hits;
-        document.getElementById('stat-misses').innerText = this.player.stats.misses;
-        document.getElementById('stat-max-combo').innerText = `x${this.player.maxCombo}`;
-        document.getElementById('stat-avg-time').innerText = `${avgTime}s`;
-        document.getElementById('stat-missions-done').innerText = this.player.stats.missionsDone;
-        document.getElementById('stat-achievements-done').innerText = `${this.player.stats.achievementsDone} / ${this.achievements.length}`;
-      }
-
-      renderProfile() {
-        document.getElementById('profile-level-badge').innerText = this.player.level;
-        document.getElementById('profile-name-input').value = this.player.name;
-        
-        const reqXP = this.player.level * 100;
-        document.getElementById('profile-xp-text').innerText = `${this.player.xp} / ${reqXP} XP`;
-        document.getElementById('profile-xp-bar').style.width = `${Math.min(100, (this.player.xp / reqXP) * 100)}%`;
-
-        document.getElementById('profile-stat-score').innerText = this.player.highScore;
-        document.getElementById('profile-stat-combo').innerText = `x${this.player.maxCombo}`;
-      }
-
-      saveProfileName() {
-        const val = document.getElementById('profile-name-input').value.trim();
-        if (val) {
-          this.player.name = val;
-          this.saveStorage();
-          this.updateHeaderUI();
-          this.showToast('✅ Nome Salvo', 'Seu nome foi atualizado com sucesso!');
-        }
-      }
-
-      openClearConfirmModal() {
-        document.getElementById('modal-clear-confirm').classList.remove('hidden');
-      }
-
-      closeClearModal() {
-        document.getElementById('modal-clear-confirm').classList.add('hidden');
-      }
-
-      clearRanking() {
-        this.ranking = [];
-        this.saveStorage();
-        this.renderRanking();
-        this.closeClearModal();
-        this.showToast('🗑️ Ranking Zerado', 'Seu histórico local foi resetado.');
       }
     }
 
-    // Instância Global da Aplicação
-    const app = new MemoRushApp();
-
+    let app = null;
     window.onload = () => {
-      app.init();
+      app = new MemoRushApp();
+      lucide.createIcons();
     };
   </script>
 </body>
