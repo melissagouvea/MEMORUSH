@@ -30,7 +30,7 @@ O jogo possui também um sistema de dificuldade adaptativa, que aumenta o tamanh
 
 ## Modos de jogo
 
-O Memo Rush possui diferentes modos de jogo para deixar a experiência mais variada:
+O Memo Rush possui diferentes modos de jogo:
 
 * **Modo Clássico** — avanço por fases, com vidas, combo e dificuldade crescente.
 
@@ -44,7 +44,7 @@ O Memo Rush possui diferentes modos de jogo para deixar a experiência mais vari
 
 ## Tipos de perguntas
 
-O jogo possui diferentes tipos de perguntas para evitar que as partidas fiquem repetitivas.
+O jogo possui também diferentes tipos de perguntas:
 
 Entre elas estão:
 
