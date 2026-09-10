@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MEMO RUSH — Memorize. Responda. Supere!</title>
-  
+  <title>MEMO RUSH — Jogo de Memória e Velocidade Pro</title>
+
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -27,14 +27,16 @@
               pink: '#ec4899',
               amber: '#f59e0b',
               emerald: '#10b981',
-              rose: '#f43f5e'
+              rose: '#f43f5e',
+              purple: '#a855f7'
             }
           },
           animation: {
             'pulse-fast': 'pulse 0.8s cubic-bezier(0.4, 0, 0.6, 1) infinite',
             'bounce-short': 'bounce 0.5s ease-in-out 1',
             'scale-up': 'scaleUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
-            'shake': 'shake 0.4s ease-in-out'
+            'shake': 'shake 0.4s ease-in-out',
+            'slide-down': 'slideDown 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards'
           },
           keyframes: {
             scaleUp: {
@@ -45,17 +47,20 @@
               '0%, 100%': { transform: 'translateX(0)' },
               '20%, 60%': { transform: 'translateX(-8px)' },
               '40%, 80%': { transform: 'translateX(8px)' }
+            },
+            slideDown: {
+              '0%': { transform: 'translateY(-100%)', opacity: '0' },
+              '100%': { transform: 'translateY(0)', opacity: '1' }
             }
           }
         }
       }
     }
   </script>
-  
-  <!-- Google Fonts & Lucide Icons -->
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Outfit:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
 
   <style>
@@ -63,55 +68,82 @@
       font-family: 'Plus Jakarta Sans', sans-serif;
       user-select: none;
       -webkit-tap-highlight-color: transparent;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
-    .font-heading {
-      font-family: 'Outfit', sans-serif;
-    }
+    .font-heading { font-family: 'Outfit', sans-serif; }
+    .font-code { font-family: 'Fira Code', monospace; }
+
+    /* Custom Themes Definitions */
+    body.theme-dark { background-color: #090d16; color: #f1f5f9; }
+    body.theme-light { background-color: #f8fafc; color: #0f172a; }
+    body.theme-neon { background-color: #05050f; color: #00f0ff; }
+    body.theme-purple { background-color: #12072b; color: #f3e8ff; }
+    body.theme-hacker { background-color: #020c04; color: #00ff66; font-family: 'Fira Code', monospace; }
+    body.theme-azul { background-color: #031329; color: #e0f2fe; }
+
     .glass-panel {
       background: rgba(255, 255, 255, 0.7);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border: 1px solid rgba(255, 255, 255, 0.3);
     }
-    .dark .glass-panel {
+    .dark .glass-panel,
+    body.theme-dark .glass-panel {
       background: rgba(15, 23, 42, 0.75);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
       border: 1px solid rgba(255, 255, 255, 0.08);
     }
-    .glow-effect {
-      box-shadow: 0 0 25px -5px rgba(99, 102, 241, 0.5);
+    body.theme-neon .glass-panel {
+      background: rgba(10, 10, 26, 0.85);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      box-shadow: 0 0 15px rgba(0, 240, 255, 0.15);
     }
-    .glow-amber {
-      box-shadow: 0 0 25px -5px rgba(245, 158, 11, 0.5);
+    body.theme-purple .glass-panel {
+      background: rgba(30, 10, 60, 0.75);
+      border: 1px solid rgba(168, 85, 247, 0.25);
     }
-    ::-webkit-scrollbar {
-      width: 6px;
+    body.theme-hacker .glass-panel {
+      background: rgba(2, 20, 8, 0.9);
+      border: 1px solid rgba(0, 255, 102, 0.3);
+      box-shadow: 0 0 10px rgba(0, 255, 102, 0.1);
     }
-    ::-webkit-scrollbar-track {
-      background: transparent;
+    body.theme-azul .glass-panel {
+      background: rgba(8, 28, 58, 0.8);
+      border: 1px solid rgba(56, 189, 248, 0.2);
     }
-    ::-webkit-scrollbar-thumb {
-      background: rgba(156, 163, 175, 0.5);
-      border-radius: 9999px;
-    }
+
+    .glow-effect { box-shadow: 0 0 25px -5px rgba(99, 102, 241, 0.5); }
+    .glow-amber { box-shadow: 0 0 25px -5px rgba(245, 158, 11, 0.5); }
+    .glow-cyan { box-shadow: 0 0 25px -5px rgba(6, 182, 212, 0.5); }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(156, 163, 175, 0.4); border-radius: 9999px; }
   </style>
 </head>
-<body class="bg-slate-100 text-slate-800 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-300 min-h-screen flex flex-col justify-between overflow-x-hidden">
+<body class="theme-dark min-h-screen flex flex-col justify-between overflow-x-hidden">
 
   <!-- CABEÇALHO GLOBAL -->
   <header class="w-full px-4 py-3 border-b border-slate-200 dark:border-slate-800/80 bg-white/50 dark:bg-slate-900/50 backdrop-blur-md sticky top-0 z-50">
     <div class="max-w-4xl mx-auto flex justify-between items-center">
-      <div class="flex items-center gap-2 cursor-pointer" onclick="app.showScreen('main-menu')">
-        <div class="bg-gradient-to-tr from-brand-600 to-accent-pink p-2 rounded-xl text-white shadow-md">
+      <div class="flex items-center gap-2.5 cursor-pointer" onclick="app.showScreen('main-menu')">
+        <div class="bg-gradient-to-tr from-brand-600 via-accent-pink to-accent-cyan p-2 rounded-xl text-white shadow-md">
           <i data-lucide="zap" class="w-5 h-5"></i>
         </div>
-        <span class="font-heading text-2xl font-black tracking-wider bg-clip-text text-transparent bg-gradient-to-r from-brand-600 via-accent-pink to-accent-cyan dark:from-brand-400 dark:via-accent-pink dark:to-accent-cyan">
-          MEMO<span class="text-slate-800 dark:text-white">RUSH</span>
-        </span>
+        <div>
+          <span class="font-heading text-2xl font-black tracking-wider bg-clip-text text-transparent bg-gradient-to-r from-brand-500 via-accent-pink to-accent-cyan">
+            MEMO<span class="text-slate-800 dark:text-white">RUSH</span>
+          </span>
+          <span class="block text-[9px] font-code tracking-widest text-slate-400 font-bold -mt-1">v2.5 // PRO DEV EDITION</span>
+        </div>
       </div>
 
       <div class="flex items-center gap-2">
+        <!-- Shortcut Perfil/XP -->
+        <button onclick="app.showScreen('profile')" class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-200/80 dark:bg-slate-800/90 hover:bg-slate-300 dark:hover:bg-slate-700 transition text-xs font-bold">
+          <div class="w-6 h-6 rounded-lg bg-brand-500 text-white flex items-center justify-center font-heading text-xs" id="nav-level-badge">1</div>
+          <span id="nav-player-name" class="hidden sm:inline text-slate-700 dark:text-slate-200">Dev</span>
+        </button>
+
         <button id="theme-toggle" onclick="app.toggleTheme()" class="p-2.5 rounded-xl bg-slate-200/80 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 transition text-slate-700 dark:text-slate-200" title="Alternar Tema">
           <i data-lucide="sun" id="sun-icon" class="w-5 h-5 hidden dark:block"></i>
           <i data-lucide="moon" id="moon-icon" class="w-5 h-5 block dark:hidden"></i>
@@ -122,127 +154,268 @@
           <i data-lucide="volume-x" id="sound-off-icon" class="w-5 h-5 hidden"></i>
         </button>
 
-        <button onclick="app.showScreen('settings')" class="p-2.5 rounded-xl bg-slate-200/80 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 transition text-slate-700 dark:text-slate-200" title="Configurações">
+        <button onclick="app.showScreen('settings')" class="p-2.5 rounded-xl bg-slate-200/80 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 transition text-slate-700 dark:text-slate-200" title="Configurações & Personalização">
           <i data-lucide="settings" class="w-5 h-5"></i>
         </button>
       </div>
     </div>
   </header>
 
-  <!-- CONTAINER DE TELAS PRINCIPAIS -->
-  <main class="max-w-4xl w-full mx-auto p-4 flex-grow flex flex-col justify-center my-4">
+  <!-- TOAST NOTIFICATIONS CONTAINER -->
+  <div id="toast-container" class="fixed top-16 right-4 z-50 flex flex-col gap-2 max-w-sm pointer-events-none"></div>
 
-    <!-- 1. TELA INICIAL -->
-    <section id="screen-main-menu" class="screen-view active flex flex-col items-center text-center space-y-8 animate-scale-up">
-      <div class="space-y-3">
-        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-brand-100 text-brand-700 dark:bg-brand-900/60 dark:text-brand-300 border border-brand-300 dark:border-brand-700">
-          <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> IA ADAPTATIVA INCLUÍDA
+  <!-- CONTAINER DE TELAS PRINCIPAIS -->
+  <main class="max-w-4xl w-full mx-auto p-4 flex-grow flex flex-col justify-center my-2">
+
+    <!-- 1. TELA INICIAL (MAIN MENU) -->
+    <section id="screen-main-menu" class="screen-view active flex flex-col items-center text-center space-y-6 animate-scale-up">
+      <div class="space-y-2">
+        <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold bg-brand-500/10 text-brand-500 dark:text-brand-300 border border-brand-500/30">
+          <i data-lucide="cpu" class="w-3.5 h-3.5"></i> IA ADAPTATIVA & ENGINE 2.0
         </span>
         <h1 class="font-heading text-5xl md:text-7xl font-black tracking-tight text-slate-900 dark:text-white">
           MEMO <span class="bg-clip-text text-transparent bg-gradient-to-r from-brand-500 via-accent-pink to-accent-amber">RUSH</span>
         </h1>
-        <p class="text-base md:text-xl text-slate-600 dark:text-slate-400 max-w-md mx-auto font-medium">
-          Memorize. Responda. Supere seus limites em milissegundos!
+        <p class="text-sm md:text-base text-slate-600 dark:text-slate-400 max-w-md mx-auto font-medium">
+          Memorize sequências de códigos, símbolos e dados em milissegundos!
         </p>
       </div>
 
-      <!-- PAINEL DE ESTATÍSTICAS RÁPIDAS -->
-      <div class="grid grid-cols-3 gap-3 w-full max-w-md glass-panel p-4 rounded-2xl shadow-xl">
-        <div class="text-center p-2">
-          <p class="text-xs text-slate-500 dark:text-slate-400 font-semibold uppercase">RECORDE</p>
-          <p id="menu-stat-high-score" class="font-heading text-xl md:text-2xl font-bold text-brand-600 dark:text-brand-400">0</p>
+      <!-- PAINEL DE PERFIL & PROGRESSO RÁPIDO -->
+      <div class="w-full max-w-md glass-panel p-4 rounded-2xl shadow-xl space-y-3">
+        <div class="flex justify-between items-center border-b border-slate-200 dark:border-slate-800 pb-2">
+          <div class="flex items-center gap-2">
+            <i data-lucide="user" class="w-4 h-4 text-brand-500"></i>
+            <span id="menu-player-name" class="font-bold text-sm text-slate-800 dark:text-slate-200">Dev</span>
+          </div>
+          <span id="menu-player-level" class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-brand-500/20 text-brand-500">NÍVEL 1</span>
         </div>
-        <div class="text-center p-2 border-x border-slate-200 dark:border-slate-800">
-          <p class="text-xs text-slate-500 dark:text-slate-400 font-semibold uppercase">MAIOR FASE</p>
-          <p id="menu-stat-max-stage" class="font-heading text-xl md:text-2xl font-bold text-accent-pink">1</p>
+
+        <!-- Barra XP -->
+        <div class="space-y-1">
+          <div class="flex justify-between text-[11px] font-bold text-slate-400">
+            <span>PROGRESSO DO NÍVEL</span>
+            <span id="menu-xp-text">0 / 100 XP</span>
+          </div>
+          <div class="w-full h-2.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+            <div id="menu-xp-bar" class="h-full bg-gradient-to-r from-brand-500 to-accent-pink transition-all duration-300 w-0"></div>
+          </div>
         </div>
-        <div class="text-center p-2">
-          <p class="text-xs text-slate-500 dark:text-slate-400 font-semibold uppercase">MELHOR COMBO</p>
-          <p id="menu-stat-max-combo" class="font-heading text-xl md:text-2xl font-bold text-accent-amber">x0</p>
+
+        <div class="grid grid-cols-3 gap-2 pt-1 text-center">
+          <div class="p-1.5 bg-slate-100 dark:bg-slate-900/60 rounded-xl">
+            <p class="text-[10px] text-slate-400 font-bold uppercase">RECORDE</p>
+            <p id="menu-stat-high-score" class="font-heading text-lg font-extrabold text-brand-500">0</p>
+          </div>
+          <div class="p-1.5 bg-slate-100 dark:bg-slate-900/60 rounded-xl">
+            <p class="text-[10px] text-slate-400 font-bold uppercase">MAIOR FASE</p>
+            <p id="menu-stat-max-stage" class="font-heading text-lg font-extrabold text-accent-pink">1</p>
+          </div>
+          <div class="p-1.5 bg-slate-100 dark:bg-slate-900/60 rounded-xl">
+            <p class="text-[10px] text-slate-400 font-bold uppercase">MELHOR COMBO</p>
+            <p id="menu-stat-max-combo" class="font-heading text-lg font-extrabold text-accent-amber">x0</p>
+          </div>
         </div>
       </div>
 
-      <!-- BOTÕES DE AÇÃO -->
-      <div class="w-full max-w-xs space-y-3">
-        <button onclick="app.openNameModal()" class="w-full py-4 px-6 bg-gradient-to-r from-brand-600 to-accent-pink hover:from-brand-500 hover:to-accent-pink text-white font-heading font-extrabold text-xl rounded-2xl shadow-lg hover:shadow-brand-500/25 active:scale-95 transition-all flex items-center justify-center gap-3">
+      <!-- BOTÕES DE NAVEGAÇÃO PRINCIPAL -->
+      <div class="w-full max-w-sm space-y-2.5">
+        <button onclick="app.showScreen('modes')" class="w-full py-4 px-6 bg-gradient-to-r from-brand-600 via-accent-purple to-accent-pink hover:opacity-95 text-white font-heading font-extrabold text-xl rounded-2xl shadow-lg shadow-brand-500/20 active:scale-95 transition-all flex items-center justify-center gap-3">
           <i data-lucide="play" class="w-6 h-6 fill-current"></i> JOGAR AGORA
         </button>
 
-        <button onclick="app.showScreen('ranking')" class="w-full py-3.5 px-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 font-heading font-bold text-lg rounded-2xl shadow-sm active:scale-95 transition flex items-center justify-center gap-2">
-          <i data-lucide="trophy" class="w-5 h-5 text-accent-amber"></i> RANKING
+        <div class="grid grid-cols-2 gap-2">
+          <button onclick="app.showScreen('missions')" class="py-3 px-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 font-heading font-bold text-sm rounded-xl shadow-sm active:scale-95 transition flex items-center justify-center gap-2 relative">
+            <i data-lucide="target" class="w-4 h-4 text-accent-pink"></i> MISSÕES
+            <span id="badge-missions-count" class="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-accent-pink text-white text-[10px] font-black flex items-center justify-center hidden">3</span>
+          </button>
+
+          <button onclick="app.showScreen('achievements')" class="py-3 px-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 font-heading font-bold text-sm rounded-xl shadow-sm active:scale-95 transition flex items-center justify-center gap-2">
+            <i data-lucide="award" class="w-4 h-4 text-accent-amber"></i> CONQUISTAS
+          </button>
+
+          <button onclick="app.showScreen('stats')" class="py-3 px-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 font-heading font-bold text-sm rounded-xl shadow-sm active:scale-95 transition flex items-center justify-center gap-2">
+            <i data-lucide="bar-chart-2" class="w-4 h-4 text-accent-cyan"></i> ESTATÍSTICAS
+          </button>
+
+          <button onclick="app.showScreen('ranking')" class="py-3 px-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 font-heading font-bold text-sm rounded-xl shadow-sm active:scale-95 transition flex items-center justify-center gap-2">
+            <i data-lucide="trophy" class="w-4 h-4 text-amber-500"></i> RANKING
+          </button>
+        </div>
+
+        <button onclick="app.showScreen('settings')" class="w-full py-3 px-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 font-heading font-bold text-sm rounded-xl shadow-sm active:scale-95 transition flex items-center justify-center gap-2">
+          <i data-lucide="palette" class="w-4 h-4 text-brand-500"></i> PERSONALIZAR & TEMAS
         </button>
 
-        <button onclick="app.showScreen('how-to-play')" class="w-full py-3.5 px-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 font-heading font-bold text-lg rounded-2xl shadow-sm active:scale-95 transition flex items-center justify-center gap-2">
-          <i data-lucide="help-circle" class="w-5 h-5 text-accent-cyan"></i> COMO JOGAR
+        <button onclick="app.showScreen('how-to-play')" class="w-full py-2.5 text-xs text-slate-500 dark:text-slate-400 font-bold hover:underline flex items-center justify-center gap-1">
+          <i data-lucide="help-circle" class="w-3.5 h-3.5"></i> Como Jogar & Instruções
         </button>
       </div>
     </section>
 
-    <!-- 2. TELA DE JOGO -->
-    <section id="screen-game" class="screen-view hidden flex-col space-y-6 max-w-2xl mx-auto w-full">
-      <!-- HUD (Barra Superior de Status) -->
-      <div class="glass-panel p-4 rounded-2xl flex items-center justify-between shadow-lg">
-        <div>
-          <span class="text-xs uppercase tracking-wider font-bold text-slate-400">FASE</span>
-          <p id="hud-stage" class="font-heading text-2xl font-black text-brand-600 dark:text-brand-400">1</p>
+    <!-- 2. TELA DE MODOS DE JOGO -->
+    <section id="screen-modes" class="screen-view hidden flex-col space-y-5 max-w-lg mx-auto w-full animate-scale-up">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <i data-lucide="gamepad-2" class="w-7 h-7 text-brand-500"></i>
+          <h1 class="font-heading text-3xl font-black text-slate-900 dark:text-white">MODOS DE JOGO</h1>
+        </div>
+        <button onclick="app.showScreen('main-menu')" class="p-2 rounded-xl bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <p class="text-xs text-slate-500 dark:text-slate-400">Escolha o seu desafio de memória para esta partida:</p>
+
+      <div class="space-y-3">
+        <!-- Modo Clássico -->
+        <div onclick="app.selectMode('classic')" class="glass-panel p-4 rounded-2xl hover:border-brand-500 cursor-pointer transition active:scale-98 flex items-center gap-4 group">
+          <div class="p-3.5 rounded-xl bg-brand-500/10 text-brand-500 group-hover:bg-brand-500 group-hover:text-white transition">
+            <i data-lucide="brain" class="w-6 h-6"></i>
+          </div>
+          <div class="flex-grow">
+            <div class="flex justify-between items-center">
+              <h3 class="font-bold text-base text-slate-900 dark:text-white">🧠 Modo Clássico</h3>
+              <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-slate-200 dark:bg-slate-800">PADRÃO</span>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Avanço por fases, 3 vidas, combo e dificuldade adaptativa.</p>
+          </div>
+        </div>
+
+        <!-- Time Attack -->
+        <div onclick="app.selectMode('timeattack')" class="glass-panel p-4 rounded-2xl hover:border-accent-cyan cursor-pointer transition active:scale-98 flex items-center gap-4 group">
+          <div class="p-3.5 rounded-xl bg-accent-cyan/10 text-accent-cyan group-hover:bg-accent-cyan group-hover:text-white transition">
+            <i data-lucide="zap" class="w-6 h-6"></i>
+          </div>
+          <div class="flex-grow">
+            <div class="flex justify-between items-center">
+              <h3 class="font-bold text-base text-slate-900 dark:text-white">⚡ Time Attack</h3>
+              <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-accent-cyan/20 text-accent-cyan">CONTRA O RELÓGIO</span>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Tempo global limitado. Acertos somam +3s; erros tiram -5s!</p>
+          </div>
+        </div>
+
+        <!-- Modo Infinito -->
+        <div onclick="app.selectMode('endless')" class="glass-panel p-4 rounded-2xl hover:border-accent-purple cursor-pointer transition active:scale-98 flex items-center gap-4 group">
+          <div class="p-3.5 rounded-xl bg-accent-purple/10 text-accent-purple group-hover:bg-accent-purple group-hover:text-white transition">
+            <i data-lucide="infinity" class="w-6 h-6"></i>
+          </div>
+          <div class="flex-grow">
+            <div class="flex justify-between items-center">
+              <h3 class="font-bold text-base text-slate-900 dark:text-white">♾️ Modo Infinito</h3>
+              <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-accent-purple/20 text-accent-purple">SEM LIMITE</span>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Fases contínuas e dificuldade crescente até esgotar as vidas.</p>
+          </div>
+        </div>
+
+        <!-- Sudden Death -->
+        <div onclick="app.selectMode('suddendeath')" class="glass-panel p-4 rounded-2xl hover:border-accent-rose cursor-pointer transition active:scale-98 flex items-center gap-4 group">
+          <div class="p-3.5 rounded-xl bg-accent-rose/10 text-accent-rose group-hover:bg-accent-rose group-hover:text-white transition">
+            <i data-lucide="skull" class="w-6 h-6"></i>
+          </div>
+          <div class="flex-grow">
+            <div class="flex justify-between items-center">
+              <h3 class="font-bold text-base text-slate-900 dark:text-white">💀 Sudden Death</h3>
+              <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-accent-rose/20 text-accent-rose">HARDCORE</span>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Apenas 1 vida! Um único erro encerra a partida instantaneamente.</p>
+          </div>
+        </div>
+
+        <!-- Modo Treino -->
+        <div onclick="app.selectMode('practice')" class="glass-panel p-4 rounded-2xl hover:border-accent-emerald cursor-pointer transition active:scale-98 flex items-center gap-4 group">
+          <div class="p-3.5 rounded-xl bg-accent-emerald/10 text-accent-emerald group-hover:bg-accent-emerald group-hover:text-white transition">
+            <i data-lucide="target" class="w-6 h-6"></i>
+          </div>
+          <div class="flex-grow">
+            <div class="flex justify-between items-center">
+              <h3 class="font-bold text-base text-slate-900 dark:text-white">🎯 Modo Treino</h3>
+              <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-accent-emerald/20 text-accent-emerald">CASUAL</span>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Sem perda de vidas e sem pressão. Ideal para praticar a mente.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. TELA DE JOGO DA PARTIDA -->
+    <section id="screen-game" class="screen-view hidden flex-col space-y-4 max-w-2xl mx-auto w-full">
+      <!-- HUD DE STATUS DA PARTIDA -->
+      <div class="glass-panel p-4 rounded-2xl flex items-center justify-between shadow-lg relative">
+        <div class="flex items-center gap-3">
+          <div>
+            <span id="hud-mode-badge" class="text-[10px] font-black uppercase px-2 py-0.5 rounded-md bg-brand-500/20 text-brand-500">CLÁSSICO</span>
+            <div class="flex items-baseline gap-1 mt-0.5">
+              <span class="text-[10px] font-bold text-slate-400 uppercase">FASE</span>
+              <p id="hud-stage" class="font-heading text-xl font-black text-brand-500">1</p>
+            </div>
+          </div>
         </div>
 
         <div>
-          <span class="text-xs uppercase tracking-wider font-bold text-slate-400">PONTOS</span>
+          <span class="text-[10px] uppercase tracking-wider font-bold text-slate-400">PONTOS</span>
           <p id="hud-score" class="font-heading text-2xl font-black text-slate-900 dark:text-white">0</p>
         </div>
 
         <div class="text-center">
-          <span class="text-xs uppercase tracking-wider font-bold text-slate-400">COMBO</span>
-          <div id="hud-combo-badge" class="px-3 py-0.5 rounded-full bg-accent-amber/10 border border-accent-amber/30 text-accent-amber font-heading font-black text-lg flex items-center gap-1">
-            <i data-lucide="flame" class="w-4 h-4 fill-current"></i> <span id="hud-combo">x1</span>
+          <span class="text-[10px] uppercase tracking-wider font-bold text-slate-400">COMBO</span>
+          <div id="hud-combo-badge" class="px-2.5 py-0.5 rounded-full bg-accent-amber/10 border border-accent-amber/30 text-accent-amber font-heading font-black text-base flex items-center gap-1">
+            <i data-lucide="flame" class="w-3.5 h-3.5 fill-current"></i> <span id="hud-combo">x1</span>
           </div>
         </div>
 
-        <div>
-          <span class="text-xs uppercase tracking-wider font-bold text-slate-400">VIDAS</span>
-          <div id="hud-lives" class="flex gap-1 text-accent-rose text-xl">
-            <i data-lucide="heart" class="w-6 h-6 fill-current"></i>
-            <i data-lucide="heart" class="w-6 h-6 fill-current"></i>
-            <i data-lucide="heart" class="w-6 h-6 fill-current"></i>
+        <!-- Vidas ou Cronômetro (dependendo do modo) -->
+        <div id="hud-lives-container">
+          <span class="text-[10px] uppercase tracking-wider font-bold text-slate-400">VIDAS</span>
+          <div id="hud-lives" class="flex gap-1 text-accent-rose text-lg">
+            <i data-lucide="heart" class="w-5 h-5 fill-current"></i>
+            <i data-lucide="heart" class="w-5 h-5 fill-current"></i>
+            <i data-lucide="heart" class="w-5 h-5 fill-current"></i>
           </div>
+        </div>
+
+        <div id="hud-timer-container" class="hidden text-right">
+          <span class="text-[10px] uppercase tracking-wider font-bold text-accent-cyan">TEMPO TOTAL</span>
+          <p id="hud-timer" class="font-heading text-2xl font-black text-accent-cyan font-code">45.0s</p>
         </div>
       </div>
 
-      <!-- ÁREA DE MEMORIZAÇÃO OU PERGUNTA -->
-      <div class="glass-panel p-6 md:p-8 rounded-3xl min-h-[340px] flex flex-col justify-between items-center text-center relative overflow-hidden shadow-2xl">
+      <!-- PAINEL CENTRAL DE CONTEÚDO E PERGUNTAS -->
+      <div class="glass-panel p-6 md:p-8 rounded-3xl min-h-[360px] flex flex-col justify-between items-center text-center relative overflow-hidden shadow-2xl">
         
-        <!-- FASE DE MEMORIZAÇÃO -->
+        <!-- FASE 1: MEMORIZAÇÃO -->
         <div id="game-memorize-phase" class="w-full flex-grow flex flex-col justify-center items-center space-y-6">
-          <div class="flex items-center gap-2 text-sm font-bold text-slate-500 uppercase tracking-widest">
+          <div class="flex items-center gap-2 text-xs font-bold text-slate-500 uppercase tracking-widest">
             <i data-lucide="eye" class="w-4 h-4 text-brand-500 animate-pulse"></i> MEMORIZE A SEQUÊNCIA
           </div>
 
-          <!-- CARDS DE CONTEÚDO -->
+          <!-- CARDS DE ELEMENTOS DA SEQUÊNCIA -->
           <div id="elements-container" class="flex flex-wrap justify-center gap-3 max-w-xl my-4">
-            <!-- Inserido dinamicamente via JS -->
+            <!-- Inserido dinamicamente pelo JS -->
           </div>
 
           <!-- BARRA DE TEMPO DE MEMORIZAÇÃO -->
-          <div class="w-full space-y-1">
+          <div class="w-full space-y-1 max-w-md">
             <div class="flex justify-between text-xs font-semibold text-slate-400">
-              <span>TEMPO RESTANTE</span>
-              <span id="memorize-timer-text">5.0s</span>
+              <span>TEMPO DE MEMORIZAÇÃO</span>
+              <span id="memorize-timer-text" class="font-code">5.0s</span>
             </div>
-            <div class="w-full h-3 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+            <div class="w-full h-2.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
               <div id="memorize-progress-bar" class="h-full bg-gradient-to-r from-brand-500 to-accent-cyan transition-all duration-100 ease-linear w-full"></div>
             </div>
           </div>
         </div>
 
-        <!-- FASE DE PERGUNTA -->
+        <!-- FASE 2: PERGUNTA DESAFIO -->
         <div id="game-question-phase" class="w-full flex-grow flex flex-col justify-between items-center space-y-6 hidden animate-scale-up">
           <div class="flex items-center justify-between w-full border-b border-slate-200 dark:border-slate-800 pb-3">
             <span class="text-xs font-bold text-accent-pink uppercase tracking-widest flex items-center gap-1">
               <i data-lucide="help-circle" class="w-4 h-4"></i> DESAFIO DE MEMÓRIA
             </span>
             <span class="text-xs font-mono font-bold text-slate-400 flex items-center gap-1">
-              <i data-lucide="clock" class="w-3.5 h-3.5"></i> TEMPO: <span id="answer-timer" class="text-slate-800 dark:text-white">00.00s</span>
+              <i data-lucide="clock" class="w-3.5 h-3.5"></i> RESPOSTA: <span id="answer-timer" class="text-slate-800 dark:text-white font-code">00.00s</span>
             </span>
           </div>
 
@@ -251,12 +424,12 @@
           </h2>
 
           <!-- OPÇÕES DE RESPOSTA -->
-          <div id="options-container" class="grid grid-cols-1 md:grid-cols-2 gap-3 w-full">
+          <div id="options-container" class="grid grid-cols-1 md:grid-cols-2 gap-3 w-full max-w-lg">
             <!-- Botões inseridos dinamicamente -->
           </div>
         </div>
 
-        <!-- FEEDBACK DE RESPOSTA (OVERLAY) -->
+        <!-- FEEDBACK OVERLAY (ACERTO / ERRO) -->
         <div id="answer-feedback" class="absolute inset-0 z-20 glass-panel flex flex-col justify-center items-center text-center p-6 hidden animate-scale-up">
           <div id="feedback-icon-bg" class="p-4 rounded-full mb-3">
             <i id="feedback-icon" class="w-12 h-12 text-white"></i>
@@ -264,35 +437,34 @@
           <h3 id="feedback-title" class="font-heading text-3xl font-black mb-1">CORRETO!</h3>
           <p id="feedback-subtitle" class="text-sm font-semibold text-slate-500 dark:text-slate-400 mb-4">+175 PONTOS</p>
           <div id="feedback-details" class="flex flex-wrap justify-center gap-2">
-            <!-- Badges de velocidade / combo -->
+            <!-- Badges de velocidade / combo / xp -->
           </div>
         </div>
 
       </div>
     </section>
 
-    <!-- 3. TELA DE FIM DE JOGO -->
-    <section id="screen-game-over" class="screen-view hidden flex-col items-center text-center space-y-6 max-w-md mx-auto w-full animate-scale-up">
-      <div class="space-y-2">
-        <div class="inline-flex p-3 rounded-2xl bg-accent-rose/10 text-accent-rose mb-2">
-          <i data-lucide="skull" class="w-10 h-10"></i>
+    <!-- 4. TELA DE FIM DE JOGO -->
+    <section id="screen-game-over" class="screen-view hidden flex-col items-center text-center space-y-5 max-w-md mx-auto w-full animate-scale-up">
+      <div class="space-y-1">
+        <div class="inline-flex p-3 rounded-2xl bg-accent-rose/10 text-accent-rose mb-1">
+          <i data-lucide="skull" class="w-8 h-8"></i>
         </div>
         <h1 class="font-heading text-4xl font-black text-slate-900 dark:text-white">FIM DE JOGO</h1>
-        <p class="text-sm text-slate-500 dark:text-slate-400">Você esgotou todas as suas vidas!</p>
+        <p id="go-reason" class="text-xs text-slate-500 dark:text-slate-400">Suas vidas esgotaram!</p>
       </div>
 
-      <!-- PAINEL DE RESULTADO FINAL -->
       <div class="glass-panel w-full p-6 rounded-3xl space-y-4 shadow-xl">
         <div class="bg-gradient-to-r from-brand-600/10 via-accent-pink/10 to-accent-amber/10 border border-brand-500/20 p-4 rounded-2xl">
-          <p class="text-xs font-bold text-slate-400 uppercase">PONTUAÇÃO FINAL</p>
-          <p id="go-score" class="font-heading text-5xl font-black text-brand-600 dark:text-brand-400 my-1">0</p>
+          <p class="text-[10px] font-bold text-slate-400 uppercase">PONTUAÇÃO FINAL</p>
+          <p id="go-score" class="font-heading text-5xl font-black text-brand-500 my-1">0</p>
           <p id="go-player-name" class="text-xs font-bold text-slate-500 dark:text-slate-300 uppercase tracking-wider mb-1"></p>
           <div id="go-new-record" class="hidden inline-flex items-center gap-1 text-xs font-extrabold px-3 py-1 rounded-full bg-accent-amber text-slate-900">
             <i data-lucide="crown" class="w-3.5 h-3.5"></i> NOVO RECORDE!
           </div>
         </div>
 
-        <div class="grid grid-cols-3 gap-2 text-center pt-2">
+        <div class="grid grid-cols-3 gap-2 text-center pt-1">
           <div class="p-2 bg-slate-100 dark:bg-slate-900/50 rounded-xl">
             <p class="text-[10px] text-slate-400 font-bold uppercase">FASE</p>
             <p id="go-stage" class="font-heading text-lg font-extrabold">1</p>
@@ -302,31 +474,207 @@
             <p id="go-combo" class="font-heading text-lg font-extrabold text-accent-amber">x1</p>
           </div>
           <div class="p-2 bg-slate-100 dark:bg-slate-900/50 rounded-xl">
-            <p class="text-[10px] text-slate-400 font-bold uppercase">TEMPO MÉDIO</p>
-            <p id="go-avg-time" class="font-heading text-lg font-extrabold text-accent-cyan">0.0s</p>
+            <p class="text-[10px] text-slate-400 font-bold uppercase">XP GANHO</p>
+            <p id="go-xp" class="font-heading text-lg font-extrabold text-brand-500">+0 XP</p>
           </div>
         </div>
       </div>
 
-      <!-- BOTÕES DE AÇÃO -->
       <div class="w-full space-y-2">
-        <button onclick="app.showScreen('ranking')" class="w-full py-3.5 px-6 bg-gradient-to-r from-brand-600 to-accent-pink text-white font-heading font-extrabold text-lg rounded-2xl shadow-lg active:scale-95 transition flex items-center justify-center gap-2">
-          <i data-lucide="trophy" class="w-5 h-5"></i> VER RANKING
+        <button onclick="app.startSelectedGame()" class="w-full py-3.5 px-6 bg-gradient-to-r from-brand-600 to-accent-pink text-white font-heading font-extrabold text-lg rounded-2xl shadow-lg active:scale-95 transition flex items-center justify-center gap-2">
+          <i data-lucide="rotate-ccw" class="w-5 h-5"></i> JOGAR NOVAMENTE
         </button>
-        <button onclick="app.openNameModal()" class="w-full py-3 px-6 bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 font-bold text-slate-700 dark:text-slate-200 rounded-2xl transition text-sm flex items-center justify-center gap-2">
-          <i data-lucide="rotate-ccw" class="w-4 h-4"></i> JOGAR NOVAMENTE
+        <button onclick="app.showScreen('ranking')" class="w-full py-3 px-6 bg-slate-200 dark:bg-slate-800 font-bold text-slate-700 dark:text-slate-200 rounded-2xl transition text-xs flex items-center justify-center gap-2">
+          <i data-lucide="trophy" class="w-4 h-4 text-amber-500"></i> VER RANKING
         </button>
-        <button onclick="app.showScreen('main-menu')" class="w-full py-2.5 px-6 text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 font-bold text-xs transition">
+        <button onclick="app.showScreen('main-menu')" class="w-full py-2 px-6 text-slate-500 hover:text-slate-700 dark:text-slate-400 font-bold text-xs transition">
           MENU PRINCIPAL
         </button>
       </div>
     </section>
 
-    <!-- 4. TELA DE RANKING -->
-    <section id="screen-ranking" class="screen-view hidden flex-col space-y-6 max-w-md mx-auto w-full animate-scale-up">
+    <!-- 5. TELA DE MISSÕES DIÁRIAS -->
+    <section id="screen-missions" class="screen-view hidden flex-col space-y-5 max-w-md mx-auto w-full animate-scale-up">
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-2">
-          <i data-lucide="trophy" class="w-7 h-7 text-accent-amber"></i>
+          <i data-lucide="target" class="w-7 h-7 text-accent-pink"></i>
+          <h1 class="font-heading text-3xl font-black text-slate-900 dark:text-white">MISSÕES DIÁRIAS</h1>
+        </div>
+        <button onclick="app.showScreen('main-menu')" class="p-2 rounded-xl bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <p class="text-xs text-slate-500 dark:text-slate-400">Complete os desafios do dia para ganhar XP bônus!</p>
+
+      <div id="missions-list" class="space-y-3">
+        <!-- Inserido dinamicamente via JS -->
+      </div>
+    </section>
+
+    <!-- 6. TELA DE CONQUISTAS -->
+    <section id="screen-achievements" class="screen-view hidden flex-col space-y-5 max-w-md mx-auto w-full animate-scale-up">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <i data-lucide="award" class="w-7 h-7 text-accent-amber"></i>
+          <h1 class="font-heading text-3xl font-black text-slate-900 dark:text-white">CONQUISTAS</h1>
+        </div>
+        <button onclick="app.showScreen('main-menu')" class="p-2 rounded-xl bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="flex justify-between items-center text-xs font-bold text-slate-400 px-1">
+        <span>DESBLOQUEADAS: <span id="achievements-count" class="text-brand-500">0 / 9</span></span>
+      </div>
+
+      <div id="achievements-grid" class="space-y-2.5 max-h-[400px] overflow-y-auto pr-1">
+        <!-- Inserido dinamicamente via JS -->
+      </div>
+    </section>
+
+    <!-- 7. TELA DE ESTATÍSTICAS DO JOGADOR -->
+    <section id="screen-stats" class="screen-view hidden flex-col space-y-5 max-w-md mx-auto w-full animate-scale-up">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <i data-lucide="bar-chart-2" class="w-7 h-7 text-accent-cyan"></i>
+          <h1 class="font-heading text-3xl font-black text-slate-900 dark:text-white">ESTATÍSTICAS</h1>
+        </div>
+        <button onclick="app.showScreen('main-menu')" class="p-2 rounded-xl bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="glass-panel p-5 rounded-3xl space-y-4 shadow-xl">
+        <div class="grid grid-cols-2 gap-3 text-center">
+          <div class="p-3 bg-slate-100 dark:bg-slate-900/60 rounded-2xl">
+            <p class="text-[10px] text-slate-400 font-bold uppercase">PARTIDAS JOGADAS</p>
+            <p id="stat-matches" class="font-heading text-2xl font-black">0</p>
+          </div>
+          <div class="p-3 bg-slate-100 dark:bg-slate-900/60 rounded-2xl">
+            <p class="text-[10px] text-slate-400 font-bold uppercase">TAXA DE ACERTO</p>
+            <p id="stat-accuracy" class="font-heading text-2xl font-black text-accent-emerald">0%</p>
+          </div>
+          <div class="p-3 bg-slate-100 dark:bg-slate-900/60 rounded-2xl">
+            <p class="text-[10px] text-slate-400 font-bold uppercase">ACERTOS TOTAL</p>
+            <p id="stat-hits" class="font-heading text-xl font-bold text-brand-500">0</p>
+          </div>
+          <div class="p-3 bg-slate-100 dark:bg-slate-900/60 rounded-2xl">
+            <p class="text-[10px] text-slate-400 font-bold uppercase">ERROS TOTAL</p>
+            <p id="stat-misses" class="font-heading text-xl font-bold text-accent-rose">0</p>
+          </div>
+          <div class="p-3 bg-slate-100 dark:bg-slate-900/60 rounded-2xl">
+            <p class="text-[10px] text-slate-400 font-bold uppercase">MAIOR COMBO</p>
+            <p id="stat-max-combo" class="font-heading text-xl font-bold text-accent-amber">x0</p>
+          </div>
+          <div class="p-3 bg-slate-100 dark:bg-slate-900/60 rounded-2xl">
+            <p class="text-[10px] text-slate-400 font-bold uppercase">TEMPO MÉDIO</p>
+            <p id="stat-avg-time" class="font-heading text-xl font-bold text-accent-cyan font-code">0.00s</p>
+          </div>
+        </div>
+
+        <div class="border-t border-slate-200 dark:border-slate-800 pt-3 space-y-2 text-xs">
+          <div class="flex justify-between text-slate-400 font-medium">
+            <span>Missões Concluídas:</span>
+            <span id="stat-missions-done" class="font-bold text-slate-800 dark:text-white">0</span>
+          </div>
+          <div class="flex justify-between text-slate-400 font-medium">
+            <span>Conquistas Liberadas:</span>
+            <span id="stat-achievements-done" class="font-bold text-slate-800 dark:text-white">0 / 9</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. TELA CONFIGURAÇÕES & PERSONALIZAÇÃO -->
+    <section id="screen-settings" class="screen-view hidden flex-col space-y-5 max-w-md mx-auto w-full animate-scale-up">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <i data-lucide="palette" class="w-7 h-7 text-brand-500"></i>
+          <h1 class="font-heading text-3xl font-black text-slate-900 dark:text-white">PERSONALIZAR</h1>
+        </div>
+        <button onclick="app.showScreen('main-menu')" class="p-2 rounded-xl bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="glass-panel p-6 rounded-3xl space-y-6 shadow-xl">
+        <!-- SELEÇÃO DE TEMA VISUAL -->
+        <div class="space-y-3">
+          <p class="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-2">
+            <i data-lucide="paint-bucket" class="w-4 h-4 text-brand-500"></i> Tema Visual
+          </p>
+          <div class="grid grid-cols-3 gap-2">
+            <button onclick="app.setThemeStyle('neon')" class="p-2.5 rounded-xl border border-cyan-500/40 bg-slate-950 text-cyan-400 font-bold text-xs flex flex-col items-center gap-1 hover:scale-105 transition">
+              🌈 Neon
+            </button>
+            <button onclick="app.setThemeStyle('purple')" class="p-2.5 rounded-xl border border-purple-500/40 bg-purple-950 text-purple-300 font-bold text-xs flex flex-col items-center gap-1 hover:scale-105 transition">
+              💜 Roxo
+            </button>
+            <button onclick="app.setThemeStyle('hacker')" class="p-2.5 rounded-xl border border-emerald-500/40 bg-black text-emerald-400 font-bold text-xs flex flex-col items-center gap-1 hover:scale-105 transition">
+              💚 Hacker
+            </button>
+            <button onclick="app.setThemeStyle('azul')" class="p-2.5 rounded-xl border border-sky-500/40 bg-slate-900 text-sky-400 font-bold text-xs flex flex-col items-center gap-1 hover:scale-105 transition">
+              🔵 Azul
+            </button>
+            <button onclick="app.setThemeStyle('dark')" class="p-2.5 rounded-xl border border-slate-700 bg-slate-950 text-slate-200 font-bold text-xs flex flex-col items-center gap-1 hover:scale-105 transition">
+              🌑 Dark
+            </button>
+            <button onclick="app.setThemeStyle('light')" class="p-2.5 rounded-xl border border-slate-300 bg-slate-100 text-slate-800 font-bold text-xs flex flex-col items-center gap-1 hover:scale-105 transition">
+              ☀️ Light
+            </button>
+          </div>
+        </div>
+
+        <!-- CATEGORIAS DE CONTEÚDO DAS SEQUÊNCIAS -->
+        <div class="border-t border-slate-200 dark:border-slate-800 pt-4 space-y-3">
+          <p class="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-2">
+            <i data-lucide="layers" class="w-4 h-4 text-accent-pink"></i> Conteúdo das Sequências
+          </p>
+          <p class="text-xs text-slate-400">Ative ou desative os tipos de itens que aparecerão no jogo:</p>
+
+          <div class="grid grid-cols-2 gap-2">
+            <label class="flex items-center justify-between p-3 rounded-xl bg-slate-100 dark:bg-slate-900/60 cursor-pointer">
+              <span class="text-xs font-bold">😃 Emojis</span>
+              <input type="checkbox" id="cat-emojis" onchange="app.toggleCategory('emojis')" class="w-4 h-4 accent-brand-500" checked>
+            </label>
+            <label class="flex items-center justify-between p-3 rounded-xl bg-slate-100 dark:bg-slate-900/60 cursor-pointer">
+              <span class="text-xs font-bold">🔤 Palavras</span>
+              <input type="checkbox" id="cat-words" onchange="app.toggleCategory('words')" class="w-4 h-4 accent-brand-500" checked>
+            </label>
+            <label class="flex items-center justify-between p-3 rounded-xl bg-slate-100 dark:bg-slate-900/60 cursor-pointer">
+              <span class="text-xs font-bold">🎨 Cores</span>
+              <input type="checkbox" id="cat-colors" onchange="app.toggleCategory('colors')" class="w-4 h-4 accent-brand-500" checked>
+            </label>
+            <label class="flex items-center justify-between p-3 rounded-xl bg-slate-100 dark:bg-slate-900/60 cursor-pointer">
+              <span class="text-xs font-bold">🔢 Números</span>
+              <input type="checkbox" id="cat-numbers" onchange="app.toggleCategory('numbers')" class="w-4 h-4 accent-brand-500" checked>
+            </label>
+          </div>
+        </div>
+
+        <!-- SOM -->
+        <div class="border-t border-slate-200 dark:border-slate-800 pt-4 flex items-center justify-between">
+          <div>
+            <p class="font-bold text-sm text-slate-900 dark:text-white">Efeitos Sonoros</p>
+            <p class="text-xs text-slate-400">Áudio sintetizado via Web Audio API</p>
+          </div>
+          <button id="setting-sound-btn" onclick="app.toggleSound()" class="w-12 h-6 rounded-full bg-brand-600 p-1 transition flex items-center justify-end">
+            <div class="w-4 h-4 bg-white rounded-full"></div>
+          </button>
+        </div>
+      </div>
+
+      <button onclick="app.showScreen('main-menu')" class="w-full py-3.5 bg-brand-600 text-white font-bold rounded-2xl shadow-lg">
+        SALVAR E VOLTAR
+      </button>
+    </section>
+
+    <!-- 9. TELA DE RANKING -->
+    <section id="screen-ranking" class="screen-view hidden flex-col space-y-5 max-w-md mx-auto w-full animate-scale-up">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <i data-lucide="trophy" class="w-7 h-7 text-amber-500"></i>
           <h1 class="font-heading text-3xl font-black text-slate-900 dark:text-white">RANKING</h1>
         </div>
         <button onclick="app.showScreen('main-menu')" class="p-2 rounded-xl bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
@@ -334,24 +682,22 @@
         </button>
       </div>
 
-      <!-- TABELA DE RANKING -->
       <div class="glass-panel rounded-3xl p-4 shadow-xl overflow-hidden">
         <div id="ranking-list" class="space-y-2 max-h-[380px] overflow-y-auto pr-1">
           <!-- Inserido dinamicamente via JS -->
         </div>
       </div>
 
-      <!-- BOTÃO DE LIMPAR RANKING -->
       <div class="flex justify-between items-center text-xs text-slate-400 px-2">
-        <span>Dados armazenados localmente</span>
-        <button onclick="app.openClearConfirmModal()" class="px-3 py-2 bg-rose-500/10 hover:bg-rose-500/20 text-accent-rose rounded-xl font-bold transition flex items-center gap-1.5">
-          <i data-lucide="trash-2" class="w-4 h-4"></i> LIMPAR RANKING
+        <span>Salvo localmente</span>
+        <button onclick="app.openClearConfirmModal()" class="px-3 py-1.5 bg-rose-500/10 hover:bg-rose-500/20 text-accent-rose rounded-xl font-bold transition flex items-center gap-1.5">
+          <i data-lucide="trash-2" class="w-3.5 h-3.5"></i> LIMPAR RANKING
         </button>
       </div>
     </section>
 
-    <!-- 5. TELA COMO JOGAR -->
-    <section id="screen-how-to-play" class="screen-view hidden flex-col space-y-6 max-w-md mx-auto w-full animate-scale-up">
+    <!-- 10. TELA COMO JOGAR -->
+    <section id="screen-how-to-play" class="screen-view hidden flex-col space-y-5 max-w-md mx-auto w-full animate-scale-up">
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-2">
           <i data-lucide="help-circle" class="w-7 h-7 text-accent-cyan"></i>
@@ -362,28 +708,28 @@
         </button>
       </div>
 
-      <div class="glass-panel p-6 rounded-3xl space-y-5 text-sm leading-relaxed shadow-xl">
-        <div class="flex gap-4 items-start">
-          <div class="p-3 bg-brand-500/10 text-brand-500 rounded-2xl font-black font-heading text-xl">1</div>
+      <div class="glass-panel p-6 rounded-3xl space-y-4 text-sm leading-relaxed shadow-xl">
+        <div class="flex gap-3 items-start">
+          <div class="p-2.5 bg-brand-500/10 text-brand-500 rounded-xl font-black font-heading text-lg">1</div>
           <div>
-            <h3 class="font-bold text-base text-slate-900 dark:text-white">Memorize Rapidamente</h3>
-            <p class="text-slate-500 dark:text-slate-400">Uma sequência de elementos (palavras, números, emojis) aparecerá por poucos segundos. Preste atenção na ordem e nos detalhes!</p>
+            <h3 class="font-bold text-slate-900 dark:text-white">Memorize Rapidamente</h3>
+            <p class="text-xs text-slate-400">Uma sequência de elementos (códigos, emojis, cores ou números) é exibida na tela durante alguns segundos.</p>
           </div>
         </div>
 
-        <div class="flex gap-4 items-start border-t border-slate-200 dark:border-slate-800 pt-4">
-          <div class="p-3 bg-accent-pink/10 text-accent-pink rounded-2xl font-black font-heading text-xl">2</div>
+        <div class="flex gap-3 items-start border-t border-slate-200 dark:border-slate-800 pt-3">
+          <div class="p-2.5 bg-accent-pink/10 text-accent-pink rounded-xl font-black font-heading text-lg">2</div>
           <div>
-            <h3 class="font-bold text-base text-slate-900 dark:text-white">Responda o Desafio</h3>
-            <p class="text-slate-500 dark:text-slate-400">Após os elementos desaparecerem, uma pergunta aleatória será feita sobre a sequência. Escolha a opção correta.</p>
+            <h3 class="font-bold text-slate-900 dark:text-white">Responda à Pergunta</h3>
+            <p class="text-xs text-slate-400">Uma pergunta inteligente surgirá sobre a ordem, frequência ou ausência de elementos. Escolha a resposta correta.</p>
           </div>
         </div>
 
-        <div class="flex gap-4 items-start border-t border-slate-200 dark:border-slate-800 pt-4">
-          <div class="p-3 bg-accent-amber/10 text-accent-amber rounded-2xl font-black font-heading text-xl">3</div>
+        <div class="flex gap-3 items-start border-t border-slate-200 dark:border-slate-800 pt-3">
+          <div class="p-2.5 bg-accent-amber/10 text-accent-amber rounded-xl font-black font-heading text-lg">3</div>
           <div>
-            <h3 class="font-bold text-base text-slate-900 dark:text-white">Seja Rápido & Faça Combos</h3>
-            <p class="text-slate-500 dark:text-slate-400">Respostas em menos de 1 segundo concedem bônus máximo. Acertos consecutivos ativam multiplicadores de COMBO!</p>
+            <h3 class="font-bold text-slate-900 dark:text-white">Mantenha o Combo</h3>
+            <p class="text-xs text-slate-400">Respostas rápidas em menos de 1.5s concedem bônus de velocidade e multiplicam seus pontos!</p>
           </div>
         </div>
       </div>
@@ -393,124 +739,99 @@
       </button>
     </section>
 
-    <!-- 6. TELA CONFIGURAÇÕES -->
-    <section id="screen-settings" class="screen-view hidden flex-col space-y-6 max-w-md mx-auto w-full animate-scale-up">
+    <!-- 11. TELA DE PERFIL / NÍVEL -->
+    <section id="screen-profile" class="screen-view hidden flex-col space-y-5 max-w-md mx-auto w-full animate-scale-up">
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-2">
-          <i data-lucide="settings" class="w-7 h-7 text-brand-500"></i>
-          <h1 class="font-heading text-3xl font-black text-slate-900 dark:text-white">CONFIGURAÇÕES</h1>
+          <i data-lucide="user" class="w-7 h-7 text-brand-500"></i>
+          <h1 class="font-heading text-3xl font-black text-slate-900 dark:text-white">PERFIL</h1>
         </div>
         <button onclick="app.showScreen('main-menu')" class="p-2 rounded-xl bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
 
-      <div class="glass-panel p-6 rounded-3xl space-y-6 shadow-xl">
-        <!-- SOM -->
-        <div class="flex items-center justify-between">
-          <div>
-            <p class="font-bold text-slate-900 dark:text-white">Efeitos Sonoros</p>
-            <p class="text-xs text-slate-400">Sons para acertos, erros e contagem</p>
+      <div class="glass-panel p-6 rounded-3xl space-y-5 shadow-xl">
+        <div class="flex items-center gap-4">
+          <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-brand-600 to-accent-pink flex items-center justify-center text-white font-heading font-black text-2xl shadow-lg">
+            <span id="profile-level-badge">1</span>
           </div>
-          <button id="setting-sound-btn" onclick="app.toggleSound()" class="w-12 h-6 rounded-full bg-brand-600 p-1 transition flex items-center justify-end">
-            <div class="w-4 h-4 bg-white rounded-full"></div>
-          </button>
+          <div class="flex-grow">
+            <div class="flex items-center gap-2">
+              <input type="text" id="profile-name-input" class="bg-transparent font-heading font-black text-xl text-slate-900 dark:text-white border-b border-dashed border-slate-400 focus:border-brand-500 outline-none w-full" value="Dev" maxlength="15">
+              <button onclick="app.saveProfileName()" class="p-1.5 bg-brand-500 text-white rounded-lg text-xs" title="Salvar Nome"><i data-lucide="check" class="w-4 h-4"></i></button>
+            </div>
+            <p class="text-xs text-slate-400 mt-1">Toque no nome para editar</p>
+          </div>
         </div>
 
-        <!-- MODO ESCURO -->
-        <div class="flex items-center justify-between border-t border-slate-200 dark:border-slate-800 pt-4">
-          <div>
-            <p class="font-bold text-slate-900 dark:text-white">Modo Escuro</p>
-            <p class="text-xs text-slate-400">Alternar entre tema claro e escuro</p>
+        <div class="space-y-1">
+          <div class="flex justify-between text-xs font-bold text-slate-400">
+            <span>EXPERIÊNCIA (XP)</span>
+            <span id="profile-xp-text">0 / 100 XP</span>
           </div>
-          <button id="setting-theme-btn" onclick="app.toggleTheme()" class="w-12 h-6 rounded-full bg-brand-600 p-1 transition flex items-center justify-end">
-            <div class="w-4 h-4 bg-white rounded-full"></div>
-          </button>
+          <div class="w-full h-3 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+            <div id="profile-xp-bar" class="h-full bg-gradient-to-r from-brand-500 to-accent-pink transition-all duration-300 w-0"></div>
+          </div>
         </div>
 
-        <!-- DIFICULDADE INICIAL -->
-        <div class="border-t border-slate-200 dark:border-slate-800 pt-4 space-y-2">
-          <p class="font-bold text-slate-900 dark:text-white">Dificuldade Inicial</p>
-          <div class="grid grid-cols-2 gap-2">
-            <button id="diff-normal" onclick="app.setDifficulty('normal')" class="py-2 px-3 rounded-xl border border-brand-500 bg-brand-500/10 font-bold text-brand-500 text-sm">NORMAL</button>
-            <button id="diff-hard" onclick="app.setDifficulty('hard')" class="py-2 px-3 rounded-xl border border-slate-300 dark:border-slate-700 font-bold text-slate-400 text-sm">DIFÍCIL</button>
+        <div class="grid grid-cols-2 gap-3 text-center border-t border-slate-200 dark:border-slate-800 pt-4">
+          <div class="p-2.5 bg-slate-100 dark:bg-slate-900/60 rounded-xl">
+            <p class="text-[10px] text-slate-400 font-bold uppercase">RECORDE</p>
+            <p id="profile-stat-score" class="font-heading text-xl font-bold text-brand-500">0</p>
+          </div>
+          <div class="p-2.5 bg-slate-100 dark:bg-slate-900/60 rounded-xl">
+            <p class="text-[10px] text-slate-400 font-bold uppercase">MAIOR COMBO</p>
+            <p id="profile-stat-combo" class="font-heading text-xl font-bold text-accent-amber">x0</p>
           </div>
         </div>
       </div>
-
-      <button onclick="app.showScreen('main-menu')" class="w-full py-3.5 bg-brand-600 text-white font-bold rounded-2xl shadow-lg">
-        SALVAR E FECHAR
-      </button>
     </section>
 
   </main>
 
-  <!-- MODAL: ENTRADA DE NOME DO JOGADOR -->
+  <!-- MODAL: NOME DO JOGADOR (INÍCIO RÁPIDO) -->
   <div id="modal-player-name" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-md flex items-center justify-center p-4 hidden animate-scale-up">
-    <div class="glass-panel w-full max-w-sm p-6 rounded-3xl space-y-4 shadow-2xl border border-brand-500/30 text-center">
-      <div class="inline-flex p-3 rounded-2xl bg-brand-500/10 text-brand-500">
-        <i data-lucide="user" class="w-8 h-8"></i>
-      </div>
-      <div>
-        <h2 class="font-heading text-2xl font-black text-slate-900 dark:text-white">IDENTIFIQUE-SE</h2>
-        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Digite seu nome ou apelido para salvar seu recorde no ranking</p>
+    <div class="glass-panel max-w-sm w-full p-6 rounded-3xl space-y-4 shadow-2xl">
+      <div class="text-center space-y-1">
+        <h3 class="font-heading text-2xl font-black text-slate-900 dark:text-white">IDENTIFICAÇÃO</h3>
+        <p class="text-xs text-slate-400">Digite seu apelido ou nick de desenvolvedor:</p>
       </div>
 
-      <div class="space-y-2 text-left">
-        <label for="modal-name-input" class="text-xs font-bold text-slate-400 uppercase tracking-wider">Digite seu nome/apelido:</label>
-        <input type="text" id="modal-name-input" maxlength="12" placeholder="Seu apelido aqui..." class="w-full px-4 py-3 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 font-bold text-slate-800 dark:text-white focus:outline-none focus:border-brand-500 uppercase">
-      </div>
+      <input type="text" id="modal-name-input" placeholder="Seu Nick Ex: DevMaster" maxlength="15" class="w-full px-4 py-3 bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-xl font-bold text-slate-900 dark:text-white focus:outline-none focus:border-brand-500 text-center">
 
-      <div class="flex gap-2 pt-2">
-        <button onclick="app.closeNameModal()" class="w-1/2 py-3 bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 font-bold text-slate-700 dark:text-slate-300 rounded-xl transition text-sm">
-          CANCELAR
-        </button>
-        <button onclick="app.confirmNameAndStart()" class="w-1/2 py-3 bg-gradient-to-r from-brand-600 to-accent-pink hover:from-brand-500 hover:to-accent-pink text-white font-bold rounded-xl transition text-sm shadow-md">
-          CONTINUAR
-        </button>
-      </div>
+      <button onclick="app.confirmPlayerName()" class="w-full py-3.5 bg-gradient-to-r from-brand-600 to-accent-pink text-white font-bold rounded-xl shadow-md">
+        INICIAR DESAFIO
+      </button>
     </div>
   </div>
 
-  <!-- MODAL: CONFIRMAÇÃO PARA LIMPAR RANKING -->
+  <!-- MODAL: CONFIRMAÇÃO DE LIMPEZA -->
   <div id="modal-clear-confirm" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-md flex items-center justify-center p-4 hidden animate-scale-up">
-    <div class="glass-panel w-full max-w-sm p-6 rounded-3xl space-y-4 shadow-2xl border border-accent-rose/30 text-center">
-      <div class="inline-flex p-3 rounded-2xl bg-accent-rose/10 text-accent-rose">
-        <i data-lucide="alert-triangle" class="w-8 h-8"></i>
+    <div class="glass-panel max-w-sm w-full p-6 rounded-3xl space-y-4 text-center shadow-2xl">
+      <div class="p-3 bg-rose-500/10 text-accent-rose rounded-full w-12 h-12 mx-auto flex items-center justify-center">
+        <i data-lucide="alert-triangle" class="w-6 h-6"></i>
       </div>
-      <div>
-        <h2 class="font-heading text-2xl font-black text-slate-900 dark:text-white">⚠️ LIMPAR RANKING?</h2>
-        <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
-          Todos os recordes salvos neste dispositivo serão apagados.
-        </p>
-      </div>
-
-      <div class="flex gap-2 pt-2">
-        <button onclick="app.closeClearConfirmModal()" class="w-1/2 py-3 bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 font-bold text-slate-700 dark:text-slate-300 rounded-xl transition text-sm">
-          CANCELAR
-        </button>
-        <button onclick="app.confirmClearRanking()" class="w-1/2 py-3 bg-accent-rose hover:bg-rose-600 text-white font-bold rounded-xl transition text-sm shadow-md">
-          SIM, LIMPAR
-        </button>
+      <h3 class="font-heading text-xl font-black text-slate-900 dark:text-white">Zerar Dados?</h3>
+      <p class="text-xs text-slate-400">Deseja realmente apagar todo o seu histórico de ranking do localStorage?</p>
+      
+      <div class="grid grid-cols-2 gap-2">
+        <button onclick="app.closeClearModal()" class="py-2.5 bg-slate-200 dark:bg-slate-800 font-bold text-xs rounded-xl">CANCELAR</button>
+        <button onclick="app.clearRanking()" class="py-2.5 bg-rose-600 text-white font-bold text-xs rounded-xl">SIM, ZERAR</button>
       </div>
     </div>
-  </div>
-
-  <!-- TOAST / NOTIFICAÇÃO TEMPORÁRIA -->
-  <div id="toast-notification" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 px-5 py-3 rounded-2xl bg-slate-900 text-white font-bold text-sm shadow-2xl border border-slate-700 flex items-center gap-2 hidden animate-bounce-short">
-    <i data-lucide="info" class="w-4 h-4 text-accent-cyan"></i>
-    <span id="toast-text">Notificação</span>
   </div>
 
   <!-- RODAPÉ -->
-  <footer class="w-full py-4 text-center text-xs text-slate-400 dark:text-slate-600">
-    MEMO RUSH © 2026 — Desafie sua mente
+  <footer class="w-full text-center py-3 text-[10px] text-slate-500 font-mono border-t border-slate-200 dark:border-slate-800/80">
+    MEMO RUSH &copy; 2026 // IA ADAPTATIVA & PERFORMANCE ENGINE
   </footer>
 
-  <!-- LÓGICA DO JOGO EM JAVASCRIPT -->
   <script>
-    /*GERENCIADOR DE ÁUDIO SINTETIZADO (Web Audio API) */
-    class AudioEngine {
+    /* ==========================================================================
+       1. SISTEMA DE ÁUDIO SINTETIZADO (Web Audio API)
+       ========================================================================== */
+    class SoundEngine {
       constructor() {
         this.ctx = null;
         this.enabled = true;
@@ -523,650 +844,951 @@
         }
       }
 
-      playTone(freq, type, duration, startVol = 0.3, endVol = 0) {
-        if (!this.enabled || !this.ctx) return;
+      playBeep(freq, duration, type = 'sine', gainVal = 0.1) {
+        if (!this.enabled) return;
+        this.init();
+        if (!this.ctx) return;
+
         try {
           const osc = this.ctx.createOscillator();
           const gain = this.ctx.createGain();
           osc.type = type;
           osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
-          gain.gain.setValueAtTime(startVol, this.ctx.currentTime);
-          gain.gain.exponentialRampToValueAtTime(Math.max(endVol, 0.0001), this.ctx.currentTime + duration);
+          gain.gain.setValueAtTime(gainVal, this.ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + duration);
+
           osc.connect(gain);
           gain.connect(this.ctx.destination);
+
           osc.start();
           osc.stop(this.ctx.currentTime + duration);
-        } catch(e) {}
+        } catch (e) {}
       }
 
       playCorrect() {
         if (!this.enabled) return;
-        this.init();
-        this.playTone(523.25, 'sine', 0.1, 0.3); // C5
-        setTimeout(() => this.playTone(659.25, 'sine', 0.1, 0.3), 80); // E5
-        setTimeout(() => this.playTone(783.99, 'sine', 0.2, 0.4), 160); // G5
+        this.playBeep(523.25, 0.1, 'triangle', 0.15); // C5
+        setTimeout(() => this.playBeep(659.25, 0.1, 'triangle', 0.15), 80); // E5
+        setTimeout(() => this.playBeep(783.99, 0.2, 'triangle', 0.15), 160); // G5
       }
 
       playWrong() {
         if (!this.enabled) return;
-        this.init();
-        this.playTone(220, 'sawtooth', 0.15, 0.4);
-        setTimeout(() => this.playTone(180, 'sawtooth', 0.25, 0.4), 120);
-      }
-
-      playTick() {
-        if (!this.enabled) return;
-        this.init();
-        this.playTone(800, 'triangle', 0.03, 0.1);
+        this.playBeep(220, 0.15, 'sawtooth', 0.2); // A3
+        setTimeout(() => this.playBeep(180, 0.25, 'sawtooth', 0.2), 120);
       }
 
       playCombo() {
         if (!this.enabled) return;
-        this.init();
-        this.playTone(440, 'sine', 0.08, 0.3);
-        setTimeout(() => this.playTone(880, 'sine', 0.15, 0.4), 70);
+        this.playBeep(880, 0.08, 'sine', 0.12);
+        setTimeout(() => this.playBeep(1108.73, 0.15, 'sine', 0.12), 70);
+      }
+
+      playAchievement() {
+        if (!this.enabled) return;
+        this.playBeep(440, 0.1, 'square', 0.1);
+        setTimeout(() => this.playBeep(554.37, 0.1, 'square', 0.1), 100);
+        setTimeout(() => this.playBeep(659.25, 0.15, 'square', 0.1), 200);
+        setTimeout(() => this.playBeep(880, 0.3, 'square', 0.12), 300);
       }
     }
 
-    /* BANCO DE DADOS DE ELEMENTOS (PALAVRAS, EMOJIS, CORES)
-        */
-    const GAME_DATA = {
-      emojis: ['🍎','🐱','🚀','⚽','🍕','💎','🔥','👑','🎸','⚡','🚗','🎨','🦄','🦁','🎮','🍔','🍦','🌺','🎧','🏀'],
-      words: ['AZUL', 'VERMELHO', 'CASA', 'LIVRO', 'SOL', 'LUA', 'NAVIO', 'FLOR', 'TEMPO', 'NUVEM', 'VENTO', 'ARVORE', 'PONTE', 'RELOGIO', 'CIDADE', 'MUNDO', 'MÚSICA', 'SABOR', 'NOITE', 'PRAIA'],
-      colors: ['VERDE', 'AMARELO', 'ROXO', 'ROSA', 'PRETO', 'BRANCO', 'CINZA', 'LARANJA']
+    /* ==========================================================================
+       2. REPOSITÓRIOS DE DADOS DE CONTEÚDO (EMOJIS, PALAVRAS, CORES, NÚMEROS)
+       ========================================================================== */
+    const DATA_ITEMS = {
+      emojis: ['⚡', '🚀', '🧠', '🔥', '💎', '🎯', '💻', '🎮', '🤖', '👾', '👑', '🔮', '🛡️', '🔑', '⭐'],
+      words: ['JS', 'HTML', 'CSS', 'REACT', 'PYTHON', 'NODE', 'DATA', 'CODE', 'LOOP', 'BYTE', 'ARRAY', 'STACK', 'DEBUG', 'LOGIC', 'API'],
+      colors: [
+        { name: 'Vermelho', hex: '#ef4444' },
+        { name: 'Azul', hex: '#3b82f6' },
+        { name: 'Verde', hex: '#10b981' },
+        { name: 'Amarelo', hex: '#f59e0b' },
+        { name: 'Roxo', hex: '#a855f7' },
+        { name: 'Rosa', hex: '#ec4899' },
+        { name: 'Ciano', hex: '#06b6d4' }
+      ],
+      numbers: ['10', '25', '42', '99', '128', '256', '512', '7', '13', '88']
     };
 
-    /* IA SIMULADA / GERADOR ADAPTATIVO DE DESAFIOS*/
-    class AIChallengeGenerator {
-      generateSequence(length, difficulty = 'normal') {
-        const result = [];
-        
-        for (let i = 0; i < length; i++) {
-          const randType = Math.random();
-          let item = '';
-          
-          if (randType < 0.35) {
-            item = GAME_DATA.words[Math.floor(Math.random() * GAME_DATA.words.length)];
-          } else if (randType < 0.70) {
-            item = GAME_DATA.emojis[Math.floor(Math.random() * GAME_DATA.emojis.length)];
-          } else if (randType < 0.85) {
-            item = GAME_DATA.colors[Math.floor(Math.random() * GAME_DATA.colors.length)];
-          } else {
-            item = Math.floor(Math.random() * 90 + 10).toString();
-          }
-
-          if (difficulty === 'hard' && Math.random() < 0.2 && result.length > 0) {
-            item = result[Math.floor(Math.random() * result.length)];
-          }
-
-          result.push(item);
-        }
-        return result;
-      }
-
-      generateQuestion(sequence) {
-        const questionTypes = [
-          'POSITION_EXACT',
-          'POSITION_FIRST_LAST',
-          'CONTAINS_EMOJI',
-          'CONTAINS_NUMBER',
-          'NOT_PRESENT',
-          'COUNT_TOTAL'
-        ];
-
-        const type = questionTypes[Math.floor(Math.random() * questionTypes.length)];
-        let questionText = '';
-        let correctAnswer = '';
-        let wrongOptions = [];
-
-        const ordinals = ['primeira', 'segunda', 'terceira', 'quarta', 'quinta', 'sexta', 'sétima', 'oitava', 'nona', 'décima', 'décima primeira', 'décima segunda', 'décima terceira', 'décima quarta', 'décima quinta'];
-
-        switch (type) {
-          case 'POSITION_EXACT': {
-            const index = Math.floor(Math.random() * sequence.length);
-            questionText = `Qual era a ${ordinals[index]} informação?`;
-            correctAnswer = sequence[index];
-            break;
-          }
-
-          case 'POSITION_FIRST_LAST': {
-            const isFirst = Math.random() > 0.5;
-            const index = isFirst ? 0 : sequence.length - 1;
-            questionText = isFirst ? `Qual era a PRIMEIRA informação?` : `Qual era a ÚLTIMA informação?`;
-            correctAnswer = sequence[index];
-            break;
-          }
-
-          case 'CONTAINS_EMOJI': {
-            const emojisInSeq = sequence.filter(x => GAME_DATA.emojis.includes(x));
-            if (emojisInSeq.length > 0) {
-              questionText = `Qual destes emojis estava presente na sequência?`;
-              correctAnswer = emojisInSeq[Math.floor(Math.random() * emojisInSeq.length)];
-              wrongOptions = GAME_DATA.emojis.filter(e => !sequence.includes(e));
-            } else {
-              questionText = `Qual era a primeira informação?`;
-              correctAnswer = sequence[0];
-            }
-            break;
-          }
-
-          case 'CONTAINS_NUMBER': {
-            const numbersInSeq = sequence.filter(x => !isNaN(x));
-            if (numbersInSeq.length > 0) {
-              questionText = `Qual número apareceu na tela?`;
-              correctAnswer = numbersInSeq[Math.floor(Math.random() * numbersInSeq.length)];
-              wrongOptions = [
-                Math.floor(Math.random() * 80 + 10).toString(),
-                Math.floor(Math.random() * 80 + 10).toString(),
-                Math.floor(Math.random() * 80 + 10).toString()
-              ].filter(n => !sequence.includes(n));
-            } else {
-              const idx = Math.floor(sequence.length / 2);
-              questionText = `Qual era a ${ordinals[idx]} informação?`;
-              correctAnswer = sequence[idx];
-            }
-            break;
-          }
-
-          case 'NOT_PRESENT': {
-            questionText = `Qual elemento NÃO apareceu na sequência?`;
-            const allPossible = [...GAME_DATA.words, ...GAME_DATA.emojis, ...GAME_DATA.colors];
-            const notInSeq = allPossible.filter(x => !sequence.includes(x));
-            correctAnswer = notInSeq[Math.floor(Math.random() * notInSeq.length)];
-            
-            const distractorOptions = [...new Set(sequence)].slice(0, 3);
-            wrongOptions = distractorOptions;
-            break;
-          }
-
-          case 'COUNT_TOTAL': {
-            questionText = `Quantas informações no total foram exibidas?`;
-            correctAnswer = sequence.length.toString();
-            wrongOptions = [
-              (sequence.length - 1).toString(),
-              (sequence.length + 1).toString(),
-              (sequence.length + 2).toString()
-            ].filter(v => parseInt(v) > 0);
-            break;
-          }
-        }
-
-        let options = [correctAnswer];
-
-        if (wrongOptions.length >= 3) {
-          options.push(...wrongOptions.slice(0, 3));
-        } else {
-          const pool = [...GAME_DATA.words, ...GAME_DATA.emojis, ...GAME_DATA.colors, '42', '99'];
-          while (options.length < 4) {
-            const candidate = pool[Math.floor(Math.random() * pool.length)];
-            if (!sequence.includes(candidate) && !options.includes(candidate) && candidate !== correctAnswer) {
-              options.push(candidate);
-            } else if (type === 'POSITION_EXACT' || type === 'POSITION_FIRST_LAST') {
-              const seqCandidate = sequence[Math.floor(Math.random() * sequence.length)];
-              if (!options.includes(seqCandidate)) {
-                options.push(seqCandidate);
-              }
-            }
-          }
-        }
-
-        options = options.sort(() => Math.random() - 0.5);
-
-        return {
-          questionText,
-          correctAnswer,
-          options
-        };
-      }
-    }
-
-    /*  APLICAÇÃO E CONTROLADOR DO JOGO*/
+    /* ==========================================================================
+       3. ESTADO GLOBAL DO JOGO E LOCALSTORAGE
+       ========================================================================== */
     class MemoRushApp {
       constructor() {
-        this.audio = new AudioEngine();
-        this.ai = new AIChallengeGenerator();
+        this.sound = new SoundEngine();
 
-        // Estado do Jogo
+        // Estado do Usuário
+        this.player = {
+          name: 'Dev',
+          level: 1,
+          xp: 0,
+          highScore: 0,
+          maxStage: 1,
+          maxCombo: 0,
+          stats: {
+            matches: 0,
+            hits: 0,
+            misses: 0,
+            totalResponseTime: 0,
+            missionsDone: 0,
+            achievementsDone: 0
+          }
+        };
+
+        // Configurações
+        this.settings = {
+          theme: 'dark',
+          soundEnabled: true,
+          difficulty: 'normal',
+          categories: { emojis: true, words: true, colors: true, numbers: true }
+        };
+
+        // Partida Atual
+        this.currentMode = 'classic'; // classic, timeattack, endless, suddendeath, practice
         this.stage = 1;
         this.score = 0;
         this.combo = 1;
-        this.maxCombo = 1;
+        this.maxComboInSession = 1;
         this.lives = 3;
-        this.difficulty = 'normal';
-        this.isSoundOn = true;
-        this.isDarkMode = true;
-        this.currentPlayerName = localStorage.getItem('memorush_last_player_name') || '';
+        this.timeAttackLeft = 45; // em segundos
+        this.timeAttackTimer = null;
 
-        // Cronômetros e Rastreamento
-        this.memorizeTimer = null;
-        this.answerStartTime = 0;
-        this.answerTimerInterval = null;
-        this.responseTimes = [];
+        // Sequência e Pergunta
         this.currentSequence = [];
         this.currentQuestion = null;
+        this.memorizeTimer = null;
+        this.answerTimerInterval = null;
+        this.answerStartTime = 0;
 
-        // IMPORTANTE: Ranking começa 100% vazio se não houver dados salvos no localStorage
-        this.rankings = this.loadData('memorush_rankings', []);
+        // Missões Diárias
+        this.dailyMissions = [];
 
-        this.stats = this.loadData('memorush_stats', {
-          highScore: 0,
-          maxStage: 1,
-          maxCombo: 0
-        });
+        // Conquistas
+        this.achievements = [
+          { id: 'ach_1', name: '🧠 Memória de Aço', desc: 'Complete 10 fases no total', reqType: 'stage', reqVal: 10, unlocked: false },
+          { id: 'ach_2', name: '⚡ Velocista', desc: 'Responda uma pergunta em menos de 1.0 segundo', reqType: 'speed', reqVal: 1.0, unlocked: false },
+          { id: 'ach_3', name: '🔥 Combo Insano', desc: 'Alcance um combo de x10', reqType: 'combo', reqVal: 10, unlocked: false },
+          { id: 'ach_4', name: '👑 Mestre da Memória', desc: 'Chegue até a Fase 15', reqType: 'maxStage', reqVal: 15, unlocked: false },
+          { id: 'ach_5', name: '❤️ Sobrevivente', desc: 'Vença 5 fases sem perder nenhuma vida', reqType: 'flawless_stages', reqVal: 5, unlocked: false },
+          { id: 'ach_6', name: '🎯 Precisão', desc: 'Alcance 10 acertos consecutivos', reqType: 'streak', reqVal: 10, unlocked: false },
+          { id: 'ach_7', name: '💯 Perfeccionista', desc: 'Alcance 1000 pontos em uma única partida', reqType: 'score', reqVal: 1000, unlocked: false },
+          { id: 'ach_8', name: '🚀 Alta Performance', desc: 'Alcance o Nível 5 do perfil', reqType: 'level', reqVal: 5, unlocked: false },
+          { id: 'ach_9', name: '🔓 Explorador', desc: 'Jogue pelo menos 5 partidas', reqType: 'matches', reqVal: 5, unlocked: false }
+        ];
 
-        this.initDOM();
+        this.streakCount = 0;
+        this.flawlessStagesCount = 0;
+
+        // IA Adaptativa (Histórico de resposta)
+        this.aiMetrics = {
+          avgResponseTime: 1.5,
+          accuracyRate: 0.8
+        };
+
+        this.ranking = [];
       }
 
-      initDOM() {
+      init() {
+        this.loadStorage();
+        this.applyThemeStyle(this.settings.theme);
+        this.checkDailyMissions();
+        this.updateHeaderUI();
+        this.renderMissions();
+        this.renderAchievements();
         lucide.createIcons();
-        this.updateStatsUI();
-        this.renderRanking();
-        
-        document.addEventListener('keydown', (e) => {
-          if (e.key === 'Escape') {
-            this.closeNameModal();
-            this.closeClearConfirmModal();
-            this.showScreen('main-menu');
-          }
-        });
       }
 
-      saveData(key, data) {
-        try { localStorage.setItem(key, JSON.stringify(data)); } catch(e){}
-      }
-
-      loadData(key, fallback) {
+      loadStorage() {
         try {
-          const val = localStorage.getItem(key);
-          return val ? JSON.parse(val) : fallback;
-        } catch(e) { return fallback; }
+          const savedPlayer = localStorage.getItem('memorush_player');
+          if (savedPlayer) this.player = { ...this.player, ...JSON.parse(savedPlayer) };
+
+          const savedSettings = localStorage.getItem('memorush_settings');
+          if (savedSettings) this.settings = { ...this.settings, ...JSON.parse(savedSettings) };
+
+          const savedRanking = localStorage.getItem('memorush_ranking');
+          if (savedRanking) this.ranking = JSON.parse(savedRanking);
+
+          const savedAchievements = localStorage.getItem('memorush_achievements');
+          if (savedAchievements) {
+            const unlockedIds = JSON.parse(savedAchievements);
+            this.achievements.forEach(a => { if (unlockedIds.includes(a.id)) a.unlocked = true; });
+          }
+        } catch (e) {
+          console.error("Erro ao carregar localStorage:", e);
+        }
+      }
+
+      saveStorage() {
+        try {
+          localStorage.setItem('memorush_player', JSON.stringify(this.player));
+          localStorage.setItem('memorush_settings', JSON.stringify(this.settings));
+          localStorage.setItem('memorush_ranking', JSON.stringify(this.ranking));
+          
+          const unlockedIds = this.achievements.filter(a => a.unlocked).map(a => a.id);
+          localStorage.setItem('memorush_achievements', JSON.stringify(unlockedIds));
+        } catch (e) {
+          console.error("Erro ao salvar localStorage:", e);
+        }
       }
 
       showScreen(screenId) {
-        document.querySelectorAll('.screen-view').forEach(s => {
-          s.classList.add('hidden');
-          s.classList.remove('flex', 'active');
-        });
-
+        document.querySelectorAll('.screen-view').forEach(el => el.classList.add('hidden'));
         const target = document.getElementById(`screen-${screenId}`);
         if (target) {
           target.classList.remove('hidden');
-          target.classList.add('flex', 'active');
+          target.classList.add('flex');
         }
 
-        if (screenId !== 'game') {
-          clearInterval(this.memorizeTimer);
-          clearInterval(this.answerTimerInterval);
-        }
+        if (screenId === 'main-menu') this.updateMenuUI();
+        if (screenId === 'ranking') this.renderRanking();
+        if (screenId === 'stats') this.renderStats();
+        if (screenId === 'profile') this.renderProfile();
+        if (screenId === 'missions') this.renderMissions();
+        if (screenId === 'achievements') this.renderAchievements();
+      }
 
-        if (screenId === 'ranking') {
-          this.renderRanking();
+      setThemeStyle(themeName) {
+        this.settings.theme = themeName;
+        this.applyThemeStyle(themeName);
+        this.saveStorage();
+        this.showToast('🎨 Tema Atualizado!', `O tema ${themeName.toUpperCase()} foi aplicado.`);
+      }
+
+      applyThemeStyle(themeName) {
+        document.body.className = `theme-${themeName} min-h-screen flex flex-col justify-between overflow-x-hidden`;
+        if (themeName === 'light') {
+          document.documentElement.classList.remove('dark');
+        } else {
+          document.documentElement.classList.add('dark');
         }
       }
 
       toggleTheme() {
-        this.isDarkMode = !this.isDarkMode;
-        const html = document.documentElement;
-        if (this.isDarkMode) {
-          html.classList.add('dark');
-        } else {
-          html.classList.remove('dark');
-        }
-        const setBtn = document.getElementById('setting-theme-btn');
-        if (setBtn) {
-          setBtn.className = `w-12 h-6 rounded-full p-1 transition flex items-center ${this.isDarkMode ? 'bg-brand-600 justify-end' : 'bg-slate-300 justify-start'}`;
-        }
+        const nextTheme = this.settings.theme === 'light' ? 'dark' : 'light';
+        this.setThemeStyle(nextTheme);
       }
 
       toggleSound() {
-        this.isSoundOn = !this.isSoundOn;
-        this.audio.enabled = this.isSoundOn;
-        document.getElementById('sound-on-icon').classList.toggle('hidden', !this.isSoundOn);
-        document.getElementById('sound-off-icon').classList.toggle('hidden', this.isSoundOn);
+        this.settings.soundEnabled = !this.settings.soundEnabled;
+        this.sound.enabled = this.settings.soundEnabled;
         
-        const setBtn = document.getElementById('setting-sound-btn');
-        if (setBtn) {
-          setBtn.className = `w-12 h-6 rounded-full p-1 transition flex items-center ${this.isSoundOn ? 'bg-brand-600 justify-end' : 'bg-slate-300 justify-start'}`;
+        const soundOnIcon = document.getElementById('sound-on-icon');
+        const soundOffIcon = document.getElementById('sound-off-icon');
+        if (this.settings.soundEnabled) {
+          soundOnIcon.classList.remove('hidden');
+          soundOffIcon.classList.add('hidden');
+          this.sound.playBeep(600, 0.1);
+        } else {
+          soundOnIcon.classList.add('hidden');
+          soundOffIcon.classList.remove('hidden');
+        }
+        this.saveStorage();
+      }
+
+      toggleCategory(cat) {
+        this.settings.categories[cat] = document.getElementById(`cat-${cat}`).checked;
+        // Garantir ao menos uma categoria
+        const anyActive = Object.values(this.settings.categories).some(v => v);
+        if (!anyActive) {
+          this.settings.categories[cat] = true;
+          document.getElementById(`cat-${cat}`).checked = true;
+          this.showToast('⚠️ Categoria Mantida', 'Ao menos uma categoria de elementos deve ficar ativa!');
+        }
+        this.saveStorage();
+      }
+
+      showToast(title, message, icon = 'sparkles') {
+        const container = document.getElementById('toast-container');
+        const toast = document.createElement('div');
+        toast.className = 'glass-panel p-3.5 rounded-2xl shadow-xl flex items-center gap-3 border border-brand-500/30 text-slate-900 dark:text-white pointer-events-auto animate-slide-down';
+        toast.innerHTML = `
+          <div class="p-2 rounded-xl bg-brand-500 text-white">
+            <i data-lucide="${icon}" class="w-4 h-4"></i>
+          </div>
+          <div>
+            <h4 class="font-bold text-xs">${title}</h4>
+            <p class="text-[11px] text-slate-500 dark:text-slate-400">${message}</p>
+          </div>
+        `;
+        container.appendChild(toast);
+        lucide.createIcons();
+
+        setTimeout(() => {
+          toast.style.opacity = '0';
+          toast.style.transform = 'translateY(-20px)';
+          toast.style.transition = 'all 0.3s ease';
+          setTimeout(() => toast.remove(), 300);
+        }, 3000);
+      }
+
+      addXP(amount) {
+        this.player.xp += amount;
+        const requiredXP = this.player.level * 100;
+        
+        if (this.player.xp >= requiredXP) {
+          this.player.xp -= requiredXP;
+          this.player.level += 1;
+          this.sound.playAchievement();
+          this.showToast('⭐ SUBIU DE NÍVEL!', `Parabéns! Você alcançou o Nível ${this.player.level}!`, 'award');
+          this.checkAchievements();
+        }
+        this.updateHeaderUI();
+        this.saveStorage();
+      }
+
+      checkDailyMissions() {
+        const today = new Date().toDateString();
+        const savedMissionsDate = localStorage.getItem('memorush_missions_date');
+        const savedMissions = localStorage.getItem('memorush_missions');
+
+        if (savedMissionsDate === today && savedMissions) {
+          this.dailyMissions = JSON.parse(savedMissions);
+        } else {
+          // Gerar novas 3 missões diárias
+          this.dailyMissions = [
+            { id: 'm1', name: 'Completar 3 Fases', desc: 'Chegue à Fase 3 em qualquer modo', progress: 0, total: 3, xp: 50, done: false },
+            { id: 'm2', name: 'Combo Poderoso', desc: 'Alcance um combo de x3', progress: 0, total: 3, xp: 60, done: false },
+            { id: 'm3', name: 'Mestre do Raciocínio', desc: 'Acerte 5 perguntas na partida', progress: 0, total: 5, xp: 80, done: false }
+          ];
+          localStorage.setItem('memorush_missions_date', today);
+          localStorage.setItem('memorush_missions', JSON.stringify(this.dailyMissions));
         }
       }
 
-      setDifficulty(diff) {
-        this.difficulty = diff;
-        document.getElementById('diff-normal').className = diff === 'normal' ? 'py-2 px-3 rounded-xl border border-brand-500 bg-brand-500/10 font-bold text-brand-500 text-sm' : 'py-2 px-3 rounded-xl border border-slate-300 dark:border-slate-700 font-bold text-slate-400 text-sm';
-        document.getElementById('diff-hard').className = diff === 'hard' ? 'py-2 px-3 rounded-xl border border-brand-500 bg-brand-500/10 font-bold text-brand-500 text-sm' : 'py-2 px-3 rounded-xl border border-slate-300 dark:border-slate-700 font-bold text-slate-400 text-sm';
+      updateMissionProgress(type, amount) {
+        let changed = false;
+        this.dailyMissions.forEach(m => {
+          if (!m.done) {
+            if (type === 'stage' && m.id === 'm1') {
+              m.progress = Math.min(m.total, amount);
+            } else if (type === 'combo' && m.id === 'm2') {
+              m.progress = Math.min(m.total, amount);
+            } else if (type === 'hits' && m.id === 'm3') {
+              m.progress = Math.min(m.total, m.progress + amount);
+            }
+
+            if (m.progress >= m.total && !m.done) {
+              m.done = true;
+              changed = true;
+              this.addXP(m.xp);
+              this.player.stats.missionsDone += 1;
+              this.showToast('MISSÃO CONCLUÍDA!', `${m.name} (+${m.xp} XP)`, 'target');
+            }
+          }
+        });
+
+        if (changed) {
+          localStorage.setItem('memorush_missions', JSON.stringify(this.dailyMissions));
+          this.saveStorage();
+        }
       }
 
-      // MODAL PARA SOLICITAR NOME ANTES DE INICIAR A PARTIDA
+      checkAchievements() {
+        let unlockedAny = false;
+        this.achievements.forEach(a => {
+          if (!a.unlocked) {
+            let unlock = false;
+            if (a.reqType === 'stage' && this.player.maxStage >= a.reqVal) unlock = true;
+            if (a.reqType === 'combo' && this.player.maxCombo >= a.reqVal) unlock = true;
+            if (a.reqType === 'maxStage' && this.player.maxStage >= a.reqVal) unlock = true;
+            if (a.reqType === 'level' && this.player.level >= a.reqVal) unlock = true;
+            if (a.reqType === 'matches' && this.player.stats.matches >= a.reqVal) unlock = true;
+            if (a.reqType === 'score' && this.score >= a.reqVal) unlock = true;
+
+            if (unlock) {
+              a.unlocked = true;
+              unlockedAny = true;
+              this.player.stats.achievementsDone += 1;
+              this.sound.playAchievement();
+              this.showToast('🏆 CONQUISTA DESBLOQUEADA!', a.name, 'trophy');
+            }
+          }
+        });
+
+        if (unlockedAny) this.saveStorage();
+      }
+
+      /* ==========================================================================
+         4. GERADOR AVANÇADO DE PERGUNTAS (16+ TIPOS INTELIGENTES)
+         ========================================================================== */
+      generateSequence() {
+        const activeCategories = [];
+        if (this.settings.categories.emojis) activeCategories.push('emojis');
+        if (this.settings.categories.words) activeCategories.push('words');
+        if (this.settings.categories.colors) activeCategories.push('colors');
+        if (this.settings.categories.numbers) activeCategories.push('numbers');
+
+        // IA Adaptativa determina o tamanho da sequência
+        let length = Math.min(3 + Math.floor(this.stage / 2), 8);
+
+        const sequence = [];
+        for (let i = 0; i < length; i++) {
+          const cat = activeCategories[Math.floor(Math.random() * activeCategories.length)];
+          const items = DATA_ITEMS[cat];
+          const item = items[Math.floor(Math.random() * items.length)];
+
+          if (cat === 'colors') {
+            sequence.push({ type: 'color', label: item.name, hex: item.hex, val: item.name });
+          } else {
+            const valStr = typeof item === 'object' ? item.name : item;
+            sequence.push({ type: cat.slice(0, -1), label: valStr, val: valStr });
+          }
+        }
+        return sequence;
+      }
+
+      generateQuestion(seq) {
+        const questionTypes = [];
+
+        // 1. Posição específica
+        questionTypes.push('position');
+        // 2. Primeiro item
+        questionTypes.push('first');
+        // 3. Último item
+        questionTypes.push('last');
+        // 4. Antes de X
+        if (seq.length > 1) questionTypes.push('before_x');
+        // 5. Depois de X
+        if (seq.length > 1) questionTypes.push('after_x');
+        // 6. Entre X e Y
+        if (seq.length >= 3) questionTypes.push('between_x_y');
+        // 7. Ausente
+        questionTypes.push('missing');
+        // 8. Frequência
+        questionTypes.push('frequency');
+        // 9. Categoria mais frequente
+        questionTypes.push('most_frequent_category');
+        // 10. Houve item repetido?
+        questionTypes.push('has_duplicate');
+
+        const numbersInSeq = seq.filter(s => s.type === 'number');
+        if (numbersInSeq.length >= 2) {
+          questionTypes.push('number_order');
+        }
+
+        const selectedType = questionTypes[Math.floor(Math.random() * questionTypes.length)];
+        let text = '';
+        let correctAnswer = '';
+        let distractors = [];
+
+        const allLabels = seq.map(s => s.label);
+
+        if (selectedType === 'position') {
+          const idx = Math.floor(Math.random() * seq.length);
+          const posNames = ['primeiro', 'segundo', 'terceiro', 'quarto', 'quinto', 'sexto', 'sétimo', 'oitavo'];
+          text = `Qual era o ${posNames[idx]} item da sequência?`;
+          correctAnswer = seq[idx].label;
+          distractors = this.getDistractors(correctAnswer);
+        } 
+        else if (selectedType === 'first') {
+          text = 'Qual foi o PRIMEIRO item exibido?';
+          correctAnswer = seq[0].label;
+          distractors = this.getDistractors(correctAnswer);
+        } 
+        else if (selectedType === 'last') {
+          text = 'Qual foi o ÚLTIMO item exibido?';
+          correctAnswer = seq[seq.length - 1].label;
+          distractors = this.getDistractors(correctAnswer);
+        } 
+        else if (selectedType === 'before_x') {
+          const idx = Math.floor(Math.random() * (seq.length - 1)) + 1;
+          text = `Qual item apareceu IMEDIATAMENTE ANTES de "${seq[idx].label}"?`;
+          correctAnswer = seq[idx - 1].label;
+          distractors = this.getDistractors(correctAnswer);
+        } 
+        else if (selectedType === 'after_x') {
+          const idx = Math.floor(Math.random() * (seq.length - 1));
+          text = `Qual item apareceu IMEDIATAMENTE DEPOIS de "${seq[idx].label}"?`;
+          correctAnswer = seq[idx + 1].label;
+          distractors = this.getDistractors(correctAnswer);
+        } 
+        else if (selectedType === 'between_x_y') {
+          const idx = Math.floor(Math.random() * (seq.length - 2)) + 1;
+          text = `Qual item estava ENTRE "${seq[idx - 1].label}" e "${seq[idx + 1].label}"?`;
+          correctAnswer = seq[idx].label;
+          distractors = this.getDistractors(correctAnswer);
+        } 
+        else if (selectedType === 'missing') {
+          text = 'Qual dos itens abaixo NÃO apareceu na sequência?';
+          distractors = [...new Set(allLabels)];
+          const pool = [...DATA_ITEMS.emojis, ...DATA_ITEMS.words, ...DATA_ITEMS.colors.map(c => c.name), ...DATA_ITEMS.numbers];
+          const unused = pool.filter(p => !allLabels.includes(p));
+          correctAnswer = unused[Math.floor(Math.random() * unused.length)];
+        } 
+        else if (selectedType === 'frequency') {
+          const item = seq[Math.floor(Math.random() * seq.length)].label;
+          const count = allLabels.filter(l => l === item).length;
+          text = `Quantas vezes o item "${item}" apareceu?`;
+          correctAnswer = `${count} vez(es)`;
+          distractors = [`${count + 1} vez(es)`, `${Math.max(0, count - 1)} vez(es)`, `${count + 2} vez(es)`];
+        } 
+        else if (selectedType === 'most_frequent_category') {
+          text = 'Qual categoria de item apareceu mais vezes?';
+          const counts = {};
+          seq.forEach(s => counts[s.type] = (counts[s.type] || 0) + 1);
+          const topCat = Object.keys(counts).reduce((a, b) => counts[a] > counts[b] ? a : b);
+          const catMap = { emoji: 'Emojis', word: 'Palavras', color: 'Cores', number: 'Números' };
+          correctAnswer = catMap[topCat];
+          distractors = Object.values(catMap).filter(c => c !== correctAnswer);
+        } 
+        else if (selectedType === 'has_duplicate') {
+          text = 'Havia algum item REPETIDO na sequência?';
+          const hasDup = new Set(allLabels).size !== allLabels.length;
+          correctAnswer = hasDup ? 'Sim' : 'Não';
+          distractors = [hasDup ? 'Não' : 'Sim'];
+        } 
+        else if (selectedType === 'number_order') {
+          text = 'A ordem dos NÚMEROS na sequência era crescente ou decrescente?';
+          const nums = seq.filter(s => s.type === 'number').map(s => parseInt(s.label));
+          let isAsc = true;
+          for (let i = 0; i < nums.length - 1; i++) {
+            if (nums[i] > nums[i + 1]) isAsc = false;
+          }
+          correctAnswer = isAsc ? 'Crescente' : 'Decrescente / Mista';
+          distractors = [isAsc ? 'Decrescente / Mista' : 'Crescente'];
+        }
+
+        // Embaralhar alternativas
+        const options = [correctAnswer, ...distractors.slice(0, 3)];
+        for (let i = options.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [options[i], options[j]] = [options[j], options[i]];
+        }
+
+        return { text, correctAnswer, options };
+      }
+
+      getDistractors(correct) {
+        const pool = [...DATA_ITEMS.emojis, ...DATA_ITEMS.words, ...DATA_ITEMS.colors.map(c => c.name), ...DATA_ITEMS.numbers];
+        return pool.filter(p => p !== correct).sort(() => 0.5 - Math.random());
+      }
+
+      /* ==========================================================================
+         5. FLUXO DE EXECUÇÃO DAS PARTIDAS
+         ========================================================================== */
+      selectMode(mode) {
+        this.currentMode = mode;
+        this.openNameModal();
+      }
+
       openNameModal() {
-        const input = document.getElementById('modal-name-input');
-        input.value = this.currentPlayerName;
         document.getElementById('modal-player-name').classList.remove('hidden');
-        setTimeout(() => input.focus(), 100);
+        document.getElementById('modal-name-input').value = this.player.name;
       }
 
-      closeNameModal() {
-        document.getElementById('modal-player-name').classList.add('hidden');
-      }
-
-      confirmNameAndStart() {
-        const input = document.getElementById('modal-name-input');
-        let name = input.value.trim().toUpperCase();
-        
-        if (!name) {
-          name = 'JOGADOR';
+      confirmPlayerName() {
+        const nameInput = document.getElementById('modal-name-input').value.trim();
+        if (nameInput) {
+          this.player.name = nameInput;
+          this.saveStorage();
         }
-
-        this.currentPlayerName = name;
-        localStorage.setItem('memorush_last_player_name', name);
-        this.closeNameModal();
-        this.startGame();
+        document.getElementById('modal-player-name').classList.add('hidden');
+        this.startSelectedGame();
       }
 
-      startGame() {
+      startSelectedGame() {
         this.stage = 1;
         this.score = 0;
         this.combo = 1;
-        this.maxCombo = 1;
-        this.lives = 3;
-        this.responseTimes = [];
+        this.maxComboInSession = 1;
+        this.streakCount = 0;
+        this.flawlessStagesCount = 0;
 
-        this.updateHUD();
+        // Configurações por modo
+        if (this.currentMode === 'suddendeath') {
+          this.lives = 1;
+        } else if (this.currentMode === 'practice') {
+          this.lives = 99;
+        } else {
+          this.lives = 3;
+        }
+
+        this.timeAttackLeft = 45;
+
         this.showScreen('game');
+        this.updateHUDUI();
         this.startStage();
       }
 
       startStage() {
-        document.getElementById('answer-feedback').classList.add('hidden');
+        this.currentSequence = this.generateSequence();
+        this.currentQuestion = this.generateQuestion(this.currentSequence);
+
+        // Mostrar fase de memorização
         document.getElementById('game-memorize-phase').classList.remove('hidden');
         document.getElementById('game-question-phase').classList.add('hidden');
+        document.getElementById('answer-feedback').classList.add('hidden');
 
-        const elementCounts = [5, 6, 7, 8, 10, 12, 15];
-        const count = elementCounts[Math.min(this.stage - 1, elementCounts.length - 1)] || (15 + (this.stage - 7) * 2);
-        
-        let memorizeTime = Math.max(2.5, 6.0 - (this.stage * 0.4));
-        if (this.difficulty === 'hard') memorizeTime *= 0.8;
-
-        this.currentSequence = this.ai.generateSequence(count, this.difficulty);
-
+        // Renderizar Elementos da Sequência
         const container = document.getElementById('elements-container');
         container.innerHTML = '';
-        this.currentSequence.forEach((item) => {
+        this.currentSequence.forEach((item, idx) => {
           const card = document.createElement('div');
-          card.className = 'px-4 py-3 bg-white dark:bg-slate-800 border-2 border-brand-500/30 dark:border-brand-500/20 rounded-2xl font-heading font-black text-xl md:text-2xl shadow-md animate-scale-up text-slate-800 dark:text-white flex items-center justify-center min-w-[60px]';
-          card.innerText = item;
+          card.className = 'glass-panel p-4 rounded-2xl min-w-[70px] min-h-[70px] flex flex-col items-center justify-center font-heading font-black text-xl shadow-md animate-scale-up';
+          
+          if (item.type === 'color') {
+            card.style.borderColor = item.hex;
+            card.innerHTML = `<div class="w-6 h-6 rounded-full" style="background-color: ${item.hex}"></div><span class="text-xs mt-1 font-bold">${item.label}</span>`;
+          } else {
+            card.innerText = item.label;
+          }
           container.appendChild(card);
         });
 
+        // Tempo de memorização adaptativo
+        let memorizeTime = Math.max(2.5, 6.0 - (this.stage * 0.3));
+        let timeLeft = memorizeTime;
         const progressBar = document.getElementById('memorize-progress-bar');
         const timerText = document.getElementById('memorize-timer-text');
-        
-        let timeLeft = memorizeTime;
-        progressBar.style.width = '100%';
-        timerText.innerText = `${timeLeft.toFixed(1)}s`;
 
-        const intervalMs = 50;
-        let step = 0;
+        if (this.memorizeTimer) clearInterval(this.memorizeTimer);
 
-        clearInterval(this.memorizeTimer);
         this.memorizeTimer = setInterval(() => {
-          step++;
-          timeLeft = Math.max(0, memorizeTime - (step * intervalMs / 1000));
-          progressBar.style.width = `${(timeLeft / memorizeTime) * 100}%`;
-          timerText.innerText = `${timeLeft.toFixed(1)}s`;
-
-          if (step % 10 === 0) this.audio.playTick();
+          timeLeft -= 0.1;
+          const pct = Math.max(0, (timeLeft / memorizeTime) * 100);
+          progressBar.style.width = `${pct}%`;
+          timerText.innerText = `${Math.max(0, timeLeft).toFixed(1)}s`;
 
           if (timeLeft <= 0) {
             clearInterval(this.memorizeTimer);
-            this.showQuestionPhase();
+            this.startQuestionPhase();
           }
-        }, intervalMs);
+        }, 100);
       }
 
-      showQuestionPhase() {
+      startQuestionPhase() {
         document.getElementById('game-memorize-phase').classList.add('hidden');
         document.getElementById('game-question-phase').classList.remove('hidden');
 
-        this.currentQuestion = this.ai.generateQuestion(this.currentSequence);
-        document.getElementById('question-text').innerText = `"${this.currentQuestion.questionText}"`;
+        document.getElementById('question-text').innerText = this.currentQuestion.text;
 
         const optionsContainer = document.getElementById('options-container');
         optionsContainer.innerHTML = '';
 
         this.currentQuestion.options.forEach(opt => {
           const btn = document.createElement('button');
-          btn.className = 'w-full py-4 px-5 bg-white dark:bg-slate-800/90 border-2 border-slate-200 dark:border-slate-700/80 hover:border-brand-500 dark:hover:border-brand-400 font-heading font-extrabold text-lg md:text-xl rounded-2xl shadow-sm active:scale-95 transition-all text-slate-800 dark:text-white flex items-center justify-center';
+          btn.className = 'w-full py-3.5 px-4 glass-panel hover:bg-brand-500 hover:text-white font-heading font-bold text-base rounded-2xl transition active:scale-95 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-white';
           btn.innerText = opt;
           btn.onclick = () => this.handleAnswer(opt);
           optionsContainer.appendChild(btn);
         });
 
         this.answerStartTime = performance.now();
-        const answerTimerElem = document.getElementById('answer-timer');
-        
-        clearInterval(this.answerTimerInterval);
+        if (this.answerTimerInterval) clearInterval(this.answerTimerInterval);
+
+        const timerDisplay = document.getElementById('answer-timer');
         this.answerTimerInterval = setInterval(() => {
           const elapsed = (performance.now() - this.answerStartTime) / 1000;
-          answerTimerElem.innerText = `${elapsed.toFixed(2)}s`;
-        }, 30);
+          timerDisplay.innerText = `${elapsed.toFixed(2)}s`;
+        }, 50);
       }
 
       handleAnswer(selectedOption) {
         clearInterval(this.answerTimerInterval);
-        const elapsedSeconds = (performance.now() - this.answerStartTime) / 1000;
-        this.responseTimes.push(elapsedSeconds);
+        const responseTime = (performance.now() - this.answerStartTime) / 1000;
+
+        // Atualizar estatísticas de resposta
+        this.player.stats.totalResponseTime += responseTime;
 
         const isCorrect = selectedOption === this.currentQuestion.correctAnswer;
         const feedbackOverlay = document.getElementById('answer-feedback');
-        const iconBg = document.getElementById('feedback-icon-bg');
-        const icon = document.getElementById('feedback-icon');
-        const title = document.getElementById('feedback-title');
-        const subtitle = document.getElementById('feedback-subtitle');
-        const details = document.getElementById('feedback-details');
-
-        details.innerHTML = '';
+        const feedbackIconBg = document.getElementById('feedback-icon-bg');
+        const feedbackIcon = document.getElementById('feedback-icon');
+        const feedbackTitle = document.getElementById('feedback-title');
+        const feedbackSubtitle = document.getElementById('feedback-subtitle');
+        const feedbackDetails = document.getElementById('feedback-details');
 
         if (isCorrect) {
-          this.audio.playCorrect();
+          this.sound.playCorrect();
+          this.player.stats.hits += 1;
+          this.streakCount += 1;
 
-          const baseScore = 100 * this.stage;
-          
-          let speedBonus = 10;
-          let speedTag = '> 5s (+10)';
-          if (elapsedSeconds < 1.0) { speedBonus = 100; speedTag = '⚡ < 1s BÔNUS MÁXIMO (+100)'; }
-          else if (elapsedSeconds < 2.0) { speedBonus = 75; speedTag = '⚡ 1-2s INCRÍVEL (+75)'; }
-          else if (elapsedSeconds < 3.0) { speedBonus = 50; speedTag = '⚡ 2-3s RÁPIDO (+50)'; }
-          else if (elapsedSeconds < 5.0) { speedBonus = 25; speedTag = '⚡ 3-5s BOM (+25)'; }
+          // Cálculo de Pontuação e Bônus
+          let basePoints = 100;
+          let speedBonus = responseTime < 1.5 ? 50 : 0;
+          let totalGained = (basePoints + speedBonus) * this.combo;
 
-          const comboMultiplier = this.combo >= 10 ? 5 : (this.combo >= 5 ? 3 : (this.combo >= 3 ? 2 : 1));
-          const totalPoints = Math.round((baseScore + speedBonus) * comboMultiplier);
+          this.score += totalGained;
+          this.combo += 1;
+          if (this.combo > this.maxComboInSession) this.maxComboInSession = this.combo;
 
-          this.score += totalPoints;
+          // Bônus XP
+          const xpEarned = 10 + Math.floor(totalGained / 20);
+          this.addXP(xpEarned);
 
-          this.combo++;
-          if (this.combo > this.maxCombo) this.maxCombo = this.combo;
+          // Atualizar Missões
+          this.updateMissionProgress('hits', 1);
+          this.updateMissionProgress('combo', this.combo);
+          this.updateMissionProgress('stage', this.stage);
 
-          if (this.combo % 3 === 0) this.audio.playCombo();
+          // Verificação de Velocista
+          if (responseTime <= 1.0) this.checkAchievements();
 
-          iconBg.className = 'p-4 rounded-full mb-2 bg-emerald-500 text-white shadow-lg glow-effect';
-          icon.setAttribute('data-lucide', 'check');
-          title.className = 'font-heading text-3xl font-black text-emerald-500';
-          title.innerText = 'CORRETO!';
-          subtitle.innerText = `+${totalPoints} PONTOS`;
+          feedbackIconBg.className = 'p-4 rounded-full mb-3 bg-emerald-500 text-white';
+          feedbackIcon.setAttribute('data-lucide', 'check-circle-2');
+          feedbackTitle.innerText = 'CORRETO!';
+          feedbackSubtitle.innerText = `+${totalGained} PONTOS`;
 
-          details.innerHTML = `
-            <span class="px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-500 text-xs font-bold border border-emerald-500/20">${speedTag}</span>
-            <span class="px-2.5 py-1 rounded-full bg-accent-amber/10 text-accent-amber text-xs font-bold border border-accent-amber/20">🔥 COMBO x${comboMultiplier}</span>
+          feedbackDetails.innerHTML = `
+            <span class="px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-500 text-xs font-bold">${responseTime.toFixed(2)}s</span>
+            ${speedBonus ? '<span class="px-2.5 py-1 rounded-full bg-accent-cyan/10 text-accent-cyan text-xs font-bold">⚡ VELOZ</span>' : ''}
+            <span class="px-2.5 py-1 rounded-full bg-accent-amber/10 text-accent-amber text-xs font-bold">COMBO x${this.combo}</span>
           `;
 
-          this.stage++;
+          this.stage += 1;
         } else {
-          this.audio.playWrong();
-          this.lives--;
+          this.sound.playWrong();
+          this.player.stats.misses += 1;
           this.combo = 1;
+          this.streakCount = 0;
 
-          iconBg.className = 'p-4 rounded-full mb-2 bg-rose-500 text-white shadow-lg';
-          icon.setAttribute('data-lucide', 'x');
-          title.className = 'font-heading text-3xl font-black text-rose-500';
-          title.innerText = 'INCORRETO!';
-          subtitle.innerText = `Resposta certa: ${this.currentQuestion.correctAnswer}`;
+          if (this.currentMode !== 'practice') {
+            this.lives -= 1;
+          }
 
-          details.innerHTML = `
-            <span class="px-2.5 py-1 rounded-full bg-rose-500/10 text-rose-500 text-xs font-bold border border-rose-500/20">-1 VIDA RESTANTE</span>
-          `;
+          feedbackIconBg.className = 'p-4 rounded-full mb-3 bg-rose-500 text-white';
+          feedbackIcon.setAttribute('data-lucide', 'x-circle');
+          feedbackTitle.innerText = 'INCORRETO!';
+          feedbackSubtitle.innerText = `Resposta certa: ${this.currentQuestion.correctAnswer}`;
+          feedbackDetails.innerHTML = `<span class="px-2.5 py-1 rounded-full bg-rose-500/10 text-accent-rose text-xs font-bold">-1 VIDA</span>`;
         }
 
         lucide.createIcons();
-        this.updateHUD();
         feedbackOverlay.classList.remove('hidden');
+        this.updateHUDUI();
 
         setTimeout(() => {
+          feedbackOverlay.classList.add('hidden');
           if (this.lives <= 0) {
-            this.handleGameOver();
+            this.endGame('Suas vidas esgotaram!');
           } else {
             this.startStage();
           }
-        }, isCorrect ? 1400 : 2000);
+        }, 1600);
       }
 
-      updateHUD() {
-        document.getElementById('hud-stage').innerText = this.stage;
-        document.getElementById('hud-score').innerText = this.score.toLocaleString();
-        document.getElementById('hud-combo').innerText = `x${this.combo}`;
+      endGame(reason) {
+        this.player.stats.matches += 1;
 
-        const livesContainer = document.getElementById('hud-lives');
-        livesContainer.innerHTML = '';
-        for (let i = 0; i < 3; i++) {
-          const heart = document.createElement('i');
-          heart.setAttribute('data-lucide', 'heart');
-          heart.className = i < this.lives ? 'w-6 h-6 fill-current text-rose-500' : 'w-6 h-6 text-slate-300 dark:text-slate-700';
-          livesContainer.appendChild(heart);
+        if (this.score > this.player.highScore) {
+          this.player.highScore = this.score;
+          document.getElementById('go-new-record').classList.remove('hidden');
+        } else {
+          document.getElementById('go-new-record').classList.add('hidden');
         }
-        lucide.createIcons();
-      }
 
-      handleGameOver() {
-        // AUTOMATICAMENTE SALVAR DADOS DA PARTIDA REAL NO RANKING LOCAL
-        const player = this.currentPlayerName || 'JOGADOR';
-        
-        this.rankings.push({
-          name: player,
+        if (this.stage > this.player.maxStage) this.player.maxStage = this.stage;
+        if (this.maxComboInSession > this.player.maxCombo) this.player.maxCombo = this.maxComboInSession;
+
+        // Salvar Ranking
+        this.ranking.push({
+          name: this.player.name,
           score: this.score,
           stage: this.stage,
-          combo: this.maxCombo,
-          date: new Date().getTime()
+          date: new Date().toLocaleDateString('pt-BR')
         });
+        this.ranking.sort((a, b) => b.score - a.score);
+        this.ranking = this.ranking.slice(0, 10); // Manter top 10
 
-        // Ordenar do maior para o menor e manter TOP 10
-        this.rankings.sort((a, b) => b.score - a.score);
-        this.rankings = this.rankings.slice(0, 10);
-        this.saveData('memorush_rankings', this.rankings);
+        this.checkAchievements();
+        this.saveStorage();
 
-        // Atualizar recorde e estatísticas globais
-        const isNewRecord = this.score > this.stats.highScore;
-        if (isNewRecord) this.stats.highScore = this.score;
-        if (this.stage > this.stats.maxStage) this.stats.maxStage = this.stage;
-        if (this.maxCombo > this.stats.maxCombo) this.stats.maxCombo = this.maxCombo;
-        this.saveData('memorush_stats', this.stats);
-        this.updateStatsUI();
-
-        const avgTime = this.responseTimes.length > 0 
-          ? (this.responseTimes.reduce((a, b) => a + b, 0) / this.responseTimes.length).toFixed(2)
-          : '0.0';
-
-        document.getElementById('go-score').innerText = this.score.toLocaleString();
-        document.getElementById('go-player-name').innerText = `JOGADOR: ${player}`;
+        // Atualizar Tela Game Over
+        document.getElementById('go-score').innerText = this.score;
+        document.getElementById('go-player-name').innerText = this.player.name;
         document.getElementById('go-stage').innerText = this.stage;
-        document.getElementById('go-combo').innerText = `x${this.maxCombo}`;
-        document.getElementById('go-avg-time').innerText = `${avgTime}s`;
-        document.getElementById('go-new-record').classList.toggle('hidden', !isNewRecord);
+        document.getElementById('go-combo').innerText = `x${this.maxComboInSession}`;
+        document.getElementById('go-xp').innerText = `+${Math.floor(this.score / 10)} XP`;
+        document.getElementById('go-reason').innerText = reason;
 
         this.showScreen('game-over');
       }
 
-      renderRanking() {
-        const list = document.getElementById('ranking-list');
-        list.innerHTML = '';
+      /* ==========================================================================
+         6. ATUALIZAÇÃO E RENDERIZAÇÃO DAS INTERFACES
+         ========================================================================== */
+      updateHeaderUI() {
+        document.getElementById('nav-level-badge').innerText = this.player.level;
+        document.getElementById('nav-player-name').innerText = this.player.name;
+      }
 
-        // Se o ranking estiver vazio, exibe exclusivamente a mensagem vazia
-        if (!this.rankings || this.rankings.length === 0) {
-          list.innerHTML = `
-            <div class="text-center py-10 px-4 space-y-3">
-              <div class="inline-flex p-3 rounded-2xl bg-amber-500/10 text-accent-amber">
-                <i data-lucide="trophy" class="w-10 h-10"></i>
-              </div>
-              <h3 class="font-heading font-extrabold text-lg text-slate-800 dark:text-white">Nenhuma pontuação registrada ainda.</h3>
-              <p class="text-xs text-slate-500 dark:text-slate-400 max-w-xs mx-auto font-medium">Jogue uma partida para entrar no ranking!</p>
-            </div>
-          `;
-          lucide.createIcons();
+      updateMenuUI() {
+        this.updateHeaderUI();
+        document.getElementById('menu-player-name').innerText = this.player.name;
+        document.getElementById('menu-player-level').innerText = `NÍVEL ${this.player.level}`;
+        
+        const reqXP = this.player.level * 100;
+        document.getElementById('menu-xp-text').innerText = `${this.player.xp} / ${reqXP} XP`;
+        document.getElementById('menu-xp-bar').style.width = `${Math.min(100, (this.player.xp / reqXP) * 100)}%`;
+
+        document.getElementById('menu-stat-high-score').innerText = this.player.highScore;
+        document.getElementById('menu-stat-max-stage').innerText = this.player.maxStage;
+        document.getElementById('menu-stat-max-combo').innerText = `x${this.player.maxCombo}`;
+      }
+
+      updateHUDUI() {
+        document.getElementById('hud-stage').innerText = this.stage;
+        document.getElementById('hud-score').innerText = this.score;
+        document.getElementById('hud-combo').innerText = `x${this.combo}`;
+        document.getElementById('hud-mode-badge').innerText = this.currentMode.toUpperCase();
+
+        const livesContainer = document.getElementById('hud-lives');
+        livesContainer.innerHTML = '';
+        for (let i = 0; i < Math.min(5, this.lives); i++) {
+          livesContainer.innerHTML += `<i data-lucide="heart" class="w-5 h-5 fill-current"></i>`;
+        }
+        lucide.createIcons();
+      }
+
+      renderRanking() {
+        const container = document.getElementById('ranking-list');
+        container.innerHTML = '';
+
+        if (this.ranking.length === 0) {
+          container.innerHTML = `<div class="text-center text-xs text-slate-400 py-6">Nenhum recorde registrado ainda. Seja o primeiro!</div>`;
           return;
         }
 
-        const medals = ['🥇', '🥈', '🥉'];
-
-        this.rankings.forEach((item, index) => {
-          const row = document.createElement('div');
-          row.className = `flex items-center justify-between p-3.5 rounded-2xl ${index === 0 ? 'bg-amber-500/10 border border-amber-500/30' : 'bg-slate-100 dark:bg-slate-900/40'}`;
-          
-          row.innerHTML = `
+        this.ranking.forEach((rk, idx) => {
+          const item = document.createElement('div');
+          item.className = 'flex items-center justify-between p-3 rounded-2xl bg-slate-100 dark:bg-slate-900/60 font-bold text-xs';
+          item.innerHTML = `
             <div class="flex items-center gap-3">
-              <span class="font-heading font-black text-lg w-7 text-center">${medals[index] || `${index + 1}º`}</span>
+              <span class="w-6 h-6 rounded-lg font-heading font-black flex items-center justify-center ${idx === 0 ? 'bg-amber-500 text-slate-900' : 'bg-slate-200 dark:bg-slate-800'}">${idx + 1}</span>
               <div>
-                <p class="font-bold text-slate-900 dark:text-white text-sm tracking-wide">${item.name}</p>
-                <p class="text-[10px] text-slate-400 font-semibold">Fase ${item.stage} • Combo x${item.combo}</p>
+                <p class="text-slate-900 dark:text-white font-bold">${rk.name}</p>
+                <p class="text-[10px] text-slate-400 font-normal">Fase ${rk.stage} • ${rk.date}</p>
               </div>
             </div>
-            <span class="font-heading font-black text-brand-600 dark:text-brand-400 text-lg">${item.score.toLocaleString()} pts</span>
+            <span class="font-heading font-black text-brand-500 text-sm">${rk.score} pts</span>
           `;
-          list.appendChild(row);
+          container.appendChild(item);
         });
       }
 
-      // MODAL DE CONFIRMAÇÃO SEM ALERT/CONFIRM
+      renderMissions() {
+        const container = document.getElementById('missions-list');
+        container.innerHTML = '';
+
+        this.dailyMissions.forEach(m => {
+          const card = document.createElement('div');
+          card.className = `glass-panel p-4 rounded-2xl space-y-2 border ${m.done ? 'border-emerald-500/40 bg-emerald-500/5' : 'border-slate-200 dark:border-slate-800'}`;
+          
+          const pct = Math.min(100, (m.progress / m.total) * 100);
+
+          card.innerHTML = `
+            <div class="flex justify-between items-start">
+              <div>
+                <h4 class="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-1.5">
+                  ${m.done ? '✅' : '🎯'} ${m.name}
+                </h4>
+                <p class="text-xs text-slate-400 mt-0.5">${m.desc}</p>
+              </div>
+              <span class="text-xs font-black px-2 py-0.5 rounded-full bg-brand-500/10 text-brand-500">+${m.xp} XP</span>
+            </div>
+            <div class="space-y-1">
+              <div class="flex justify-between text-[10px] font-bold text-slate-400">
+                <span>PROGRESSO</span>
+                <span>${m.progress} / ${m.total}</span>
+              </div>
+              <div class="w-full h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+                <div class="h-full bg-gradient-to-r from-brand-500 to-accent-pink transition-all duration-300" style="width: ${pct}%"></div>
+              </div>
+            </div>
+          `;
+          container.appendChild(card);
+        });
+      }
+
+      renderAchievements() {
+        const container = document.getElementById('achievements-grid');
+        container.innerHTML = '';
+
+        let count = 0;
+        this.achievements.forEach(a => {
+          if (a.unlocked) count++;
+
+          const card = document.createElement('div');
+          card.className = `glass-panel p-3.5 rounded-2xl flex items-center gap-3 border ${a.unlocked ? 'border-amber-500/40 bg-amber-500/5' : 'opacity-60 border-slate-200 dark:border-slate-800'}`;
+          
+          card.innerHTML = `
+            <div class="p-3 rounded-xl ${a.unlocked ? 'bg-amber-500 text-slate-900' : 'bg-slate-200 dark:bg-slate-800 text-slate-400'} font-black">
+              <i data-lucide="${a.unlocked ? 'award' : 'lock'}" class="w-5 h-5"></i>
+            </div>
+            <div class="flex-grow">
+              <h4 class="font-bold text-xs text-slate-900 dark:text-white">${a.name}</h4>
+              <p class="text-[11px] text-slate-400">${a.desc}</p>
+            </div>
+          `;
+          container.appendChild(card);
+        });
+
+        document.getElementById('achievements-count').innerText = `${count} / ${this.achievements.length}`;
+        lucide.createIcons();
+      }
+
+      renderStats() {
+        const total = this.player.stats.hits + this.player.stats.misses;
+        const accuracy = total > 0 ? Math.round((this.player.stats.hits / total) * 100) : 0;
+        const avgTime = total > 0 ? (this.player.stats.totalResponseTime / total).toFixed(2) : '0.00';
+
+        document.getElementById('stat-matches').innerText = this.player.stats.matches;
+        document.getElementById('stat-accuracy').innerText = `${accuracy}%`;
+        document.getElementById('stat-hits').innerText = this.player.stats.hits;
+        document.getElementById('stat-misses').innerText = this.player.stats.misses;
+        document.getElementById('stat-max-combo').innerText = `x${this.player.maxCombo}`;
+        document.getElementById('stat-avg-time').innerText = `${avgTime}s`;
+        document.getElementById('stat-missions-done').innerText = this.player.stats.missionsDone;
+        document.getElementById('stat-achievements-done').innerText = `${this.player.stats.achievementsDone} / ${this.achievements.length}`;
+      }
+
+      renderProfile() {
+        document.getElementById('profile-level-badge').innerText = this.player.level;
+        document.getElementById('profile-name-input').value = this.player.name;
+        
+        const reqXP = this.player.level * 100;
+        document.getElementById('profile-xp-text').innerText = `${this.player.xp} / ${reqXP} XP`;
+        document.getElementById('profile-xp-bar').style.width = `${Math.min(100, (this.player.xp / reqXP) * 100)}%`;
+
+        document.getElementById('profile-stat-score').innerText = this.player.highScore;
+        document.getElementById('profile-stat-combo').innerText = `x${this.player.maxCombo}`;
+      }
+
+      saveProfileName() {
+        const val = document.getElementById('profile-name-input').value.trim();
+        if (val) {
+          this.player.name = val;
+          this.saveStorage();
+          this.updateHeaderUI();
+          this.showToast('✅ Nome Salvo', 'Seu nome foi atualizado com sucesso!');
+        }
+      }
+
       openClearConfirmModal() {
         document.getElementById('modal-clear-confirm').classList.remove('hidden');
       }
 
-      closeClearConfirmModal() {
+      closeClearModal() {
         document.getElementById('modal-clear-confirm').classList.add('hidden');
       }
 
-      confirmClearRanking() {
-        // Limpar dados do localStorage e estado local
-        this.rankings = [];
-        this.saveData('memorush_rankings', []);
-        
-        // Resetar também os recordes do menu se o usuário desejar
-        this.stats = { highScore: 0, maxStage: 1, maxCombo: 0 };
-        this.saveData('memorush_stats', this.stats);
-        
-        this.updateStatsUI();
+      clearRanking() {
+        this.ranking = [];
+        this.saveStorage();
         this.renderRanking();
-        this.closeClearConfirmModal();
-
-        this.showToast("RANKING LIMPO!");
-      }
-
-      showToast(msg) {
-        const toast = document.getElementById('toast-notification');
-        document.getElementById('toast-text').innerText = msg;
-        toast.classList.remove('hidden');
-        setTimeout(() => toast.classList.add('hidden'), 2500);
-      }
-
-      updateStatsUI() {
-        document.getElementById('menu-stat-high-score').innerText = (this.stats.highScore || 0).toLocaleString();
-        document.getElementById('menu-stat-max-stage').innerText = this.stats.maxStage || 1;
-        document.getElementById('menu-stat-max-combo').innerText = `x${this.stats.maxCombo || 0}`;
+        this.closeClearModal();
+        this.showToast('🗑️ Ranking Zerado', 'Seu histórico local foi resetado.');
       }
     }
 
-    // Inicializar o Jogo
-    let app;
-    window.addEventListener('DOMContentLoaded', () => {
-      app = new MemoRushApp();
-    });
+    // Instância Global da Aplicação
+    const app = new MemoRushApp();
+
+    window.onload = () => {
+      app.init();
+    };
   </script>
 </body>
 </html>
