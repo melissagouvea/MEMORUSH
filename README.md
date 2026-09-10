@@ -12,271 +12,126 @@ Projeto desenvolvido para a unidade curricular de **Levantamento de Requisitos**
 
 ## Sobre o projeto
 
-O **Memo Rush** é um jogo de memória e velocidade que criei com a ideia de fazer algo simples de entender, mas que fosse **divertido, desafiador e desse vontade de jogar novamente**.
+O **Memo Rush** é um jogo de memória, atenção e velocidade que criei com a ideia de transformar uma atividade simples de memorização em uma experiência mais **divertida, desafiadora e dinâmica**.
 
-Durante o jogo, o jogador precisa memorizar sequências de diferentes elementos e depois responder perguntas sobre o que acabou de visualizar.
+Durante cada rodada, o jogador precisa memorizar uma sequência de elementos apresentada na tela durante alguns segundos. Depois que a sequência desaparece, uma pergunta é apresentada e o jogador precisa identificar a resposta correta.
 
-Com o desenvolvimento do projeto, o jogo foi ganhando novas funcionalidades, como diferentes modos de jogo, perguntas variadas, sistema de níveis, XP, missões diárias, conquistas, estatísticas, personalização e ranking.
+O jogo foi desenvolvido para que a dificuldade aumente progressivamente. Conforme o jogador avança pelas fases, as sequências ficam maiores, o tempo para memorização diminui, as perguntas ficam mais complexas e os elementos utilizados são selecionados de forma mais variada e imprevisível.
+
+Com o desenvolvimento do projeto, o jogo ganhou diversas funcionalidades, como diferentes modos de jogo, sistema de vidas, níveis, XP, combos, missões diárias, conquistas, estatísticas, ranking, personalização, temas e armazenamento dos dados no navegador.
 
 ## Como o jogo funciona
 
-Durante cada rodada, uma sequência de elementos é apresentada na tela por alguns segundos. O jogador precisa memorizar a sequência antes que ela desapareça.
+Em cada rodada, uma sequência de elementos é apresentada na tela.
 
-Depois disso, uma pergunta é apresentada com algumas opções de resposta. O jogador precisa escolher a alternativa correta com o máximo de rapidez possível.
+O jogador precisa memorizar:
 
-Conforme vai acertando, o jogador ganha pontos, aumenta seu combo, recebe XP e avança pelas fases. Dependendo do modo escolhido, existem diferentes formas de jogar e diferentes desafios.
+- A ordem dos elementos;
+- A posição de cada elemento;
+- A presença ou ausência de determinados elementos;
+- A quantidade de vezes que um elemento aparece;
+- A relação entre elementos da sequência.
 
-O jogo possui também um sistema de dificuldade adaptativa, que aumenta o tamanho das sequências conforme o jogador avança.
+Depois do tempo de memorização, a sequência desaparece e uma pergunta é apresentada com algumas opções de resposta.
 
-## Modos de jogo
+O jogador deve responder corretamente e, sempre que possível, com rapidez.
 
-O Memo Rush possui diferentes modos de jogo:
+Os acertos podem gerar:
 
-* **Modo Clássico** — avanço por fases, com vidas, combo e dificuldade crescente.
+- Pontos;
+- Combo;
+- XP;
+- Progresso de fase;
+- Progresso em missões;
+- Progresso em conquistas.
 
-* **Time Attack** — o jogador precisa responder antes que o tempo total acabe. Acertos adicionam tempo e erros retiram tempo.
+Os erros possuem consequências de acordo com o modo de jogo escolhido.
 
-* **Modo Infinito** — as fases continuam sem um limite definido, enquanto a dificuldade aumenta.
+## Sistema de vidas
 
-* **Sudden Death** — o jogador possui apenas uma vida e um único erro encerra a partida.
+O Memo Rush possui um sistema real de vidas que influencia diretamente o andamento da partida.
 
-* **Modo Treino** — permite praticar sem perder vidas e sem a mesma pressão dos outros modos.
+Nos modos que utilizam vidas, o jogador começa normalmente com **3 vidas**.
 
-## Tipos de perguntas
+Sempre que uma pergunta é respondida incorretamente:
 
-O jogo possui também diferentes tipos de perguntas:
+**Erro = perda de 1 vida.**
+
+A quantidade de vidas é atualizada tanto internamente na lógica do jogo quanto visualmente na interface.
+
+Por exemplo:
+
+**3 vidas → 2 vidas → 1 vida → 0 vidas**
+
+Ao chegar a **0 vidas**, a partida é encerrada e o jogador recebe o feedback de **Fim de Jogo**.
+
+O jogo também impede que a quantidade de vidas fique negativa e não remove vidas quando o jogador acerta uma pergunta.
+
+O sistema possui regras específicas de acordo com cada modo:
+
+- **Modo Clássico** — utiliza 3 vidas e perde 1 vida a cada erro;
+- **Modo Infinito** — mantém o sistema de vidas enquanto as fases continuam;
+- **Sudden Death** — possui apenas 1 vida, portanto um único erro encerra a partida;
+- **Modo Treino** — não remove vidas;
+- **Time Attack** — utiliza sua própria mecânica baseada no tempo.
+
+## Sistema de dificuldade progressiva
+
+Uma das principais melhorias do Memo Rush é o aumento real da dificuldade conforme o jogador avança.
+
+A dificuldade não depende apenas da quantidade de fases. O jogo aumenta gradualmente a quantidade de informações que o jogador precisa memorizar e reduz o tempo disponível para isso.
+
+A progressão inicial foi definida da seguinte forma:
+
+| Fase | Elementos | Tempo de memorização |
+| --- | ---: | ---: |
+| 1 | 3 | 5 segundos |
+| 2 | 4 | 4,5 segundos |
+| 3 | 5 | 4 segundos |
+| 4 | 6 | 3,8 segundos |
+| 5 | 7 | 3,5 segundos |
+| 6 | 8 | 3,2 segundos |
+| 7 | 9 | 3 segundos |
+| 8 | 10 | 2,8 segundos |
+| 9 | 11 | 2,6 segundos |
+| 10 | 12 | 2,5 segundos |
+
+Após a fase 10, a dificuldade continua aumentando gradualmente, adicionando mais elementos e/ou reduzindo o tempo de memorização de forma progressiva.
+
+Além disso, perguntas mais difíceis passam a aparecer conforme o jogador avança.
+
+Assim, quanto maior a fase:
+
+**→ Mais elementos para memorizar**
+
+**→ Menos tempo para memorizar**
+
+**→ Perguntas mais complexas**
+
+**→ Maior variedade de palavras**
+
+**→ Sequências mais imprevisíveis**
+
+## Informações apresentadas durante a partida
+
+Para que o jogador consiga perceber claramente a evolução da dificuldade, o HUD apresenta informações relacionadas à fase atual.
 
 Entre elas estão:
 
-* Identificar um elemento em uma determinada posição;
-* Identificar o primeiro elemento;
-* Identificar o último elemento;
-* Descobrir o elemento que estava antes de outro;
-* Descobrir o elemento que estava depois de outro;
-* Identificar o elemento que estava entre dois outros;
-* Identificar um elemento que não apareceu;
-* Contar quantas vezes um elemento apareceu;
-* Identificar a categoria mais frequente;
-* Verificar se existia algum elemento repetido;
-* Comparar a ordem de números presentes na sequência;
-* Outras perguntas geradas de forma aleatória durante as partidas.
-
-As perguntas são geradas de acordo com a sequência apresentada ao jogador.
-
-## Personalização
-
-O Memo Rush possui uma área de **Personalização & Temas**, permitindo que o jogador escolha diferentes estilos visuais.
-
-Os temas disponíveis são:
-
-* 🌈 Neon
-* 💜 Roxo
-* 💚 Hacker
-* 🔵 Azul
-* 🌑 Dark
-* ☀️ Light
-
-Também é possível escolher quais tipos de elementos podem aparecer nas sequências:
-
-* 😃 Emojis
-* 🔤 Palavras
-* 🎨 Cores
-* 🔢 Números
-
-As configurações são armazenadas no navegador para que as escolhas do jogador sejam mantidas.
-
-## Missões diárias
-
-O jogo possui um sistema de **Missões Diárias**, que contém desafios para o jogador completar durante o dia.
-
-As missões podem envolver:
-
-* Completar determinadas fases;
-* Conseguir determinados combos;
-* Acertar uma quantidade de perguntas.
-
-Ao completar uma missão, o jogador recebe **XP bônus** e uma notificação de missão concluída.
-
-As missões são armazenadas no navegador e renovadas diariamente.
-
-## Sistema de conquistas
-
-O Memo Rush possui um sistema de **Conquistas**, que recompensa o jogador por alcançar determinados objetivos.
-
-Algumas das conquistas incluem:
-
-* 🧠 **Memória de Aço** — completar várias fases;
-* ⚡ **Velocista** — responder rapidamente;
-* 🔥 **Combo Insano** — alcançar um combo alto;
-* 👑 **Mestre da Memória** — alcançar fases avançadas;
-* ❤️ **Sobrevivente** — avançar sem perder vidas;
-* 🎯 **Precisão** — conseguir vários acertos consecutivos;
-* 💯 **Perfeccionista** — alcançar uma partida sem erros;
-* 🚀 **Alta Performance** — alcançar determinada pontuação;
-* 🔓 **Explorador** — experimentar os diferentes modos do jogo.
-
-As conquistas desbloqueadas ficam registradas no perfil do jogador.
-
-## Sistema de XP e níveis
-
-O jogador recebe **XP** durante o jogo por realizar diferentes ações, como acertar perguntas, completar fases, conseguir combos, concluir missões e desbloquear conquistas.
-
-Ao acumular XP suficiente, o jogador sobe de nível.
-
-O perfil mostra:
-
-* Nome do jogador;
-* Nível atual;
-* XP;
-* Progresso para o próximo nível;
-* Recorde de pontuação;
-* Maior combo.
-
-## Perfil do jogador
-
-O Memo Rush possui uma área de **Perfil**, onde o jogador pode visualizar suas informações e alterar seu nome ou apelido.
-
-O perfil também apresenta o nível, experiência e alguns dos principais recordes do jogador.
-
-## Estatísticas
-
-O jogo possui uma tela de **Estatísticas**, onde o jogador pode acompanhar seu desempenho.
-
-São registradas informações como:
-
-* Partidas jogadas;
-* Taxa de acerto;
-* Total de acertos;
-* Total de erros;
-* Maior combo;
-* Tempo médio de resposta;
-* Missões concluídas;
-* Conquistas desbloqueadas.
-
-## Ranking
-
-Também foi desenvolvido um sistema de **Ranking**, onde as maiores pontuações ficam registradas.
-
-O objetivo é permitir que o jogador tente superar seu próprio recorde e competir com outras pessoas pelas melhores posições.
-
-O ranking é armazenado localmente no navegador e possui uma opção para limpar os registros.
-
-## Uso da Inteligência Artificial
-
-A **Inteligência Artificial foi utilizada em praticamente todo o processo de criação do Memo Rush**.
-
-Desde o início, utilizei a IA para transformar a minha ideia em um jogo funcional, ajudando na criação do código, do visual, das funcionalidades e da organização do projeto.
-
-A IA participou de todas as etapas, algumas são:
-
-* Criação do código do jogo;
-* Criação e organização do visual;
-* Desenvolvimento da mecânica de memória;
-* Sistema de pontuação e ranking;
-* Sistema de combos;
-* Sistema de vidas;
-* Sistema de fases e dificuldade;
-* Criação dos diferentes modos de jogo;
-* Desenvolvimento dos tipos de perguntas;
-* Sistema de XP e níveis;
-* Missões diárias;
-* Sistema de conquistas;
-* Personalização e temas;
-* Estatísticas do jogador;
-* Cronômetros;
-* Armazenamento dos dados;
-* Organização das telas e interações;
-* Correção de erros e problemas encontrados durante o desenvolvimento;
-* Sugestões de novas ideias para melhorar o jogo.
-
-Ou seja, **a parte de criação técnica do projeto foi feita inteiramente com o auxílio da IA**, desde a primeira versão até as correções e melhorias finais.
-
-Mesmo assim, o desenvolvimento do Memo Rush foi uma experiência muito importante e divertida para o meu aprendizado. Durante o processo, fui acompanhando o que a IA fazia, fazendo perguntas, testando as alterações, dando instruções sobre melhorias que eu queria para o projeto e entendendo melhor como cada parte funcionava.
-
-Com isso, aprendi várias coisas novas sobre **HTML, CSS, JavaScript, lógica de programação, armazenamento de dados, organização de interfaces e desenvolvimento de jogos**, além de aprender melhor como utilizar a Inteligência Artificial como uma ferramenta para desenvolver projetos.
-
-Para mim, o mais importante não foi apenas ter o jogo pronto, mas **aprender durante o processo e entender coisas que antes eu ainda não sabia fazer e nem como eram feitas**.
-
-## Minha experiência
-
-Essa foi uma experiência muito interessante para mim porque pude perceber que criar um jogo envolve muito mais do que apenas escrever código.
-
-No começo, eu tinha apenas a ideia de fazer um jogo de memória. Durante o desenvolvimento, fui adicionando novas funcionalidades e pensando em várias maneiras de deixar o jogo mais interessante e interativo.
-
-Uma das partes que mais gostei foi pensar no **visual e na experiência do jogador**, principalmente nos pontos, combos, ranking, modos de jogo, conquistas e personalização.
-
-Também tive algumas dificuldades durante o processo, principalmente para escrever os prompts e fazer algumas partes do código funcionarem como eu esperava. Nesses momentos, utilizei bastante a IA para entender os problemas, testar soluções e fazer melhorias.
-
-No final, consegui transformar uma ideia simples em um jogo com várias funcionalidades e com uma aparência mais completa.
-
-Para mim, o projeto também mostrou como a **IA pode ser uma ferramenta de aprendizado e desenvolvimento**, ajudando a transformar uma ideia em algo que realmente funciona.
-
-## Funcionalidades do jogo
-
-* Sistema de memória;
-* Diferentes tipos de perguntas;
-* IA adaptativa;
-* Múltiplos modos de jogo;
-* Modo Clássico;
-* Time Attack;
-* Modo Infinito;
-* Sudden Death;
-* Modo Treino;
-* Cronômetros;
-* Sistema de pontuação;
-* Sistema de combos;
-* Sistema de vidas;
-* Fases com dificuldade crescente;
-* Ranking;
-* Sistema de XP;
-* Sistema de níveis;
-* Perfil do jogador;
-* Missões diárias;
-* Sistema de conquistas;
-* Estatísticas do jogador;
-* Personalização de temas;
-* Modo claro e escuro;
-* Personalização das categorias de elementos;
-* Efeitos sonoros;
-* Animações e feedback visual;
-* Salvamento dos dados no navegador.
-
-## Tecnologias utilizadas no projeto
-
-* **HTML** — criação da estrutura do jogo;
-* **CSS** — criação do visual, estilos, animações e responsividade;
-* **JavaScript** — funcionamento, lógica e interações do jogo;
-* **LocalStorage** — armazenamento dos dados do jogador no navegador;
-* **IA** — apoio na criação, desenvolvimento, ideias, correções e melhorias.
-
-## Estrutura de pastas
-
-O projeto possui uma estrutura simples:
-
-memo-rush/
-
-├── index.html
-
-└── README.md
-
-O arquivo **index.html** contém todo o jogo, incluindo sua estrutura, estilos e códigos necessários para o funcionamento.
-
-O **README.md** contém as informações e a documentação do projeto.
-
-## Objetivo
-
-O principal objetivo do Memo Rush foi criar um jogo que trabalhasse **memória, atenção e velocidade**, mas que também fosse divertido e tivesse diferentes desafios para manter o jogador interessado.
-
-A ideia é que o jogador termine uma partida e pense:
-
-> **"Vou jogar mais uma vez para tentar bater meu recorde."**
-
-## Desenvolvedora
-
-**Melissa Gomes Gouvêa**
-
-Curso Técnico em Desenvolvimento de Sistemas
-
-SESI/SENAI Itapeva — SP
-
-**2026**
+- Fase atual;
+- Pontuação;
+- Combo;
+- Quantidade de elementos;
+- Nível de dificuldade;
+- Tempo de memorização;
+- Vidas restantes;
+- Cronômetro, quando utilizado pelo modo.
+
+Por exemplo:
+
+```text
+FASE 5
+ELEMENTOS: 7
+DIFICULDADE: MÉDIA
+TEMPO DE MEMORIZAÇÃO: 3.5s
+VIDAS: ❤️ ❤️ 🖤
