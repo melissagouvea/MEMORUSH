@@ -1140,11 +1140,42 @@
             break;
           }
 
-          case 'not_present': {
-            qText = 'Qual destes elementos NÃO apareceu na sequência?';
-            // Pega uma palavra que não está na sequência
-            const notInSeqPool = WORD_BANK.filter(w => !sequence.includes(w));
-            correct = notInSeqPool[Math.floor(Math.random() * notInSeqPool.length)];
+           case 'not_present': {
+    qText = 'Qual destes elementos NÃO apareceu na sequência?';
+
+    const activePool = [];
+
+    if (this.player.categories.words) activePool.push(...WORD_BANK);
+    if (this.player.categories.emojis) activePool.push(...EMOJI_BANK);
+    if (this.player.categories.colors) activePool.push(...COLOR_BANK);
+    if (this.player.categories.numbers) activePool.push(...NUMBER_BANK);
+
+    const notInSeqPool = activePool.filter(item => !sequence.includes(item));
+
+    if (notInSeqPool.length === 0) {
+        const idx = Math.floor(Math.random() * sequence.length);
+        correct = sequence[idx];
+        qText = `Qual elemento ocupava a posição ${idx + 1}?`;
+        return {
+            text: qText,
+            correct,
+            options: [correct]
+        };
+    }
+
+    correct = notInSeqPool[
+        Math.floor(Math.random() * notInSeqPool.length)
+    ];
+
+    const inSeqDistractors = [...sequence]
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 3);
+
+    options = [correct, ...inSeqDistractors]
+        .sort(() => 0.5 - Math.random());
+
+    return { text: qText, correct, options };
+}
             
             // As opções incorretas (distractors) serão elementos QUE APARECERAM na sequência
             const inSeqDistractors = [...sequence].sort(() => 0.5 - Math.random()).slice(0, 3);
@@ -1161,7 +1192,12 @@
         }
 
         // Criar 3 opções erradas distintas para as perguntas normais
-        const allPool = [...WORD_BANK, ...EMOJI_BANK, ...COLOR_BANK, ...NUMBER_BANK];
+        const allPool = [];
+
+if (this.player.categories.words) allPool.push(...WORD_BANK);
+if (this.player.categories.emojis) allPool.push(...EMOJI_BANK);
+if (this.player.categories.colors) allPool.push(...COLOR_BANK);
+if (this.player.categories.numbers) allPool.push(...NUMBER_BANK);
         const distractors = new Set();
         
         while (distractors.size < 3) {
